@@ -178,6 +178,21 @@ public class AmonPaseTwoFSM : FSM
     {
         // 사망 처리 로직 구현
         Debug.Log("Amon Pase Two has died.");
+        
+        // 사망 시 자신을 포함한 모든 자식 오브젝트의 레이어를 Default로 변경
+        int defaultLayer = LayerMask.NameToLayer("MonsterDead");
+        gameObject.layer = defaultLayer;
+        foreach (Transform t in transform.GetComponentsInChildren<Transform>(true))
+        {
+            if (t == transform) continue;
+            t.gameObject.layer = defaultLayer;
+        }
+        
+        // 사망시 자식으로 가진 AmonMeleeCollision 모두 제거
+        AmonMeleeCollision[] meleeCollisions = GetComponentsInChildren<AmonMeleeCollision>();
+        foreach (AmonMeleeCollision meleeCollision in meleeCollisions)
+            Destroy(meleeCollision.gameObject);
+        
         // 예: 애니메이션 재생, 콜라이더 비활성화, 아이템 드랍 등
         amonBody.SetActive(false);
         deathModel.SetActive(true);

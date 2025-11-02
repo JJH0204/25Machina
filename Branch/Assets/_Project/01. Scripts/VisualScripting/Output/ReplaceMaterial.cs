@@ -14,7 +14,7 @@ namespace _Project.Scripts.VisualScripting
 
         private void Start()
         {
-            Material[] _targetMaterials = targetRenderer.materials;
+            _targetMaterials = targetRenderer.materials;
 
             if (index < _targetMaterials.Length)
             {

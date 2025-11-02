@@ -17,7 +17,7 @@ MonoBehaviour:
   skillDescription: "\uB9DD\uB098\uB2C8 \uB4F1 \uBD80\uC704 \uCD94\uC801 \uB808\uC774\uC800"
   damage: 50
   range: 60
-  cooldown: 12
+  cooldown: 9
   castTime: 2.2
   animSpeed: 1
   laserPrefab: {fileID: 100000, guid: dbb29de15054545239c5e47d1a526eb4, type: 3}

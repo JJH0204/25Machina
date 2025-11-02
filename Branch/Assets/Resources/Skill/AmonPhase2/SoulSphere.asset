@@ -18,7 +18,7 @@ MonoBehaviour:
     \uAD6C\uCCB4"
   damage: 60
   range: 35
-  cooldown: 12
+  cooldown: 8
   castTime: 1.4
   animSpeed: 1
   originMaterial: {fileID: 2100000, guid: f91727232c3b4ba45bd0416871448a2e, type: 2}

@@ -49,7 +49,7 @@ public class SoulSphereObject : MonoBehaviour
 
     private void ExplosionObject()
     {
-        Utils.Destroy(Utils.Instantiate(explosionPrefab, transform.position, Quaternion.identity), 1.0f);
+        Utils.Destroy(Utils.Instantiate(explosionPrefab, transform.position, Quaternion.identity), 1.5f);
         Utils.Destroy(gameObject);
     }
 

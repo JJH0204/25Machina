@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,8 +24,29 @@ namespace Monster.AI.FSM
             // To-do: Target Mask 로직 필요
             OnHit(inDamage);
             // ikAnimaton.TakeHit(Vector3.back); // TODO: 피격 IK RnD
+            if (blackboard.HitEffects is not null && blackboard.HitEffects.Length > 0)
+            {
+                foreach (var effect in blackboard.HitEffects)
+                {
+                    effect.SetActive(true);
+                }
+
+                StartCoroutine(DisableHitEffectsAfterFrame());
+            }
         }
-        
+
+        private IEnumerator DisableHitEffectsAfterFrame()
+        {
+            yield return new WaitForSeconds(0.2f);
+            if (blackboard.HitEffects is not null && blackboard.HitEffects.Length > 0)
+            {
+                foreach (var effect in blackboard.HitEffects)
+                {
+                    effect.SetActive(false);
+                }
+            }
+        }
+
         // 상태 전환 메서드 (기존 코드와 거의 동일)
         protected void ChangeState(string stateName)
         {

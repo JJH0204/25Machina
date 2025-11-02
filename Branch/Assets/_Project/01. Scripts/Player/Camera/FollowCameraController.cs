@@ -17,7 +17,7 @@ public class FollowCameraController : MonoBehaviour
 
     [SerializeField] private ECameraState currentCameraState = ECameraState.Normal;
     private Dictionary<ECameraState, FollowCameraData> _cameraSettings = new Dictionary<ECameraState, FollowCameraData>();
-    private GameObject _owner;
+    [SerializeField] private GameObject _owner;
     private Transform _cameraTarget;
     private bool _isBeforeZoom = false;
     private bool _isLock = false;

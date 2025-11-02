@@ -26,3 +26,4 @@ MonoBehaviour:
   collisionScale: {x: 3, y: 3, z: 3}
   collisionOffset: {x: 0, y: 2, z: 0}
   maxRushDistance: 10
+  rushAudioClip: {fileID: 8300000, guid: 03395697888dc42108cb4a56e8bf5fd2, type: 3}

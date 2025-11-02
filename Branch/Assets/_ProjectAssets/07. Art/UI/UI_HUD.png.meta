@@ -93,6 +93,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -585,7 +598,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2333
         y: 2369
-        width: 109
+        width: 266
         height: 139
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -601,33 +614,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_HUD_30
-      rect:
-        serializedVersion: 2
-        x: 2489
-        y: 2369
-        width: 116
-        height: 139
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: caf91df6032d6c746abe2b261e55eb79
-      internalID: -1376141677
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: UI_HUD_31
       rect:
         serializedVersion: 2
         x: 2714
         y: 2372
-        width: 115
+        width: 272
         height: 130
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -638,27 +630,6 @@ TextureImporter:
       bones: []
       spriteID: bd7a09ccd8a75284bae8e6f357609a33
       internalID: 804939704
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_HUD_32
-      rect:
-        serializedVersion: 2
-        x: 2869
-        y: 2372
-        width: 119
-        height: 130
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6742c9abdc4704140a224c184de6a1b0
-      internalID: -592664545
       vertices: []
       indices: 
       edges: []
@@ -690,7 +661,7 @@ TextureImporter:
         serializedVersion: 2
         x: 3509
         y: 2321
-        width: 136
+        width: 284
         height: 256
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -701,27 +672,6 @@ TextureImporter:
       bones: []
       spriteID: e53549109122bd643b3881f7af54678e
       internalID: 525871386
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_HUD_35
-      rect:
-        serializedVersion: 2
-        x: 3660
-        y: 2321
-        width: 136
-        height: 256
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 487d2474f053b7a4ba058927bd040bd1
-      internalID: -337825377
       vertices: []
       indices: 
       edges: []
@@ -774,7 +724,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2694
         y: 2049
-        width: 133
+        width: 294
         height: 127
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -785,27 +735,6 @@ TextureImporter:
       bones: []
       spriteID: e5a05948a37d3f148b3b76cda9065031
       internalID: -876541826
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_HUD_39
-      rect:
-        serializedVersion: 2
-        x: 2855
-        y: 2049
-        width: 133
-        height: 127
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d22bf81fa853aec419290b03e6cac13b
-      internalID: -1516017264
       vertices: []
       indices: 
       edges: []
@@ -919,10 +848,10 @@ TextureImporter:
       name: UI_HUD_45
       rect:
         serializedVersion: 2
-        x: 198
-        y: 1396
-        width: 125
-        height: 162
+        x: 200
+        y: 1399
+        width: 120
+        height: 156
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -940,10 +869,10 @@ TextureImporter:
       name: UI_HUD_46
       rect:
         serializedVersion: 2
-        x: 513
-        y: 1398
-        width: 126
-        height: 151
+        x: 514
+        y: 1401
+        width: 123
+        height: 146
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1108,10 +1037,10 @@ TextureImporter:
       name: UI_HUD_54
       rect:
         serializedVersion: 2
-        x: 150
+        x: 151
         y: 1074
-        width: 220
-        height: 108
+        width: 216
+        height: 105
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1130,9 +1059,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 505
-        y: 1047
-        width: 141
-        height: 160
+        y: 1049
+        width: 140
+        height: 155
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -37,6 +37,8 @@ namespace Managers
         [SerializeField] private Slider ammoRightBar;
         [SerializeField] private Image fillLeft;
         [SerializeField] private Image fillRight;
+        [SerializeField] private GameObject hitCrosshair;
+        private Coroutine crosshairRoutine = null;
 
         [Header("Test Skill UI")]
         [SerializeField] private Image legsSkillCooldownImage;
@@ -57,9 +59,7 @@ namespace Managers
 
         [Header("Indicator UI")]
         [SerializeField] private Image indicatorImage;
-        public Transform targetObject;
-        private bool _isIndicationg = false;
-        private float screenMargin = 25.0f;
+        [SerializeField] private UI_Indicator indicator;
         private Coroutine _indicatorFadeRoutine = null;
 
         [Header("Buff UI")]
@@ -76,6 +76,8 @@ namespace Managers
         [SerializeField] private List<Button> heavyParts = new();
         [SerializeField] private TextMeshProUGUI constraintText;
         [SerializeField] private List<Button> setButtons = new();
+        [SerializeField] private List<Image> partSetIcons = new();
+        [SerializeField] private GameObject radialDescription;
         private int _selectedIndex = -1;
         private int _selectedPartIndex = -1;
         private Color originalColor = Color.white;
@@ -87,6 +89,15 @@ namespace Managers
 
         [Header("Pasue UI")]
         [SerializeField] private GameObject pauseUI;
+
+        [Header("Current Part UI")]
+        [SerializeField] private List<GameObject> backParts = new();
+        [SerializeField] private List<GameObject> armLParts = new();
+        [SerializeField] private List<GameObject> armRParts = new();
+        [SerializeField] private List<GameObject> legsParts = new();
+
+        [Header("Notice UI")]
+        [SerializeField] private GameObject redDot;
 
         public GameObject HUD
         {
@@ -148,12 +159,6 @@ namespace Managers
             set => _selectedPartIndex = value;
         }
 
-        public bool IsIndicationg
-        {
-            get => _isIndicationg;
-            set => _isIndicationg = value;
-        }
-
         public Image FillLeft
         {
             get => fillLeft;
@@ -188,15 +193,6 @@ namespace Managers
             for (int i = 0; i < setButtons.Count; ++i)
             {
                 _unlockSets.Add(false);
-            }
-        }
-
-        private void Update()
-        {
-            if (_isIndicationg)
-            {
-                Vector3 screenPos = Camera.main.WorldToScreenPoint(targetObject.position);
-                indicatorImage.rectTransform.position = screenPos;
             }
         }
 
@@ -476,6 +472,8 @@ namespace Managers
         {
             if (index < 0 || index > 2) return;
 
+            ActivateRedDot(true);
+
             switch (index)
             {
                 case 0:
@@ -505,6 +503,11 @@ namespace Managers
             _unlockSets[index] = true;
         }
 
+        public void ActivateRedDot(bool isActivate)
+        {
+            redDot.SetActive(isActivate);
+        }
+
         public void SetObjectText(string text)
         {
             objectText.text = text;
@@ -522,8 +525,7 @@ namespace Managers
                 }
 
                 indicatorImage.color = Color.white;
-                indicatorImage.gameObject.SetActive(isActivate);
-                _isIndicationg = isActivate;
+                indicator.IsOn = true;
             }
             else
             {
@@ -533,12 +535,131 @@ namespace Managers
 
         public void SetIndicatorTarget(Transform target)
         {
-            targetObject = target;
+            indicator.Target = target;
         }
 
         public void SetConstraintMessage(string message)
         {
             constraintText.text = message;
+        }
+
+        public void SetPartSetIcon(int index)
+        {
+            for (int i = 0; i < partSetIcons.Count; ++i)
+            {
+                if (i == index) continue;
+                partSetIcons[i].gameObject.SetActive(false);
+            }
+
+            partSetIcons[index].gameObject.SetActive(true);
+        }
+
+        public void StartHitCrosshair()
+        {
+            if (crosshairRoutine != null)
+            {
+                StopCoroutine(crosshairRoutine);
+                crosshairRoutine = null;
+            }
+
+            crosshairRoutine = StartCoroutine(CoOnHitCrosshair());
+        }
+
+        public void ActivateRadialMessage(bool isActivate)
+        {
+            radialDescription.SetActive(isActivate);
+        }
+
+        public void SetCurrentPartIcon(int posIndex, int attackIndex)
+        {
+            //if (posIndex < 0 || attackIndex < 0  || posIndex + 1 >= legsParts.Count || attackIndex + 1 >= legsParts.Count) return;
+            Debug.Log($"파트, 어택: {posIndex}, {attackIndex}");
+
+            // 기본 파츠일 경우
+            if (attackIndex <= 0)
+            {
+                for (int i = 0; i < legsParts.Count; ++i)
+                {
+                    switch (posIndex)
+                    {
+                        case 0:
+                            // 등/어깨
+                            backParts[i].gameObject.SetActive(false);
+                            backParts[i + 3].gameObject.SetActive(false);
+                            break;
+                        case 1:
+                            // 다리
+                            legsParts[i].gameObject.SetActive(false);
+                            break;
+                        case 2:
+                            // 왼팔
+                            armLParts[i].gameObject.SetActive(false);
+                            break;
+                        case 3:
+                            // 오른팔
+                            armRParts[i].gameObject.SetActive(false);
+                            break;
+                    }
+                }
+
+                return;
+            }
+
+            for (int i = 0; i < legsParts.Count; ++i)
+            {
+                if (i == (attackIndex - 1)) continue;
+
+                switch (posIndex)
+                {
+                    case 0:
+                        // 등/어깨
+                        backParts[i].gameObject.SetActive(false);
+                        backParts[i + 3].gameObject.SetActive(false);
+                        break;
+                    case 1:
+                        // 다리
+                        legsParts[i].gameObject.SetActive(false);
+                        break;
+                    case 2:
+                        // 왼팔
+                        armLParts[i].gameObject.SetActive(false);
+                        break;
+                    case 3:
+                        // 오른팔
+                        armRParts[i].gameObject.SetActive(false);
+                        break;
+                }
+            }
+
+            switch (posIndex)
+            {
+                case 0:
+                    // 등/어깨
+                    backParts[attackIndex - 1].gameObject.SetActive(true);
+                    backParts[attackIndex - 1 + 3].gameObject.SetActive(true);
+                    break;
+                case 1:
+                    // 다리
+                    legsParts[attackIndex - 1].gameObject.SetActive(true);
+                    break;
+                case 2:
+                    // 왼팔
+                    armLParts[attackIndex - 1].gameObject.SetActive(true);
+                    break;
+                case 3:
+                    // 오른팔
+                    armRParts[attackIndex - 1].gameObject.SetActive(true);
+                    break;
+            }
+        }
+
+        private IEnumerator CoOnHitCrosshair()
+        {
+            hitCrosshair.SetActive(true);
+
+            yield return new WaitForSeconds(0.1f);
+
+            hitCrosshair.SetActive(false);
         }
 
         private IEnumerator CoFadeIndicator(float duration)
@@ -557,8 +678,7 @@ namespace Managers
             // 마지막에 완전히 0으로 세팅
             color.a = 0f;
             indicatorImage.color = color;
-            indicatorImage.gameObject.SetActive(false);
-            _isIndicationg = false;
+            indicator.IsOn = false;
             _indicatorFadeRoutine = null;
         }
 
@@ -575,6 +695,11 @@ namespace Managers
         public void Shutdown()
         {
             Application.Quit();
+        }
+
+        public void OpenKeyGuide()
+        {
+            Managers.GUIManager.Instance.HelpUI.SetActive(true);
         }
 
         #region Fade In/Out

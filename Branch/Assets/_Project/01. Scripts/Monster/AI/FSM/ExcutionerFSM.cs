@@ -160,8 +160,22 @@ public class ExcutionerFSM : FSM
         _isDeath = true;
         // 사망 시 NavMeshAgent 멈추기
         blackboard.NavMeshAgent.isStopped = true;
-        // blackboard.AnimatorParameterSetter.Animator.SetTrigger("Death");
         blackboard.StopAllCoroutines();
+        
+        // 사망 시 자신을 포함한 모든 자식 오브젝트의 레이어를 Default로 변경
+        int defaultLayer = LayerMask.NameToLayer("MonsterDead");
+        gameObject.layer = defaultLayer;
+        foreach (Transform t in transform.GetComponentsInChildren<Transform>(true))
+        {
+            if (t == transform) continue;
+            t.gameObject.layer = defaultLayer;
+        }
+        
+        // 사망시 자식으로 가진 AmonMeleeCollision 모두 제거
+        AmonMeleeCollision[] meleeCollisions = GetComponentsInChildren<AmonMeleeCollision>();
+        foreach (AmonMeleeCollision meleeCollision in meleeCollisions)
+            Destroy(meleeCollision.gameObject);
+        
         blackboard.RagdollController.ActivateRagdoll();
         StartCoroutine(PoolReleaseAfterDeathEffect());
     }
@@ -198,8 +212,6 @@ public class ExcutionerFSM : FSM
 
             // 스킬/타깃 정리
             _useSkill = null;
-            // blackboard.IsAnySkillRunning = false; // 블랙보드에 이런 필드가 있다면 초기화
-            // 필요한 추가 초기화가 있다면 blackboard.Init()으로 처리
             blackboard.Init();
         }
 
@@ -211,9 +223,11 @@ public class ExcutionerFSM : FSM
     private IEnumerator PoolReleaseAfterDeathEffect()
     {
         yield return new WaitForSeconds(10f);
+
         ResetForPool();
-        PoolManager.Instance.ReleaseObject(gameObject);
         // gameObject.SetActive(false);
+        PoolManager.Instance.ReleaseObject(gameObject);
+        // gameObject.SetActive(true);
     }
 
     private void ActChase()

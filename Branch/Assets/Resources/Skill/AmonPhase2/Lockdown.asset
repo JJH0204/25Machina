@@ -19,7 +19,7 @@ MonoBehaviour:
     \uAD6C\uCCB4\uB97C \uC0DD\uC131"
   damage: 400
   range: 100
-  cooldown: 25
+  cooldown: 30
   castTime: 7
   animSpeed: 1
   defaultPosition: {x: 0, y: 0, z: 0}

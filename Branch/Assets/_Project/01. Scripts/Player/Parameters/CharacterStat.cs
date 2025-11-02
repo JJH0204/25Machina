@@ -191,7 +191,7 @@ public class CharacterStat : MonoBehaviour
 
             // To-do: mod 종류에 따라 다른 buff Icon을 생성/활성화
             // 생성된 버프 아이콘 소스가 무엇인지 파악 필요
-            Managers.GUIManager.Instance.BuffIcon.SetActive(true);
+            // Managers.GUIManager.Instance.BuffIcon.SetActive(true);
         }
         CalculateTotalStats();
     }
@@ -202,7 +202,7 @@ public class CharacterStat : MonoBehaviour
         CalculateTotalStats();
 
         // 삭제된 소스에 맞춰 버프 아이콘 삭제/비활성화
-        Managers.GUIManager.Instance.BuffIcon.SetActive(false);
+        //Managers.GUIManager.Instance.BuffIcon.SetActive(false);
     }
 
     public void CalculateStatsForced()

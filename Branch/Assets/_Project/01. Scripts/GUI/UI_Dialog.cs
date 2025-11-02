@@ -52,17 +52,6 @@ public class UI_Dialog : MonoBehaviour
 
         if (UpdateDialog())
         {
-            // To-do: The End나 엔딩 스크롤이 필요할 경우 해당 부분 수정
-            if (nextSceneName.Equals("GameOver"))
-            {
-#if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;    // 에디터에서는 플레이 중단
-#else
-        Application.Quit();                                         // 빌드에서는 프로그램 종료
-#endif
-                return;
-            }
-
             StartCoroutine(FadePanelAndGoToNext(speaker.fadePanel, 0f, 1f, fadeDuration));
         }
     }

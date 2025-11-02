@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillID: 4010
   skillName: SoulSphere
-  skillDescription: "\uC544\uBAAC 1\uD398\uC774\uC988 \uC2A4\uD0AC: \uC601\uD63C\uAD6C\uCCB4"
+  skillDescription: "\uC544\uBAAC 1 \uD398\uC774\uC988 \uC2A4\uD0AC: \uC601\uD63C
+    \uAD6C\uCCB4"
   damage: 60
   range: 25
-  cooldown: 12
+  cooldown: 8
   castTime: 1.4
   animSpeed: 1
   soulSpherePrefab: {fileID: 5321323443577561300, guid: 665ca049fcfec274bb4df2ef0748326f,

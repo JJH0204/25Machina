@@ -26,6 +26,7 @@ namespace Monster.AI.Blackboard
         [SerializeField] private AnimatorParameterSetter animatorParameterSetter;
         [SerializeField] private GameObject target;
         [SerializeField] private GameObject deathEffect;    // 몬스터 사망 이펙트 프리팹
+        [SerializeField] private GameObject[] hitEffects;   // 몬스터 피격 이펙트 프리팹들
         [SerializeField] private RagdollController ragdollController;
         
         [SerializeField] private MonsterPatrol patrolInfo; // 몬스터 순찰 스크립트
@@ -98,6 +99,12 @@ namespace Monster.AI.Blackboard
         {
             get => deathEffect;
             set => deathEffect = value;
+        }
+        
+        public GameObject[] HitEffects
+        {
+            get => hitEffects;
+            set => hitEffects = value;
         }
         
         public MonsterPatrol PatrolInfo

@@ -70,14 +70,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 1.3
+    - _Alpha: 1.2
     - _Flow_Speed: 4
-    - _Mask_Contrast: 0.643
-    - _Mask_Noise: -0.927
-    - _Mask_Size: 0.188
+    - _Mask_Contrast: 0.35
+    - _Mask_Noise: 1
+    - _Mask_Size: 0.6
     - _PulseSpeed: 4
     - _Pulse_Speed: 5
     - _enabled: 1
     m_Colors:
-    - _Color: {r: 0.03829155, g: 0, b: 0.8, a: 0}
+    - _Color: {r: 0.6037736, g: 0.03138373, b: 0.019935932, a: 0}
   m_BuildTextureStacks: []

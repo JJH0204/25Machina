@@ -42,6 +42,7 @@ public class GetItem : ProcessBase
         if (unlockIndex > -1)
         {
             Managers.GUIManager.Instance.UnlockParts(unlockIndex);
+            Managers.GUIManager.Instance.ActivateRadialMessage(false);
         }
     }
 }

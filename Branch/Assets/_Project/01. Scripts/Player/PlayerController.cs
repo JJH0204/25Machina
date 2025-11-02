@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
     [SerializeField] private AudioClip deadClip;
     [SerializeField] private AudioSource seSource;
 
+    [SerializeField] private GameObject lowHp;
     private Coroutine _indicatorRoutine = null;
     #endregion
 
@@ -191,16 +192,6 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
             groundCheck = gc.transform;
         }
 
-        _followCamera = FindFirstObjectByType<FollowCameraController>();
-        if (_followCamera == null)
-        {
-            GameObject cameraObject = Instantiate(followCameraPrefab);
-            cameraObject.name = followCameraPrefab.name;
-            _followCamera = cameraObject.GetComponent<FollowCameraController>();
-        }
-        _followCamera.InitFollowCamera(gameObject);
-        inventory.Init();
-
         // 비트 마스크 방식으로 레이케스트를 관리할 레이어를 설정
         // 마스크 값이 비어있다면 기본 값(모든 레이어 - 일부 레이어)로 설정
         if (groundLayerMask == 0)
@@ -220,8 +211,6 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
 
         _playerActions = new PlayerActions();
         _playerActions.PlayerActionMap.SetCallbacks(this);
-
-        SetOvrrideAnimator(EAnimationType.Base);
 
         // VolumeProfile 가져오기
         VolumeProfile profile = volume.profile;     // 공유 프로필을 쓸 경우 sharedProfile을 사용                      
@@ -244,6 +233,18 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
         //ILegsMovement legsMovement = inventory.EquippedItems[EPartType.Legs][0] as ILegsMovement;
         //_currentMovement = legsMovement;
 
+        _followCamera = FindFirstObjectByType<FollowCameraController>();
+        if (_followCamera == null)
+        {
+            GameObject cameraObject = Instantiate(followCameraPrefab);
+            cameraObject.name = followCameraPrefab.name;
+            _followCamera = cameraObject.GetComponent<FollowCameraController>();
+        }
+        _followCamera.InitFollowCamera(gameObject);
+        inventory.Init();
+        SetOvrrideAnimator(EAnimationType.Base);
+
+        lowHp.gameObject.SetActive(false);
         Spawn();
     }
 
@@ -277,6 +278,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
     {
         if (other.gameObject.CompareTag("PlatformIn"))
         {
+            Debug.Log("와! 플랫폼!");
             var comp = other.GetComponent<PlatformCheck>();
             if (comp != null)
             {
@@ -405,6 +407,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
         {
             // UI 활성화 시 커서 보이기, 자유롭게
             Managers.GUIManager.Instance.ToggleRadialUI(true);
+            Managers.GUIManager.Instance.ActivateRedDot(false);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
@@ -486,10 +489,11 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
     void PlayerActions.IPlayerActionMapActions.OnHelp(InputAction.CallbackContext context)
     {
         if (Managers.GUIManager.Instance.RadialUI.activeSelf) return;
-        if (Managers.GUIManager.Instance.PauseUI.activeSelf) return;
 
         if (context.started)
         {
+            if (Managers.GUIManager.Instance.PauseUI.activeSelf && !Managers.GUIManager.Instance.HelpUI.activeSelf) return;
+
             if (!Managers.GUIManager.Instance.HelpUI.activeSelf)
             {
                 Managers.GUIManager.Instance.HelpUI.SetActive(true);
@@ -499,8 +503,12 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
             else
             {
                 Managers.GUIManager.Instance.HelpUI.SetActive(false);
-                Managers.GUIManager.Instance.HUD.SetActive(true);
-                Time.timeScale = 1.0f;
+
+                if (!Managers.GUIManager.Instance.PauseUI.activeSelf)
+                {
+                    Managers.GUIManager.Instance.HUD.SetActive(true);
+                    Time.timeScale = 1.0f;
+                }
             }
         }
     }
@@ -508,10 +516,25 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
     void PlayerActions.IPlayerActionMapActions.OnPause(InputAction.CallbackContext context)
     {
         if (Managers.GUIManager.Instance.RadialUI.activeSelf) return;
-        if (Managers.GUIManager.Instance.HelpUI.activeSelf) return;
 
         if (context.started)
         {
+            if (Managers.GUIManager.Instance.HelpUI.activeSelf)
+            {
+                Managers.GUIManager.Instance.HelpUI.SetActive(false);
+                Managers.GUIManager.Instance.HUD.SetActive(true);
+
+                if (!Managers.GUIManager.Instance.PauseUI.activeSelf)
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    Managers.GUIManager.Instance.HUD.SetActive(true);
+                    Time.timeScale = 1.0f;
+                }
+
+                return;
+            }
+
             if (!Managers.GUIManager.Instance.PauseUI.activeSelf)
             {
                 Cursor.lockState = CursorLockMode.None;
@@ -647,6 +670,8 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
         inventory.EquippedItems[EPartType.ArmR][0].UseCancleAbility();
         animator.SetBool("isRightAttack", false);
         SetOvrrideAnimator(_currentAnimType);
+
+        lowHp.gameObject.SetActive(false);
     }
 
     // To-do: 추후 애니메이션 이벤트로 변경할 것
@@ -828,6 +853,11 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
             // TODO: 데미지가 음수일때 어떻게 처리할 것인지 논의 필요 (힐을 시킬 것인지 무시할 것인지)
         }
 
+        if ((stats.CurrentHealth / stats.MaxHealth) <= 0.25f && !lowHp.gameObject.activeSelf)
+        {
+            lowHp.gameObject.SetActive(true);
+        }
+
         if (stats.CurrentHealth <= 0)
         {
             Die();
@@ -959,7 +989,14 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
         _postPlatform = null;
         _platformVelocity = Vector3.zero;
 
-        legsAnimator.enabled = true;
+        if (_currentMovement is LegsHover || _currentMovement is LegsCaterpillar)
+        {
+            legsAnimator.enabled = false;
+        }
+        else
+        {
+            legsAnimator.enabled = true;
+        }
     }
 
     public void SetPlayerState(EPlayerState newState, bool isAdd)
@@ -1060,6 +1097,19 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
         {
             Vector3 hoverDelta = hoverLegs.CalculateHoverDeltaY();
             _totalDirection += hoverDelta;
+
+            if (_isOnPlatform)
+            {
+                Vector3 platformDelta = (_postPlatform.position - _lastPlatformPosition);
+                _lastPlatformPosition = _postPlatform.position;
+
+                platformDelta.x = 0.0f;
+                platformDelta.z = 0.0f;
+                _platformVelocity = platformDelta;
+                characterController.Move(_platformVelocity);
+                _groundCheckTimer = 0.0f;
+            }
+
             return;
         }
 
@@ -1248,6 +1298,8 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
             }
         }
 
+        Managers.GUIManager.Instance.SetCurrentPartIcon(partType, attackType);
+
         if (IsFullSet(inventory.EquippedItems[EPartType.Shoulder][0].AttackType,
             inventory.EquippedItems[EPartType.ArmL][0].AttackType,
             inventory.EquippedItems[EPartType.ArmR][0].AttackType,
@@ -1263,24 +1315,28 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
                     {
                         bodyRenderers[i].material = basicMaterials[i];
                     }
+                    Managers.GUIManager.Instance.SetPartSetIcon(0);
                     break;
                 case EAttackType.Laser:
                     for (int i = 0; i < bodyRenderers.Count; ++i)
                     {
                         bodyRenderers[i].material = laserMaterials[i];
                     }
+                    Managers.GUIManager.Instance.SetPartSetIcon(1);
                     break;
                 case EAttackType.Rapid:
                     for (int i = 0; i < bodyRenderers.Count; ++i)
                     {
                         bodyRenderers[i].material = rapidMaterials[i];
                     }
+                    Managers.GUIManager.Instance.SetPartSetIcon(2);
                     break;
                 case EAttackType.Heavy:
                     for (int i = 0; i < bodyRenderers.Count; ++i)
                     {
                         bodyRenderers[i].material = heavyMaterials[i];
                     }
+                    Managers.GUIManager.Instance.SetPartSetIcon(3);
                     break;
             }
         }
@@ -1292,7 +1348,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
                 bodyRenderers[i].material = basicMaterials[i];
             }
 
-            Debug.Log("다양한 타입의 파츠 착용 중입니다.");
+            Managers.GUIManager.Instance.SetPartSetIcon(0);
         }
     }
 

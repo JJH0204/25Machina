@@ -265,7 +265,7 @@ MonoBehaviour:
   - isBlending: 0
     scene: {fileID: 21300000, guid: 72be1e962363bc647bfabb8e334faa19, type: 3}
     dialog: 
-  nextSceneName: GameOver
+  nextSceneName: CreditScene
   isAutoStart: 1
   typeSpeed: 0.05
   fadeDuration: 0.5

@@ -17,8 +17,8 @@ MonoBehaviour:
   skillDescription: "\uB9DD\uB098\uB2C8 \uC6D0\uAC70\uB9AC \uACF5\uACA9"
   damage: 110
   range: 60
-  cooldown: 9
-  castTime: 1.25
+  cooldown: 6
+  castTime: 1.75
   animSpeed: 1
   bulletPrefab: {fileID: 196044, guid: fbd797a2936860d429c9bba90eeed6c7, type: 3}
   shootOffset: {x: -1.1, y: 3.2, z: 11.7}

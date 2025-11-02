@@ -15,8 +15,9 @@ MonoBehaviour:
   skillID: 4006
   skillName: Two-handswhip
   skillDescription: "\uB784\uD504 \uAE30\uBCF8 \uACF5\uACA9"
-  damage: 90
-  range: 5
-  cooldown: 1.1
+  damage: 80
+  range: 4
+  cooldown: 1.65
   castTime: 0.85
   animSpeed: 1
+  audioClip: {fileID: 0}

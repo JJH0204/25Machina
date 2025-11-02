@@ -3,7 +3,12 @@ guid: 553b7d776d5c0ec4f9dbd18248c13b84
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Flying_body
+    second: {fileID: 2100000, guid: ddf113ac477f1d24d9fe1b8901457c5f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

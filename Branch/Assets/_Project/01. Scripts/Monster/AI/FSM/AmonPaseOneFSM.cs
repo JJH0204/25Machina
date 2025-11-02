@@ -140,6 +140,22 @@ namespace Monster.AI.FSM
             blackboard.NavMeshAgent.isStopped = true;
             
             isEnabled = false; // FSM 비활성화
+            
+            // 사망 시 자신을 포함한 모든 자식 오브젝트의 레이어를 Default로 변경
+            int defaultLayer = LayerMask.NameToLayer("MonsterDead");
+            gameObject.layer = defaultLayer;
+            foreach (Transform t in transform.GetComponentsInChildren<Transform>(true))
+            {
+                if (t == transform) continue;
+                t.gameObject.layer = defaultLayer;
+            }
+            
+            // 사망시 자식으로 가진 AmonMeleeCollision 모두 제거
+            AmonMeleeCollision[] meleeCollisions = GetComponentsInChildren<AmonMeleeCollision>();
+            foreach (AmonMeleeCollision meleeCollision in meleeCollisions)
+            {
+                Destroy(meleeCollision.gameObject);
+            }
 
             StartCoroutine(WaitForDeathAnimation());
         }
@@ -152,6 +168,7 @@ namespace Monster.AI.FSM
             yield return new WaitForSeconds(deathAnimationDurationChar);
             
             DungeonManager.Instance.AmonSecondPhase();
+            Destroy(gameObject);
         }
 
         protected override void EnterState(string stateName)

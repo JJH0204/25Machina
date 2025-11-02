@@ -16,7 +16,7 @@ MonoBehaviour:
   skillName: V_NormalAttack
   skillDescription: "\uC0B4\uBAA8\uC0AC \uAE30\uBCF8 \uACF5\uACA9"
   damage: 30
-  range: 1
+  range: 4
   cooldown: 1.75
   castTime: 0.8
   animSpeed: 1

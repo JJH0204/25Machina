@@ -18,7 +18,7 @@ MonoBehaviour:
   damage: 60
   range: 30
   cooldown: 7
-  castTime: 1
+  castTime: 1.2
   animSpeed: 1
   rushSpeed: 20
   meleeCollisionPrefab: {fileID: 4070606023755049407, guid: 9738e5f867811414da87d99f8ce56023,

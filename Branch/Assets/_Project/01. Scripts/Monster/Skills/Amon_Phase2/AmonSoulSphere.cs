@@ -31,8 +31,9 @@ namespace _Test.Skills
             // 3. 영혼 구체 N개 생성 (랜덤 위치)
             for (int i = 0; i < sphereCount; ++i)
             {
-                Vector3 randomPos = data.Agent.transform.position + UnityEngine.Random.insideUnitSphere * spawnRadius;
-                randomPos.y = data.Agent.transform.position.y + 0.5f; // 높이 고정, 필요 시 조절
+                Vector3 randomPos = data.Agent.transform.position + Random.insideUnitSphere * spawnRadius;
+                float hiddenHeight = Random.Range(0.5f, 3f);
+                randomPos.y = data.Agent.transform.position.y + hiddenHeight; // 약간 공중에 띄워서 스폰
                 GameObject go = Utils.Instantiate(soulSpherePrefab, randomPos, Quaternion.identity);
                 SoulSphereObject soulSphere = go.GetComponent<SoulSphereObject>();
                 if (soulSphere)
@@ -40,14 +41,18 @@ namespace _Test.Skills
                     soulSphere.Init(damage);
                 }
             }
+            
+            TargetRenderer targetRenderer = data.Agent.GetComponentInChildren<TargetRenderer>();
+            if (targetRenderer)
+            {
+                _smr = targetRenderer.Smr;
+                // 4. 원래 머터리얼로 복구
+                Material[] mats = _smr.materials;
+                mats[3] = originMaterial;
+                _smr.materials = mats;
+            }
 
-            // 4. 원래 머터리얼로 복구
-            Material[] mats = _smr.materials;
-            mats[3] = originMaterial;
-            _smr.materials = mats;
-
-            Debug.Log("영혼 구체 종료");
-            yield break;
+            yield return null;
         }
 
         public override IEnumerator Casting(Blackboard data)
@@ -58,13 +63,13 @@ namespace _Test.Skills
             if (targetRenderer)
             {
                 _smr = targetRenderer.Smr;
+                
+                // 1. 안광 머터리얼로 교체
+                Material[] mats = _smr.materials; // 복사본 받기
+                mats[3] = glowMaterial; // 복사본 수정
+                _smr.materials = mats; // 다시 원본에 할당}
             }
-
-            // 1. 안광 머터리얼로 교체
-            Material[] mats = _smr.materials;    // 복사본 받기
-            mats[3] = glowMaterial;             // 복사본 수정
-            _smr.materials = mats;               // 다시 원본에 할당
-
+            
             return base.Casting(data);
         }
     }

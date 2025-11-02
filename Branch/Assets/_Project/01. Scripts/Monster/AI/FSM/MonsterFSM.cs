@@ -213,6 +213,22 @@ namespace Monster.AI.FSM
                     particleSystem.Play();
             }
             
+            // 사망 시 자신을 포함한 모든 자식 오브젝트의 레이어를 Default로 변경
+            int defaultLayer = LayerMask.NameToLayer("MonsterDead");
+            gameObject.layer = defaultLayer;
+            foreach (Transform t in transform.GetComponentsInChildren<Transform>(true))
+            {
+                if (t == transform) continue;
+                t.gameObject.layer = defaultLayer;
+            }
+            
+            // 사망시 자식으로 가진 AmonMeleeCollision 모두 제거
+            AmonMeleeCollision[] meleeCollisions = GetComponentsInChildren<AmonMeleeCollision>();
+            foreach (AmonMeleeCollision meleeCollision in meleeCollisions)
+            {
+                Destroy(meleeCollision.gameObject);
+            }
+            
             audioSource.PlayOneShot(deathClip);
             if (blackboard.LegAnimator) blackboard.LegAnimator.enabled = false;
             blackboard.RagdollController.ActivateRagdoll();
@@ -249,6 +265,17 @@ namespace Monster.AI.FSM
                     animator.Rebind();
                     animator.Update(0f);
                 }
+                
+                // 사망 시 자신을 포함한 모든 하위(자식, 손자 등) 오브젝트의 레이어를 Enemy로 변경
+                int enemyLayer = LayerMask.NameToLayer("Enemy");
+                gameObject.layer = enemyLayer;
+                foreach (Transform t in transform.GetComponentsInChildren<Transform>(true))
+                {
+                    if (t == transform) continue;
+                    t.gameObject.layer = enemyLayer;
+                }
+
+                blackboard.DeathEffect?.SetActive(false);
 
                 // 스킬/타깃 정리
                 _useSkill = null;
@@ -266,7 +293,9 @@ namespace Monster.AI.FSM
         {
             yield return new WaitForSeconds(10f);
             ResetForPool();
+            // gameObject.SetActive(false);
             PoolManager.Instance.ReleaseObject(gameObject);
+            // gameObject.SetActive(true);
         }
 
         private void ActPatrol()

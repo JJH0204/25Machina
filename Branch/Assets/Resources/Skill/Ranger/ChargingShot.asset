@@ -15,10 +15,8 @@ MonoBehaviour:
   skillID: 4002
   skillName: ChragingShot
   skillDescription: "\uC5F0\uBC1C \uC0AC\uACA9"
-  damage: 55
+  damage: 45
   range: 15
   cooldown: 5
   castTime: 1.65
   animSpeed: 1
-  bulletCount: 5
-  bulletInterval: 0.2

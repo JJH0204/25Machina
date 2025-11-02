@@ -8,7 +8,7 @@ public class PlatformEndCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Platform"))
+        if (other.gameObject.CompareTag("Player"))
         {
             player.TriggerPlatformEnd();
         }

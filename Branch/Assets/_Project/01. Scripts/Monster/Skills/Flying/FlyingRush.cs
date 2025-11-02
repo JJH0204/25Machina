@@ -31,8 +31,6 @@ namespace _Test.Skills.Flying
         }
         public override IEnumerator Activate(Blackboard data)
         {
-            yield return null;
-            // yield return new WaitForSeconds(data.AnimatorParameterSetter.Animator.GetCurrentAnimatorStateInfo(0).length);
             data.Agent.transform.LookAt(data.Target.transform);
             
             // 돌진 애니메이션 재생
@@ -71,8 +69,6 @@ namespace _Test.Skills.Flying
             }
             
             // 돌진 종료
-            // data.AnimatorParameterSetter.Animator.SetTrigger("RushEnd");
-            // yield return null;
             yield return new WaitForSeconds(data.AnimatorParameterSetter.Animator.GetCurrentAnimatorStateInfo(0).length - 1f);
             Utils.Destroy(_meleeCollision);
         }

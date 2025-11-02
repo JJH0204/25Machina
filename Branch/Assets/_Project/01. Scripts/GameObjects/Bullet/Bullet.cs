@@ -359,6 +359,8 @@ public class Bullet : MonoBehaviour
 
             enemy.ApplyDamage(_damage * coefficient * hitZoneValue, targetMask);
             Debug.Log($"원본 데미지: {_damage * coefficient}, 육질 데미지: {_damage * coefficient * hitZoneValue}");
+
+            Managers.GUIManager.Instance.StartHitCrosshair();
         }
         else
         {
@@ -371,6 +373,8 @@ public class Bullet : MonoBehaviour
 
                 enemy.ApplyDamage(_damage * coefficient * hitZoneValue, targetMask);
                 Debug.Log($"원본 데미지: {_damage * coefficient}, 육질 데미지: {_damage * coefficient * hitZoneValue}");
+
+                Managers.GUIManager.Instance.StartHitCrosshair();
             }
         }
     }

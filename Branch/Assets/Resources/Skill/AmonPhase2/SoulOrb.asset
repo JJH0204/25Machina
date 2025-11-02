@@ -19,7 +19,7 @@ MonoBehaviour:
     \uAE30\uB465\uC5D0\uC11C \uCC28\uC9D5 \uD6C4"
   damage: 100
   range: 50
-  cooldown: 10
+  cooldown: 12
   castTime: 1.5
   animSpeed: 1
   bulletPrefab: {fileID: 364168584227083269, guid: 47a3e8009f5c7844aa19ccb71ff7f656,

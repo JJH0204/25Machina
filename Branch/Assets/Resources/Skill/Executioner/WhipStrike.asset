@@ -17,8 +17,8 @@ MonoBehaviour:
   skillDescription: "\uB9DD\uB098\uB2C8 \uC0AC\uBCF5\uAC80 \uD718\uB450\uB974\uAE30"
   damage: 60
   range: 18
-  cooldown: 7
-  castTime: 1
+  cooldown: 5
+  castTime: 1.5
   animSpeed: 1
   attackRangePrefab: {fileID: 5441038580396050504, guid: df2b216a6006cb94fb4736dd6bcbacf3,
     type: 3}

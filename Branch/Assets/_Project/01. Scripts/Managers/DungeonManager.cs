@@ -10,10 +10,10 @@ namespace Managers
         [SerializeField] private FSM amonFirstPhase;
         
         [Header("아몬 2페이즈 설정")]
-        public FSM amonSecondPhasePrefab;
-        // public Transform amonSpawnPoint;
-        public Transform playerTeleportPoint;
-        public Transform playerRespawnPoint;
+        [SerializeField] private FSM amonSecondPhasePrefab;
+        // [SerializeField] private Transform amonSpawnPoint;
+        [SerializeField] private Transform playerTeleportPoint;
+        [SerializeField] private Transform playerRespawnPoint;
         
         public void AmonFirstPhase()
         {

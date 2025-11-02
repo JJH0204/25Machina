@@ -17,6 +17,6 @@ MonoBehaviour:
   skillDescription: "\uC544\uBAAC 1 \uD398\uC774\uC988 \uC2A4\uD0AC: \uB09C\uC0AC"
   damage: 40
   range: 36
-  cooldown: 15
+  cooldown: 5
   castTime: 1.7
   animSpeed: 1

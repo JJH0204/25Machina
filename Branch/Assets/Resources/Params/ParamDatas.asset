@@ -402,7 +402,7 @@ MonoBehaviour:
         value:
           statType: 2
           stringValue: 
-          value: 250
+          value: 200
           minValue: -3.4028235e+38
           maxValue: 3.4028235e+38
       - key: 3
@@ -736,6 +736,77 @@ MonoBehaviour:
         value:
           statType: 22
           stringValue: "\uB358\uC804 \uBCF4\uC2A4 \uBAAC\uC2A4\uD130 2 \uD398\uC774\uC988"
+          value: 0
+          minValue: -3.4028235e+38
+          maxValue: 3.4028235e+38
+    - statEntries:
+      - key: 0
+        value:
+          statType: 0
+          stringValue: 
+          value: 1011
+          minValue: -3.4028235e+38
+          maxValue: 3.4028235e+38
+      - key: 1
+        value:
+          statType: 1
+          stringValue: miniBreaker
+          value: 0
+          minValue: -3.4028235e+38
+          maxValue: 3.4028235e+38
+      - key: 2
+        value:
+          statType: 2
+          stringValue: 
+          value: 150
+          minValue: -3.4028235e+38
+          maxValue: 3.4028235e+38
+      - key: 3
+        value:
+          statType: 3
+          stringValue: 
+          value: 25
+          minValue: -3.4028235e+38
+          maxValue: 3.4028235e+38
+      - key: 4
+        value:
+          statType: 4
+          stringValue: 
+          value: 4
+          minValue: -3.4028235e+38
+          maxValue: 3.4028235e+38
+      - key: 5
+        value:
+          statType: 5
+          stringValue: 
+          value: 5
+          minValue: -3.4028235e+38
+          maxValue: 3.4028235e+38
+      - key: 6
+        value:
+          statType: 6
+          stringValue: 
+          value: 0
+          minValue: -3.4028235e+38
+          maxValue: 3.4028235e+38
+      - key: 7
+        value:
+          statType: 7
+          stringValue: 
+          value: 30
+          minValue: -3.4028235e+38
+          maxValue: 3.4028235e+38
+      - key: 8
+        value:
+          statType: 8
+          stringValue: 
+          value: 10
+          minValue: -3.4028235e+38
+          maxValue: 3.4028235e+38
+      - key: 22
+        value:
+          statType: 22
+          stringValue: "siegeBreaker_\uC544\uC885 \uBAA8\uB378(\uBBF8\uB2C8)"
           value: 0
           minValue: -3.4028235e+38
           maxValue: 3.4028235e+38
@@ -3681,7 +3752,7 @@ MonoBehaviour:
       - key: 1
         value:
           statType: 1
-          stringValue: 
+          stringValue: OneHandStrike
           value: 0
           minValue: -3.4028235e+38
           maxValue: 3.4028235e+38
@@ -3689,42 +3760,42 @@ MonoBehaviour:
         value:
           statType: 17
           stringValue: 
-          value: 0
+          value: 1
           minValue: -3.4028235e+38
           maxValue: 3.4028235e+38
       - key: 20
         value:
           statType: 20
           stringValue: 
-          value: 0
+          value: 3
           minValue: -3.4028235e+38
           maxValue: 3.4028235e+38
       - key: 3
         value:
           statType: 3
           stringValue: 
-          value: 0
+          value: 30
           minValue: -3.4028235e+38
           maxValue: 3.4028235e+38
       - key: 18
         value:
           statType: 18
           stringValue: 
-          value: 0
+          value: 1.95
           minValue: -3.4028235e+38
           maxValue: 3.4028235e+38
       - key: 21
         value:
           statType: 21
           stringValue: 
-          value: 0
+          value: 1
           minValue: -3.4028235e+38
           maxValue: 3.4028235e+38
       - key: 19
         value:
           statType: 19
           stringValue: 
-          value: 0
+          value: 1
           minValue: -3.4028235e+38
           maxValue: 3.4028235e+38
       - key: 16
@@ -3737,7 +3808,7 @@ MonoBehaviour:
       - key: 22
         value:
           statType: 22
-          stringValue: 
+          stringValue: "\uBBF8\uB2C8\uB784\uBD80_\uAE30\uBCF8 \uACF5\uACA9 \uC2A4\uD0AC"
           value: 0
           minValue: -3.4028235e+38
           maxValue: 3.4028235e+38

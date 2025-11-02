@@ -333,7 +333,7 @@ AudioSource:
   Priority: 64
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -368,7 +368,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1346,6 +1346,7 @@ MonoBehaviour:
   animatorParameterSetter: {fileID: 2489977660657431291}
   target: {fileID: 0}
   deathEffect: {fileID: 0}
+  hitEffects: []
   ragdollController: {fileID: 4351513757059705822}
   patrolInfo:
     isPatrol: 0
@@ -1462,7 +1463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &185396757449349633
 Transform:
   m_ObjectHideFlags: 0
@@ -3349,7 +3350,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3384,7 +3385,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

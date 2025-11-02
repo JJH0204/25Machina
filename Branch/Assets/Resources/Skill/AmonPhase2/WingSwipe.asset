@@ -19,7 +19,7 @@ MonoBehaviour:
     \uCE90\uB9AD\uD130\uC5D0\uAC8C \uD55C\uCABD \uB0A0\uAC1C\uB97C \uD718\uB450\uB984.
     \uC88C"
   damage: 75
-  range: 5
+  range: 4
   cooldown: 3
   castTime: 1.2
   animSpeed: 1
