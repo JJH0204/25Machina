@@ -1,3 +1,4 @@
+using Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,23 +17,28 @@ namespace Monster.AI.FSM
             if (blackboard is null) return;
             blackboard.CurrentHealth -= damage;
             // 피격 시 추적 상태로 즉시 전환하는 로직 추가 가능
-            // if (blackboard.CurrentHealth > 0) ChangeState("Chase");
         }
         
-        public void ApplyDamage(float inDamage, LayerMask targetMask = default, float unitOfTime = 1.0f, float defenceIgnoreRate = 0.0f)
+        public virtual void ApplyDamage(float inDamage, LayerMask targetMask = default, float unitOfTime = 1.0f, float defenceIgnoreRate = 0.0f)
         {
             // To-do: Target Mask 로직 필요
             OnHit(inDamage);
-            // ikAnimaton.TakeHit(Vector3.back); // TODO: 피격 IK RnD
-            if (blackboard.HitEffects is not null && blackboard.HitEffects.Length > 0)
-            {
-                foreach (var effect in blackboard.HitEffects)
-                {
-                    effect.SetActive(true);
-                }
+            
+            if (blackboard.CurrentHealth > 0)
+                ChangeState("Hit");
+        }
 
-                StartCoroutine(DisableHitEffectsAfterFrame());
+        protected virtual void ActHit()
+        {
+            if (blackboard.HitEffects is null || blackboard.HitEffects.Length <= 0)
+                return;
+
+            foreach (GameObject effect in blackboard.HitEffects)
+            {
+                effect.SetActive(true);
             }
+
+            StartCoroutine(DisableHitEffectsAfterFrame());
         }
 
         private IEnumerator DisableHitEffectsAfterFrame()
@@ -66,6 +72,15 @@ namespace Monster.AI.FSM
             foreach (string param in array)
             {
                 animator.SetBool(param, false);
+            }
+        }
+        
+        protected void DelAmonMeleeCollision()
+        {
+            AmonMeleeCollision[] meleeCollisions = GetComponentsInChildren<AmonMeleeCollision>();
+            foreach (AmonMeleeCollision meleeCollision in meleeCollisions)
+            {
+                Destroy(meleeCollision.gameObject);
             }
         }
         

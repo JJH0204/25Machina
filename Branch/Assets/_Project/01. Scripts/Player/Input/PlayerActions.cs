@@ -200,6 +200,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""BaseSet"",
+                    ""type"": ""Button"",
+                    ""id"": ""61462fd9-8e79-4971-a3b1-2c8fa9d3a1fb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""LaserSet"",
                     ""type"": ""Button"",
                     ""id"": ""9fb97049-4e22-43fa-b825-447f82720ae6"",
@@ -239,6 +248,24 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""fca1fe55-4c28-4826-96d8-89bc34507af0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""3472f349-3725-4efe-9337-ed51bb430612"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Map"",
+                    ""type"": ""Button"",
+                    ""id"": ""df30c0c8-58bc-47ac-98c5-55aa5c838e88"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -425,7 +452,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8f346de3-c2e4-4337-9f4a-c092f29a35a6"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";PC_Keyboard"",
@@ -436,7 +463,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""43ead0d8-55de-45de-a27f-d63a580bca3c"",
-                    ""path"": ""<Keyboard>/2"",
+                    ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";PC_Keyboard"",
@@ -447,7 +474,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3ee7216c-4480-49e4-84aa-1eb2e4a4ccdd"",
-                    ""path"": ""<Keyboard>/3"",
+                    ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";PC_Keyboard"",
@@ -474,6 +501,39 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";PC_Keyboard"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65ab2e21-aa24-476f-822b-87633394af22"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC_Keyboard"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e2e521c-5056-4ff8-9c03-e207313e9075"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC_Keyboard"",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c1f1bc1-83c4-4954-b5b9-4003ba4404f2"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC_Keyboard"",
+                    ""action"": ""BaseSet"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -509,6 +569,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""fa7ed4b0-7faf-4c1c-b006-93592329a54e"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -588,6 +657,17 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2465e8a0-4a9c-4157-8db8-b15ef180fb84"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -636,16 +716,20 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_PlayerActionMap_ResetCamera = m_PlayerActionMap.FindAction("ResetCamera", throwIfNotFound: true);
         m_PlayerActionMap_RadialMenu = m_PlayerActionMap.FindAction("RadialMenu", throwIfNotFound: true);
         m_PlayerActionMap_Indicator = m_PlayerActionMap.FindAction("Indicator", throwIfNotFound: true);
+        m_PlayerActionMap_BaseSet = m_PlayerActionMap.FindAction("BaseSet", throwIfNotFound: true);
         m_PlayerActionMap_LaserSet = m_PlayerActionMap.FindAction("LaserSet", throwIfNotFound: true);
         m_PlayerActionMap_RapidSet = m_PlayerActionMap.FindAction("RapidSet", throwIfNotFound: true);
         m_PlayerActionMap_HeavySet = m_PlayerActionMap.FindAction("HeavySet", throwIfNotFound: true);
         m_PlayerActionMap_Help = m_PlayerActionMap.FindAction("Help", throwIfNotFound: true);
         m_PlayerActionMap_Pause = m_PlayerActionMap.FindAction("Pause", throwIfNotFound: true);
+        m_PlayerActionMap_Look = m_PlayerActionMap.FindAction("Look", throwIfNotFound: true);
+        m_PlayerActionMap_Map = m_PlayerActionMap.FindAction("Map", throwIfNotFound: true);
         // JumpAttackActionMap
         m_JumpAttackActionMap = asset.FindActionMap("JumpAttackActionMap", throwIfNotFound: true);
         m_JumpAttackActionMap_Move = m_JumpAttackActionMap.FindAction("Move", throwIfNotFound: true);
         m_JumpAttackActionMap_Apply = m_JumpAttackActionMap.FindAction("Apply", throwIfNotFound: true);
         m_JumpAttackActionMap_Cancel = m_JumpAttackActionMap.FindAction("Cancel", throwIfNotFound: true);
+        m_JumpAttackActionMap_Look = m_JumpAttackActionMap.FindAction("Look", throwIfNotFound: true);
     }
 
     ~@PlayerActions()
@@ -739,11 +823,14 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActionMap_ResetCamera;
     private readonly InputAction m_PlayerActionMap_RadialMenu;
     private readonly InputAction m_PlayerActionMap_Indicator;
+    private readonly InputAction m_PlayerActionMap_BaseSet;
     private readonly InputAction m_PlayerActionMap_LaserSet;
     private readonly InputAction m_PlayerActionMap_RapidSet;
     private readonly InputAction m_PlayerActionMap_HeavySet;
     private readonly InputAction m_PlayerActionMap_Help;
     private readonly InputAction m_PlayerActionMap_Pause;
+    private readonly InputAction m_PlayerActionMap_Look;
+    private readonly InputAction m_PlayerActionMap_Map;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerActionMap".
     /// </summary>
@@ -804,6 +891,10 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Indicator => m_Wrapper.m_PlayerActionMap_Indicator;
         /// <summary>
+        /// Provides access to the underlying input action "PlayerActionMap/BaseSet".
+        /// </summary>
+        public InputAction @BaseSet => m_Wrapper.m_PlayerActionMap_BaseSet;
+        /// <summary>
         /// Provides access to the underlying input action "PlayerActionMap/LaserSet".
         /// </summary>
         public InputAction @LaserSet => m_Wrapper.m_PlayerActionMap_LaserSet;
@@ -823,6 +914,14 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "PlayerActionMap/Pause".
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_PlayerActionMap_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerActionMap/Look".
+        /// </summary>
+        public InputAction @Look => m_Wrapper.m_PlayerActionMap_Look;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerActionMap/Map".
+        /// </summary>
+        public InputAction @Map => m_Wrapper.m_PlayerActionMap_Map;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -885,6 +984,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Indicator.started += instance.OnIndicator;
             @Indicator.performed += instance.OnIndicator;
             @Indicator.canceled += instance.OnIndicator;
+            @BaseSet.started += instance.OnBaseSet;
+            @BaseSet.performed += instance.OnBaseSet;
+            @BaseSet.canceled += instance.OnBaseSet;
             @LaserSet.started += instance.OnLaserSet;
             @LaserSet.performed += instance.OnLaserSet;
             @LaserSet.canceled += instance.OnLaserSet;
@@ -900,6 +1002,12 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
+            @Map.started += instance.OnMap;
+            @Map.performed += instance.OnMap;
+            @Map.canceled += instance.OnMap;
         }
 
         /// <summary>
@@ -947,6 +1055,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Indicator.started -= instance.OnIndicator;
             @Indicator.performed -= instance.OnIndicator;
             @Indicator.canceled -= instance.OnIndicator;
+            @BaseSet.started -= instance.OnBaseSet;
+            @BaseSet.performed -= instance.OnBaseSet;
+            @BaseSet.canceled -= instance.OnBaseSet;
             @LaserSet.started -= instance.OnLaserSet;
             @LaserSet.performed -= instance.OnLaserSet;
             @LaserSet.canceled -= instance.OnLaserSet;
@@ -962,6 +1073,12 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
+            @Map.started -= instance.OnMap;
+            @Map.performed -= instance.OnMap;
+            @Map.canceled -= instance.OnMap;
         }
 
         /// <summary>
@@ -1002,6 +1119,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_JumpAttackActionMap_Move;
     private readonly InputAction m_JumpAttackActionMap_Apply;
     private readonly InputAction m_JumpAttackActionMap_Cancel;
+    private readonly InputAction m_JumpAttackActionMap_Look;
     /// <summary>
     /// Provides access to input actions defined in input action map "JumpAttackActionMap".
     /// </summary>
@@ -1025,6 +1143,10 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "JumpAttackActionMap/Cancel".
         /// </summary>
         public InputAction @Cancel => m_Wrapper.m_JumpAttackActionMap_Cancel;
+        /// <summary>
+        /// Provides access to the underlying input action "JumpAttackActionMap/Look".
+        /// </summary>
+        public InputAction @Look => m_Wrapper.m_JumpAttackActionMap_Look;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1060,6 +1182,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
         }
 
         /// <summary>
@@ -1080,6 +1205,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
         }
 
         /// <summary>
@@ -1231,6 +1359,13 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnIndicator(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "BaseSet" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBaseSet(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "LaserSet" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -1265,6 +1400,20 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLook(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Map" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMap(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "JumpAttackActionMap" which allows adding and removing callbacks.
@@ -1294,5 +1443,12 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCancel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLook(InputAction.CallbackContext context);
     }
 }

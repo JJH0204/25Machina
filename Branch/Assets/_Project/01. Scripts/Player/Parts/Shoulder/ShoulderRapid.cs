@@ -20,6 +20,7 @@ public class ShoulderRapid : PartBaseShoulder
     [SerializeField] protected Vector3 launchOffset = Vector3.zero;
 
     [SerializeField] protected List<CinemachineVirtualCamera> cutsceneCams = new();
+    [SerializeField] protected LayerMask obstacleMask;
     protected CinemachineBrain brain;
     protected CinemachineBlendDefinition defaultBlend;
     protected CinemachineImpulseSource source;
@@ -142,41 +143,38 @@ public class ShoulderRapid : PartBaseShoulder
     {
         Camera cam = Camera.main;
         List<TargetPoint> result = new List<TargetPoint>();
-        TargetPoint[] allEnemies = FindObjectsOfType<TargetPoint>();
-        float maxRangeSqr = maxRange * maxRange;
+        TargetPoint[] allTargets = GameObject.FindObjectsOfType<TargetPoint>();
 
-        foreach (var enemy in allEnemies)
+        foreach (var target in allTargets)
         {
-            Vector3 viewPos = cam.WorldToViewportPoint(enemy.transform.position);
-            if (viewPos.z > 0 && viewPos.x > 0 && viewPos.x < 1 && viewPos.y > 0 && viewPos.y < 1)
-            {
-                if (viewPos.z <= cam.farClipPlane) // 카메라 시야거리 제한
-                {
-                    Vector3 toTarget = enemy.transform.parent.position - _owner.transform.position;
-                    if (toTarget.sqrMagnitude > maxRangeSqr) continue;
+            GameObject obj = target.gameObject;
 
-                    if (IsVisibleFromCamera(enemy.transform.parent, cam, obstacleMask))
-                    {
-                        result.Add(enemy);
-                    }
-                }
+            // 거리 검사
+            float distance = Vector3.Distance(cam.transform.position, obj.transform.position);
+            if (distance > maxRange)
+                continue;
+
+            // 카메라에 보이는지 검사
+            Vector3 viewportPos = cam.WorldToViewportPoint(obj.transform.position);
+            bool isVisible = viewportPos.z > 0 &&
+                             viewportPos.x >= 0 && viewportPos.x <= 1 &&
+                             viewportPos.y >= 0 && viewportPos.y <= 1;
+
+            if (!isVisible)
+                continue;
+
+            // 방해물에 가려졌는지 검사하는 Raycast 추가
+            Vector3 direction = obj.transform.position - cam.transform.position;
+            if (Physics.Raycast(cam.transform.position, direction, out RaycastHit hit, distance, obstacleMask))
+            {
+                // 방해물이 적과 카메라 사이에 있음
+                continue;
             }
+
+            // 모든 조건 만족 시 리스트에 추가
+            result.Add(target);
         }
         return result;
-    }
-
-    bool IsVisibleFromCamera(Transform enemyTransform, Camera cam, LayerMask obstacleMask)
-    {
-        Vector3 direction = enemyTransform.position - cam.transform.position;
-        float distance = direction.magnitude;
-        direction.Normalize();
-
-        if (Physics.Raycast(cam.transform.position, direction, out RaycastHit hit, distance, obstacleMask))
-        {
-            // Raycast 결과가 true일 경우, ObstacleMask에 해당하는 오브젝트가 존재한다는 의미이므로 장애물이 적 앞에 있음
-            return false;
-        }
-        return true;
     }
 
     protected Vector3 GetRandomDirection(Vector3 forward)
@@ -194,7 +192,7 @@ public class ShoulderRapid : PartBaseShoulder
         yield return new WaitForSeconds(0.5f);
 
         // 3. 화면 내의 적을 감지(카메라 시야각/범위 외 적 제외)
-        List<TargetPoint> targets = FindValidTargets(ignoreMask, 100.0f);
+        List<TargetPoint> targets = FindValidTargets(obstacleMask, 50.0f);
         if (targets.Count > maxTargetCount)
         {
             targets = targets.GetRange(0, maxTargetCount);
@@ -222,32 +220,31 @@ public class ShoulderRapid : PartBaseShoulder
         // Count된 적이 없을 경우 종료
         int targetCount = targets.Count;
         if (targetCount <= 0)
-            if (targetCount <= 0)
+        {
+            for (int i = 0; i < targetingInstances.Count; ++i)
             {
-                for (int i = 0; i < targetingInstances.Count; ++i)
-                {
-                    Utils.Destroy(targetingInstances[i]);
-                }
-                targetingInstances.Clear();
-
-                brain.m_DefaultBlend = defaultBlend;
-                _owner.FollowCamera.SetCameraRotatable(true);
-                _owner.SetMovable(true);
-                _owner.PlayerAnimator.SetBool("isPlayShoulderAnim", false);
-                _owner.SetPlayerState(EPlayerState.Skilling, false);
-
-                for (int i = 0; i < cutsceneCams.Count; ++i)
-                {
-                    cutsceneCams[i].m_Priority = 10;
-                }
-
-                GUIManager.Instance.SetBackSkillIcon(false);
-                GUIManager.Instance.SetBackSkillCooldown(0.0f);
-                GUIManager.Instance.SetBackSkillCooldown(false);
-
-                _skillCoroutine = null;
-                yield break;
+                Utils.Destroy(targetingInstances[i]);
             }
+            targetingInstances.Clear();
+
+            brain.m_DefaultBlend = defaultBlend;
+            _owner.FollowCamera.SetCameraRotatable(true);
+            _owner.SetMovable(true);
+            _owner.PlayerAnimator.SetBool("isPlayShoulderAnim", false);
+            _owner.SetPlayerState(EPlayerState.Skilling, false);
+
+            for (int i = 0; i < cutsceneCams.Count; ++i)
+            {
+                cutsceneCams[i].m_Priority = 10;
+            }
+
+            GUIManager.Instance.SetBackSkillIcon(false);
+            GUIManager.Instance.SetBackSkillCooldown(0.0f);
+            GUIManager.Instance.SetBackSkillCooldown(false);
+
+            _skillCoroutine = null;
+            yield break;
+        }
 
         _owner.PlayerAnimator.SetBool("isPlayShoulderAnim", true);
         yield return new WaitForSeconds(0.4f);
@@ -283,6 +280,7 @@ public class ShoulderRapid : PartBaseShoulder
                 var missileComp = missile.GetComponent<Missile>();
                 if (missileComp != null)
                 {
+                    missileComp.Parent = transform;
                     missileComp.Init(_owner.gameObject, enemy.transform, transform.position, targetPoint, randomDir, skillDamage);
                 }
             }
@@ -302,15 +300,16 @@ public class ShoulderRapid : PartBaseShoulder
             cutsceneCams[i].m_Priority = 10;
         }
 
+        float time = skillCooldown;
         GUIManager.Instance.SetBackSkillCooldown(true);
-        GUIManager.Instance.SetBackSkillCooldown(skillCooldown);
+        GUIManager.Instance.SetBackSkillCooldown(time);
         while (true)
         {
             yield return new WaitForSeconds(0.1f);
 
-            skillCooldown -= 0.1f;
-            GUIManager.Instance.SetBackSkillCooldown(skillCooldown);
-            if (skillCooldown <= 0.0f)
+            time -= 0.1f;
+            GUIManager.Instance.SetBackSkillCooldown(time);
+            if (time <= 0.0f)
             {
                 break;
             }

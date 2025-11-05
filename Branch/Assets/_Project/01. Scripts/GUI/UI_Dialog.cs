@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -23,7 +24,7 @@ public struct DialogData
     [TextArea(3, 5)] public string dialog;  // 텍스트 스크립트
 }
 
-public class UI_Dialog : MonoBehaviour
+public class UI_Dialog : MonoBehaviour, UIActions.IUIActionMapActions
 {
     [Header("배경 이미지 및 스크립트 설정")]
     [SerializeField] private Speaker speaker;
@@ -41,6 +42,9 @@ public class UI_Dialog : MonoBehaviour
     private Coroutine _nextRoutine = null;
     private Coroutine _fadeRoutine = null;
 
+    private UIActions _uiActions;
+    private bool _isUpdateDialogue = false;
+
     private void Awake()
     {
         Init();
@@ -50,14 +54,6 @@ public class UI_Dialog : MonoBehaviour
     {
         if (_isEnd) return;
 
-        if (UpdateDialog())
-        {
-            StartCoroutine(FadePanelAndGoToNext(speaker.fadePanel, 0f, 1f, fadeDuration));
-        }
-    }
-
-    public bool UpdateDialog()
-    {
         if (_isFirst)
         {
             Init();
@@ -69,68 +65,41 @@ public class UI_Dialog : MonoBehaviour
             _isFirst = false;
         }
 
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        if (_isUpdateDialogue)
         {
-            if (_isFadeIn)
-            {
-                _isFadeIn = false;
-                StopCoroutine(_nextRoutine);
-                StopCoroutine(_fadeRoutine);
+            _uiActions.UIActionMap.Disable();
 
-                Color color = speaker.imageScene.color;
-                speaker.imageScene.color = new Color(color.r, color.g, color.b, 1.0f);
-
-                StartCoroutine("CoTypeText");
-
-                return false;
-            }
-
-            if (_isFadeOut)
-            {
-                _isFadeOut = false;
-                StopCoroutine(_nextRoutine);
-                StopCoroutine(_fadeRoutine);
-
-                if (!speaker.imageScene.gameObject.activeSelf)
-                {
-                    speaker.imageScene.gameObject.SetActive(true);
-                }
-
-                Color color = speaker.imageScene.color;
-                speaker.imageScene.color = new Color(color.r, color.g, color.b, 1.0f);
-
-                ++_currentDialogIndex;
-                speaker.imageScene.sprite = dialogs[_currentDialogIndex].scene;
-                StartCoroutine("CoTypeText");
-
-                return false;
-            }
-
-            if (_isTypingEffect)
-            {
-                _isTypingEffect = false;
-                StopCoroutine("CoTypeText");
-                speaker.textDialog.text = dialogs[_currentDialogIndex].dialog;
-                speaker.objectArrow.SetActive(true);
-
-                return false;
-            }
-
-            if (dialogs.Length > _currentDialogIndex + 1)
-            {
-                SetNextDialog();
-            }
-            else
-            {
-                return true;
-            }
+            StartCoroutine(FadePanelAndGoToNext(speaker.fadePanel, 0f, 1f, fadeDuration));
+            _isUpdateDialogue = false;
         }
+    }
 
-        return false;
+    private void OnEnable()
+    {
+        _uiActions.UIActionMap.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _uiActions.UIActionMap.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        _uiActions.UIActionMap.Disable();
     }
 
     private void Init()
     {
+        if (_uiActions != null)
+        {
+            _uiActions.UIActionMap.Disable();
+            _uiActions.Dispose();
+        }
+        _uiActions = new UIActions();
+        _uiActions.UIActionMap.SetCallbacks(this);
+        _uiActions.UIActionMap.Enable();
+
         speaker.imageScene.gameObject.SetActive(false);
         speaker.textDialog.text = "";
         speaker.objectArrow.SetActive(false);
@@ -230,5 +199,65 @@ public class UI_Dialog : MonoBehaviour
 
         // 텍스트 타이핑 시작
         StartCoroutine("CoTypeText");
+    }
+
+    void UIActions.IUIActionMapActions.OnNextDialogue(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (_isFadeIn)
+            {
+                _isFadeIn = false;
+                StopCoroutine(_nextRoutine);
+                StopCoroutine(_fadeRoutine);
+
+                Color color = speaker.imageScene.color;
+                speaker.imageScene.color = new Color(color.r, color.g, color.b, 1.0f);
+
+                StartCoroutine("CoTypeText");
+
+                return;
+            }
+
+            if (_isFadeOut)
+            {
+                _isFadeOut = false;
+                StopCoroutine(_nextRoutine);
+                StopCoroutine(_fadeRoutine);
+
+                if (!speaker.imageScene.gameObject.activeSelf)
+                {
+                    speaker.imageScene.gameObject.SetActive(true);
+                }
+
+                Color color = speaker.imageScene.color;
+                speaker.imageScene.color = new Color(color.r, color.g, color.b, 1.0f);
+
+                ++_currentDialogIndex;
+                speaker.imageScene.sprite = dialogs[_currentDialogIndex].scene;
+                StartCoroutine("CoTypeText");
+
+                return;
+            }
+
+            if (_isTypingEffect)
+            {
+                _isTypingEffect = false;
+                StopCoroutine("CoTypeText");
+                speaker.textDialog.text = dialogs[_currentDialogIndex].dialog;
+                speaker.objectArrow.SetActive(true);
+
+                return;
+            }
+
+            if (dialogs.Length > _currentDialogIndex + 1)
+            {
+                SetNextDialog();
+            }
+            else
+            {
+                _isUpdateDialogue = true;
+            }
+        }
     }
 }

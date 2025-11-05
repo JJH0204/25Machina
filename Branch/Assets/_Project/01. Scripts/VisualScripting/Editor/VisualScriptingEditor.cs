@@ -500,5 +500,29 @@ namespace _Project.Scripts.VisualScripting.Editor
             Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
             Selection.activeObject = go;
         }
+
+        [MenuItem("GameObject/VisualScripting/Output/SetNoticeMessage", false, 10)]
+        private static void CreateSetNoticeMessageAsset(MenuCommand menuCommand)
+        {
+            GameObject go = new GameObject("NewSetNoticeMessage");
+            go.AddComponent<SetNoticeMessage>();
+
+            GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
+
+            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
+            Selection.activeObject = go;
+        }
+
+        [MenuItem("GameObject/VisualScripting/Output/StartBoss", false, 10)]
+        private static void CreateStartBossAsset(MenuCommand menuCommand)
+        {
+            GameObject go = new GameObject("NewStartBoss");
+            go.AddComponent<StartBoss>();
+
+            GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
+
+            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
+            Selection.activeObject = go;
+        }
     }
 }

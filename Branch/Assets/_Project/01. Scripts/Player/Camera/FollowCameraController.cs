@@ -14,6 +14,7 @@ public class FollowCameraController : MonoBehaviour
     private CinemachineVirtualCamera vcam;
     private CinemachineFramingTransposer _cameraBody;
     private CinemachinePOV _cameraAim;
+    private CinemachineInputProvider _inputProvider;
 
     [SerializeField] private ECameraState currentCameraState = ECameraState.Normal;
     private Dictionary<ECameraState, FollowCameraData> _cameraSettings = new Dictionary<ECameraState, FollowCameraData>();
@@ -23,6 +24,9 @@ public class FollowCameraController : MonoBehaviour
     private bool _isLock = false;
     private float _scrollY = 0.0f;
     private float _defaultCameraDistance = 2.0f;
+
+    private Vector2 _lockedValue = Vector2.zero;
+    private bool _isLockedByUI = false;
 
     [Header("Recoil Settings")]
     [SerializeField] private float recoilRecoverySpeed = 20.0f;
@@ -92,6 +96,23 @@ public class FollowCameraController : MonoBehaviour
     private void Awake()
     {
         vcam = gameObject.GetComponent<CinemachineVirtualCamera>();
+        _cameraBody = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
+        _cameraAim = vcam.GetCinemachineComponent<CinemachinePOV>();
+        _inputProvider = gameObject.GetComponent<CinemachineInputProvider>();
+    }
+
+    private void LateUpdate()
+    {
+        if (_isLockedByUI)
+        {
+            // 축 값 고정
+            _cameraAim.m_HorizontalAxis.Value = _lockedValue.x;
+            _cameraAim.m_VerticalAxis.Value = _lockedValue.y;
+
+            // 입력값은 0으로 유지해 회전 입력 중지
+            _cameraAim.m_HorizontalAxis.m_InputAxisValue = 0f;
+            _cameraAim.m_VerticalAxis.m_InputAxisValue = 0f;
+        }
     }
 
 #if UNITY_EDITOR
@@ -101,9 +122,6 @@ public class FollowCameraController : MonoBehaviour
         {
             _cameraSettings[state] = Resources.Load<FollowCameraData>($"Camera/FollowCameraData_{state}");
         }
-
-        _cameraBody = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
-        _cameraAim = vcam.GetCinemachineComponent<CinemachinePOV>();
 
         ApplyCameraSettings();
     }
@@ -237,6 +255,35 @@ public class FollowCameraController : MonoBehaviour
         {
             _cameraSettings[currentCameraState].cameraDistance += _scrollY;
         }
+    }
+
+    public void OnUIOpen()
+    {
+        //if (_inputProvider)
+        //{
+        //    _inputProvider.enabled = false;  // 입력 비활성화
+        //}
+
+        if (_cameraAim != null)
+        {
+            _lockedValue.x = _cameraAim.m_HorizontalAxis.Value;
+            _lockedValue.y = _cameraAim.m_VerticalAxis.Value;
+
+            _cameraAim.m_HorizontalAxis.m_InputAxisValue = 0f;
+            _cameraAim.m_VerticalAxis.m_InputAxisValue = 0f;
+        }
+
+        _isLockedByUI = true;
+    }
+
+    public void OnUIClose()
+    {
+        //if (_inputProvider)
+        //{
+        //    _inputProvider.enabled = true;  // 입력 비활성화
+        //}
+
+        _isLockedByUI = false;
     }
 
     public override string ToString()

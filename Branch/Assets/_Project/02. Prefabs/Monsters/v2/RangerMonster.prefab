@@ -498,6 +498,7 @@ MonoBehaviour:
   id: 1002
   navMeshAgent: {fileID: 157670361117548596}
   agent: {fileID: 4800409579581458399}
+  characterController: {fileID: 9004571906808666252}
   animatorParameterSetter: {fileID: 3623812698010791149}
   target: {fileID: 0}
   deathEffect: {fileID: 8317084712545023603}
@@ -505,6 +506,7 @@ MonoBehaviour:
   - {fileID: 6637933159885279868}
   - {fileID: 1569509923116568742}
   ragdollController: {fileID: 5889141319387458524}
+  dissolve: {fileID: 4170228264625231682}
   patrolInfo:
     isPatrol: 0
     minPatrolTime: 2
@@ -684,13 +686,14 @@ GameObject:
   - component: {fileID: 3623812698010791149}
   - component: {fileID: 7726841878085714874}
   - component: {fileID: 157670361117548596}
+  - component: {fileID: 9004571906808666252}
   m_Layer: 19
   m_Name: RangerMonster
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &999252550113127893
 Transform:
   m_ObjectHideFlags: 0
@@ -732,6 +735,7 @@ MonoBehaviour:
   deathClip: {fileID: 8300000, guid: 0124dc16674e046e8ac47e170e1473b1, type: 3}
   walkClip: {fileID: 8300000, guid: 044d4efb6dabe4f20b2bb0f5c1397616, type: 3}
   meleeAudioClip: {fileID: 0}
+  hitStunTime: 0.3
 --- !u!114 &4554314949068780710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,6 +806,32 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!143 &9004571906808666252
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4800409579581458399}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2.5
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &4824824580668905919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,6 +1747,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: -1206874426333947015, guid: 90eb490d583ea264da38d77de347a262,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1206874426333947015, guid: 90eb490d583ea264da38d77de347a262,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47bb0abc8a807423f830aee2f67694aa, type: 2}
     - target: {fileID: -980318418390082500, guid: 90eb490d583ea264da38d77de347a262,
         type: 3}
       propertyPath: m_Layer
@@ -2232,6 +2272,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 191018870938034876}
+    - targetCorrespondingSourceObject: {fileID: -4819223349682164798, guid: 90eb490d583ea264da38d77de347a262,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4170228264625231682}
   m_SourcePrefab: {fileID: 100100000, guid: 90eb490d583ea264da38d77de347a262, type: 3}
 --- !u!1 &142085079018158875 stripped
 GameObject:
@@ -3518,6 +3562,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 13866023592838964}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4409005303339674870 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4819223349682164798, guid: 90eb490d583ea264da38d77de347a262,
+    type: 3}
+  m_PrefabInstance: {fileID: 13866023592838964}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4170228264625231682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4409005303339674870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33922f745c1fc4a22adb8f1e74ddcab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinnedMeshRenderer: {fileID: 8030218343941037133}
+  dissolveDuration: 2
+  spawnDissolveDuration: 0.5
+  isDissolved: 0
 --- !u!4 &4427347446096996533 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4809745339694518399, guid: 90eb490d583ea264da38d77de347a262,
@@ -4025,6 +4091,12 @@ Transform:
 --- !u!4 &7936968997908118564 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1291261700004431088, guid: 90eb490d583ea264da38d77de347a262,
+    type: 3}
+  m_PrefabInstance: {fileID: 13866023592838964}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8030218343941037133 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1206874426333947015, guid: 90eb490d583ea264da38d77de347a262,
     type: 3}
   m_PrefabInstance: {fileID: 13866023592838964}
   m_PrefabAsset: {fileID: 0}

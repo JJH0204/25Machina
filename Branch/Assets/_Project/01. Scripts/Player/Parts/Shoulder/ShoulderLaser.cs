@@ -4,6 +4,7 @@ using UnityEngine;
 using Managers;
 using Cinemachine;
 using _Project._01._Scripts.Monster;
+using Monster.AI.FSM;
 
 public class ShoulderLaser : PartBaseShoulder
 {
@@ -56,6 +57,8 @@ public class ShoulderLaser : PartBaseShoulder
             _skillCoroutine = null;
         }
 
+        _damagedTargets.Clear();
+
         GUIManager.Instance.SetBackSkillIcon(false);
         GUIManager.Instance.SetBackSkillCooldown(0.0f);
         GUIManager.Instance.SetBackSkillCooldown(false);
@@ -80,6 +83,8 @@ public class ShoulderLaser : PartBaseShoulder
             StopCoroutine(_skillCoroutine);
             _skillCoroutine = null;
         }
+
+        _damagedTargets.Clear();
 
         if (Managers.GUIManager.IsAliveInstance())
         {
@@ -165,6 +170,9 @@ public class ShoulderLaser : PartBaseShoulder
             IDamagable enemy = collider.transform.GetComponent<IDamagable>();
             if (enemy != null)
             {
+                Transform otherParent = collider.transform;
+                if (_damagedTargets.Contains(otherParent)) continue;
+                _damagedTargets.Add(otherParent);
                 enemy.ApplyDamage(beamDamage * _timer * hitZoneValue, targetMask, _timer, 0.0f);
             }
             else
@@ -172,6 +180,9 @@ public class ShoulderLaser : PartBaseShoulder
                 enemy = collider.transform.GetComponentInParent<IDamagable>();
                 if (enemy != null)
                 {
+                    Transform otherParent = collider.transform.GetComponentInParent<FSM>().transform;
+                    if (_damagedTargets.Contains(otherParent)) continue;
+                    _damagedTargets.Add(otherParent);
                     enemy.ApplyDamage(beamDamage * _timer * hitZoneValue, targetMask, _timer, 0.0f);
                 }
             }
@@ -179,11 +190,15 @@ public class ShoulderLaser : PartBaseShoulder
             Utils.Destroy(Utils.Instantiate(bulletPrefab, collider.transform.position, Quaternion.identity), 0.1f);
         }
 
+        _damagedTargets.Clear();
+
         return origin + targetDirection * maxDistance;
     }
 
     void ShootBeamInDir(Vector3 start, Vector3 end)
     {
+        if (!line) return;
+
         line.positionCount = 2;
 
         line.SetPosition(0, start);
@@ -215,12 +230,12 @@ public class ShoulderLaser : PartBaseShoulder
         _owner.PlayerAnimator.SetBool("isPlayBackShootAnim", true);
         yield return new WaitForSeconds(0.5f);
 
-        _isShooting = true;
         _owner.SetPlayerState(EPlayerState.Skilling, true);
-        beamStart = Utils.Instantiate(beamStartPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        beamEnd = Utils.Instantiate(beamEndPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        beam = Utils.Instantiate(beamLineRendererPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        beamStart = Utils.Instantiate(beamStartPrefab, Vector3.zero, Quaternion.identity);
+        beamEnd = Utils.Instantiate(beamEndPrefab, Vector3.zero, Quaternion.identity);
+        beam = Instantiate(beamLineRendererPrefab, Vector3.zero, Quaternion.identity);
         line = beam.GetComponent<LineRenderer>();
+        _isShooting = true;
 
         ApplyLaserShake(1.5f);
 
@@ -230,7 +245,8 @@ public class ShoulderLaser : PartBaseShoulder
         _owner.SetPlayerState(EPlayerState.Skilling, false);
         Utils.Destroy(beamStart);
         Utils.Destroy(beamEnd);
-        Utils.Destroy(beam);
+        Destroy(beam);
+        line = null;
 
         ApplyLaserShake(0.0f);
 

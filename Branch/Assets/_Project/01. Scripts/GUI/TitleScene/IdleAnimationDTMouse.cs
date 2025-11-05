@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI; // UI.Image를 사용하기 위해 필요
 using DG.Tweening;   // DOTween을 사용하기 위해 필요
+using UnityEngine.InputSystem;  // New Input System을 사용하기 위해 필요
 
 namespace _Project.Scripts.GUI.TitleScene
 {
@@ -40,10 +41,11 @@ namespace _Project.Scripts.GUI.TitleScene
                 isRunning = true;
                 Init();
             }
-            
+
             // 3. 마우스 위치 계산 (화면 중앙 기준 -1.0 ~ +1.0 범위로 정규화)
-            float mouseX = (Input.mousePosition.x - (Screen.width / 2f)) / (Screen.width / 2f);
-            float mouseY = (Input.mousePosition.y - (Screen.height / 2f)) / (Screen.height / 2f);
+            Vector2 mousePos = Mouse.current.position.ReadValue();
+            float mouseX = (mousePos.x - (Screen.width / 2f)) / (Screen.width / 2f);
+            float mouseY = (mousePos.y - (Screen.height / 2f)) / (Screen.height / 2f);
             
             // 화면 밖으로 나가도 -1, 1을 넘지 않도록 고정
             mouseX = Mathf.Clamp(mouseX, -1f, 1f);

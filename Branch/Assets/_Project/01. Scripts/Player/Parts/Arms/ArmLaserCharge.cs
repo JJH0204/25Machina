@@ -37,6 +37,8 @@ public class ArmLaserCharge : PartBaseArm
     {
         GUIManager.Instance.SetAmmoColor(partType, Color.blue);
         Managers.GUIManager.Instance.SetAmmoColor(partType, false);
+
+        _damagedTargets.Clear();
     }
 
     protected override void Update()
@@ -88,11 +90,15 @@ public class ArmLaserCharge : PartBaseArm
     public override void UseAbility()
     {
         if (_currentAmmo <= 0) return;
+        if (!_isAnimating) return;
 
         base.UseAbility();
         if (chargeEffectPrefab)
         {
-            chargeEffect = Utils.Instantiate(chargeEffectPrefab, bulletSpawnPoint.position + chargeOffset, Quaternion.identity, bulletSpawnPoint);
+            if (!chargeEffect)
+            {
+                chargeEffect = Utils.Instantiate(chargeEffectPrefab, bulletSpawnPoint.position + chargeOffset, Quaternion.identity, bulletSpawnPoint);
+            }
         }
 
         if (_morphBlendRoutine != null)
@@ -105,6 +111,7 @@ public class ArmLaserCharge : PartBaseArm
     public override void UseCancleAbility()
     {
         if (!_isShooting || _currentAmmo <= 0) return;
+        if (!_isAnimating) return;
 
         base.UseCancleAbility();
         if (chargeEffect)
@@ -158,6 +165,9 @@ public class ArmLaserCharge : PartBaseArm
             smr.SetBlendShapeWeight(0, 0.0f);
             smr.SetBlendShapeWeight(1, 0.0f);
         }
+
+        _damagedTargets.Clear();
+        _isAnimating = true;
     }
 
     protected override void Shoot()
@@ -197,6 +207,7 @@ public class ArmLaserCharge : PartBaseArm
         Vector3 camShootDirection = (obstaclePoint - bulletSpawnPoint.position).normalized;
         currentLaser.transform.rotation = Quaternion.LookRotation(camShootDirection);
 
+        _isAnimating = false;
         if (fadeCoroutine != null)
         {
             StopCoroutine(fadeCoroutine);
@@ -239,12 +250,15 @@ public class ArmLaserCharge : PartBaseArm
             StopCoroutine(_morphBlendSecondRoutine);
         }
         _morphBlendSecondRoutine = StartCoroutine(CoMorphBlend(1, false));
+
+        _damagedTargets.Clear();
     }
 
     protected IEnumerator CoDestroyLaser()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(_owner.Stats.CombinedPartStats[partType][EStatType.IntervalBetweenShots].value);
 
+        _isAnimating = true;
         Utils.Destroy(currentLaserObject.gameObject);
         currentLaser = null;
         currentLaserObject = null;

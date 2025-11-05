@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -98,11 +97,45 @@ namespace Managers
 
         [Header("Notice UI")]
         [SerializeField] private GameObject redDot;
+        [SerializeField] private GameObject messageObject;
+        [SerializeField] private Image messageImage;
+        [SerializeField] private TextMeshProUGUI messageText;
+        private Coroutine _messageRoutine = null;
+        private Color _originalMessageColor;
+        private Color _originalMessageTextColor;
+
+        [Header("Map")]
+        [SerializeField] private GameObject worldMap;
+
+        [Header("Boss")]
+        [SerializeField] private TextMeshProUGUI bossNameText;
+        [SerializeField] private Slider bossHpBar;
+
+        [Header("Skill")]
+        [SerializeField] private GameObject rapidInfo;
 
         public GameObject HUD
         {
             get => GUI;
             set => GUI = value;
+        }
+
+        public GameObject RapidInfo
+        {
+            get => rapidInfo;
+            set => rapidInfo = value;
+        }
+
+        public GameObject WorldMap
+        {
+            get => worldMap;
+            set => worldMap = value;
+        }
+
+        public Image IndicatorUI
+        {
+            get => indicatorImage;
+            set => indicatorImage = value;
         }
 
         public GameObject InteractionUI
@@ -188,11 +221,28 @@ namespace Managers
             set => pauseUI = value;
         }
 
-        private void Start()
+        private void Awake()
         {
             for (int i = 0; i < setButtons.Count; ++i)
             {
                 _unlockSets.Add(false);
+            }
+        }
+
+        private void Start()
+        {
+            _originalMessageColor = messageImage.color;
+            _originalMessageTextColor = messageText.color;
+
+            if (!HelpUI.activeSelf)
+            {
+                HelpUI.SetActive(true);
+                HUD.SetActive(false);
+
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+
+                Time.timeScale = 0.0f;
             }
         }
 
@@ -316,6 +366,11 @@ namespace Managers
             backSkillCooldownText.text = cooldownTime.ToString("F0");
         }
 
+        public void SetLegsSkillTimer(Color color)
+        {
+            legsSkillCooldownText.color = color;
+        }
+
         public void ResetSkillCooldown()
         {
             SetLegsSkillIcon(false);
@@ -326,12 +381,24 @@ namespace Managers
 
         public void ToggleRadialUI(bool isOpen)
         {
+            var player = Managers.MonsterManager.Instance.Player.GetComponent<PlayerController>();
+
             if (isOpen)
             {
+                if (player)
+                {
+                    player.FollowCamera.OnUIOpen();
+                }
+
                 radialUI.gameObject.SetActive(true);
             }
             else
             {
+                if (player)
+                {
+                    player.FollowCamera.OnUIClose();
+                }
+
                 for (int i = 0; i < selectedCircles.Count; ++i)
                 {
                     selectedCircles[i].gameObject.SetActive(false);
@@ -518,18 +585,19 @@ namespace Managers
             // 인디케이터 켜는 소리 필요
             if (isActivate)
             {
-                if (_indicatorFadeRoutine != null)
-                {
-                    StopCoroutine(_indicatorFadeRoutine);
-                    _indicatorFadeRoutine = null;
-                }
+                //if (_indicatorFadeRoutine != null)
+                //{
+                //    StopCoroutine(_indicatorFadeRoutine);
+                //    _indicatorFadeRoutine = null;
+                //}
 
-                indicatorImage.color = Color.white;
+                //indicatorImage.color = Color.white;
                 indicator.IsOn = true;
             }
             else
             {
-                _indicatorFadeRoutine = StartCoroutine(CoFadeIndicator(0.5f));
+                //_indicatorFadeRoutine = StartCoroutine(CoFadeIndicator(0.5f));
+                indicator.IsOn = false;
             }
         }
 
@@ -684,6 +752,12 @@ namespace Managers
 
         public void Resume()
         {
+            var player = Managers.MonsterManager.Instance.Player.GetComponent<PlayerController>();
+            if (player)
+            {
+                player.FollowCamera.OnUIClose();
+            }
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
@@ -699,7 +773,154 @@ namespace Managers
 
         public void OpenKeyGuide()
         {
+            var player = Managers.MonsterManager.Instance.Player.GetComponent<PlayerController>();
+            if (player)
+            {
+                player.FollowCamera.OnUIOpen();
+            }
+
             Managers.GUIManager.Instance.HelpUI.SetActive(true);
+        }
+
+        public void ActivateMessage(string message, float activeTime = 5.0f)
+        {
+            if (_messageRoutine != null)
+            {
+                StopCoroutine(_messageRoutine);
+                _messageRoutine = null;
+
+                messageImage.color = new Color(_originalMessageColor.r, _originalMessageColor.g, _originalMessageColor.b, 0f);
+                messageText.color = new Color(_originalMessageTextColor.r, _originalMessageTextColor.g, _originalMessageTextColor.b, 0f);
+                messageObject.SetActive(false);
+            }
+
+            messageText.text = message;
+            _messageRoutine = StartCoroutine(CoActivateMessage(activeTime));
+        }
+
+        private IEnumerator CoActivateMessage(float activeTime)
+        {
+            Color startColor = _originalMessageColor;
+            startColor.a = 0.0f;
+
+            Color startTextColor = _originalMessageTextColor;
+            _originalMessageTextColor.a = 0.0f;
+            messageObject.SetActive(true);
+
+            // 1초 동안 alpha 증가 (페이드 인)
+            float fadeTime = 1.0f;
+            float elapsed = 0f;
+            while (elapsed < fadeTime)
+            {
+                elapsed += Time.deltaTime;
+                float alpha = Mathf.Lerp(0f, 1f, elapsed / fadeTime);
+                messageImage.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
+                messageText.color = new Color(startTextColor.r, startTextColor.g, startTextColor.b, alpha);
+                yield return null;
+            }
+            messageImage.color = new Color(startColor.r, startColor.g, startColor.b, 1f);
+            messageText.color = new Color(startTextColor.r, startTextColor.g, startTextColor.b, 1.0f);
+
+            // 활성화 상태 유지
+            yield return new WaitForSeconds(activeTime);
+
+            // 1초 동안 alpha 감소 (페이드 아웃)
+            elapsed = 0f;
+            while (elapsed < fadeTime)
+            {
+                elapsed += Time.deltaTime;
+                float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeTime);
+                messageImage.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
+                messageText.color = new Color(startTextColor.r, startTextColor.g, startTextColor.b, alpha);
+                yield return null;
+            }
+            messageImage.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
+            messageText.color = new Color(startTextColor.r, startTextColor.g, startTextColor.b, 0.0f);
+
+            messageObject.SetActive(false);
+
+            _messageRoutine = null;
+        }
+
+        public void ActivateWorldMap()
+        {
+            var player = Managers.MonsterManager.Instance.Player.GetComponent<PlayerController>();
+
+            if (worldMap.activeSelf)
+            {
+                if (player)
+                {
+                    player.FollowCamera.OnUIClose();
+                }
+
+                HUD.SetActive(true);
+                worldMap.SetActive(false);
+                Time.timeScale = 1.0f;
+            }
+            else
+            {
+                if (player)
+                {
+                    player.FollowCamera.OnUIOpen();
+                }
+
+                HUD.SetActive(false);
+                worldMap.SetActive(true);
+                Time.timeScale = 0.0f;
+            }
+        }
+
+        public void UpdateBossHpBar(string name, float currentHp, float maxHp)
+        {
+            if (!bossNameText.gameObject.activeSelf)
+            {
+                bossNameText.text = name;
+                bossNameText.gameObject.SetActive(true);
+            }
+
+            bossHpBar.value = currentHp / maxHp;
+
+            if (bossHpBar.value <= 0.0f)
+            {
+                bossNameText.gameObject.SetActive(false);
+            }
+        }
+
+        public void SetBossName(string name)
+        {
+            bossNameText.text = name;
+        }
+
+        public void UpdateBossHp(float currentHp, float maxHp)
+        {
+            bossHpBar.value = currentHp / maxHp;
+        }
+
+        public void ToggleBossHp(bool isOn)
+        {
+            if (isOn)
+            {
+                bossNameText.gameObject.SetActive(true);
+            }
+            else
+            {
+                bossNameText.gameObject.SetActive(false);
+            }
+        }
+
+        public void ChnagePartSet(int index)
+        {
+            if (index > 0 && !UnlockSets[index - 1]) return;
+
+            var player = Managers.MonsterManager.Instance.Player.GetComponent<PlayerController>();
+            if (player)
+            {
+                for (int i = 0; i < 4; ++i)
+                {
+                    player.SelectAndChangePart(i, index);
+                }
+            }
+            ToggleRadialUI(false);
         }
 
         #region Fade In/Out

@@ -307,4 +307,11 @@ public class ExcutionerFSM : FSM
     }
 
     #endregion
+
+    public override void ApplyDamage(float inDamage, LayerMask targetMask = default, float unitOfTime = 1, float defenceIgnoreRate = 0)
+    {
+        base.ApplyDamage(inDamage, targetMask, unitOfTime, defenceIgnoreRate);
+        
+        GUIManager.Instance.UpdateBossHpBar("엑시큐셔너 254", blackboard.CurrentHealth, blackboard.MaxHealth);
+    }
 }

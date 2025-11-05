@@ -961,6 +961,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8842956577993702690}
   - component: {fileID: 4744309342422794925}
+  - component: {fileID: 1086754600991846334}
   m_Layer: 19
   m_Name: FlyBody
   m_TagString: Enemy
@@ -1004,6 +1005,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: ddf113ac477f1d24d9fe1b8901457c5f, type: 2}
+  - {fileID: 2100000, guid: 133915ed205564b69b086aa3ad6338d0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1069,6 +1071,22 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.5397524, y: 0.07115245, z: -0.00000074505806}
     m_Extent: {x: 0.992202, y: 0.59812224, z: 0.7242805}
   m_DirtyAABB: 0
+--- !u!114 &1086754600991846334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860095655967366876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33922f745c1fc4a22adb8f1e74ddcab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinnedMeshRenderer: {fileID: 4744309342422794925}
+  dissolveDuration: 2
+  spawnDissolveDuration: 0.5
+  isDissolved: 0
 --- !u!1 &2084684086918689237
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,6 +1645,7 @@ MonoBehaviour:
   id: 1006
   navMeshAgent: {fileID: 8505424407308959700}
   agent: {fileID: 4661876719592889193}
+  characterController: {fileID: 0}
   animatorParameterSetter: {fileID: 6244172276215934021}
   target: {fileID: 0}
   deathEffect: {fileID: 1819483211991680436}
@@ -1634,6 +1653,7 @@ MonoBehaviour:
   - {fileID: 4658079295326541033}
   - {fileID: 5475897667114860484}
   ragdollController: {fileID: 7005824753446508947}
+  dissolve: {fileID: 1086754600991846334}
   patrolInfo:
     isPatrol: 0
     minPatrolTime: 0
@@ -3286,7 +3306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5801259387283069415
 Transform:
   m_ObjectHideFlags: 0

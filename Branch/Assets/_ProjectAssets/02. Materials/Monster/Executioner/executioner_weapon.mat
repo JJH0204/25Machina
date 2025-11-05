@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: executioner_weapon
-  m_Shader: {fileID: -6465566751694194690, guid: 3ed97c8a27e0564448c0ac2d8925af72,
+  m_Shader: {fileID: -6465566751694194690, guid: 3fd3d5fee60a349649513b37dfe50601,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -79,7 +79,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatcapTexture:
-        m_Texture: {fileID: 2800000, guid: afbfd167d7880b04899a442ed48c70b6, type: 3}
+        m_Texture: {fileID: 2800000, guid: e910c22d4fdd1af4b836d6da79a7e994, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -151,7 +151,7 @@ Material:
     - _DstBlendAlpha: 0
     - _EMISSION_WEIGHT: 1
     - _Emission: 1
-    - _EnableLighting: 1
+    - _EnableLighting: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -159,9 +159,9 @@ Material:
     - _METALNESS: 0
     - _MainColorPower: 0
     - _MatCap: 1
-    - _MatCapLighting: 1
+    - _MatCapLighting: 0
     - _MatCapShadowMask: 0
-    - _MatcapAlpha: 0.1
+    - _MatcapAlpha: 0.59
     - _MatcapBlur: 0
     - _MatcapShadowMask: 0
     - _Metallic: 0
@@ -177,11 +177,11 @@ Material:
     - _REFLECTIONS_WEIGHT: 1
     - _ReceiveShadows: 1
     - _RecieveShadow: 0
-    - _RimAlpha: 0.35
+    - _RimAlpha: 1
     - _RimLight: 1
     - _RimLightBackfaceMask: 0
-    - _RimLightShadowMask: 0.5
-    - _RimPower: 29.9
+    - _RimLightShadowMask: 0
+    - _RimPower: 5
     - _Shadow: 0
     - _ShadowBorder: 0.5
     - _ShodowIntensity: 1
@@ -194,7 +194,7 @@ Material:
     - _TRANSPARENCY: 0
     - _UVAnim: 0
     - _UVSec: 0
-    - _VisibleAmount: 0.5
+    - _VisibleAmount: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
@@ -208,10 +208,10 @@ Material:
     - _DissolveUVSpeed: {r: 1, g: 1, b: 0, a: 0}
     - _DissovleEdgeColor: {r: 1, g: 0, b: 0, a: 0}
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColor: {r: 3.5648699, g: 3.5648699, b: 3.5648699, a: 0}
+    - _EmissionColor: {r: 1.2850331, g: 1.2850331, b: 1.2850331, a: 0}
     - _FaceForwardDirection: {r: 0, g: 0, b: 1, a: 0}
     - _FaceRightDirection: {r: 1, g: 0, b: 0, a: 0}
     - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
-    - _RimColor: {r: 1, g: 0.3226415, b: 0.8747963, a: 0}
+    - _RimColor: {r: 0.024313703, g: 0, b: 0.12156863, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

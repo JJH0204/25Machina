@@ -33,6 +33,8 @@ public class ArmHeavyShotgun : PartBaseArm
         {
             _currentShootTime = (_owner.Stats.CombinedPartStats[partType][EStatType.IntervalBetweenShots].value);
         }
+
+        _damagedTargets.Clear();
     }
 
     protected override void Update()
@@ -83,6 +85,8 @@ public class ArmHeavyShotgun : PartBaseArm
             StopCoroutine(_soundRoutine);
             _soundRoutine = null;
         }
+
+        _damagedTargets.Clear();
     }
 
     protected override void Shoot()
@@ -143,6 +147,8 @@ public class ArmHeavyShotgun : PartBaseArm
             _isOverheat = true;
             GUIManager.Instance.SetAmmoColor(partType, true);
         }
+
+        _damagedTargets.Clear();
     }
 
     private Vector3 GetRandomConeDirection(Vector3 axis, float angle)

@@ -1,6 +1,7 @@
 using _Project._01._Scripts.Monster;
 using Monster;
 using Monster.AI;
+using Monster.AI.FSM;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ public abstract class PartBase : MonoBehaviour
 
     protected bool _isAnimating = true;
     protected bool _isZooming = true;
+    protected List<Transform> _damagedTargets = new();
 
     public EPartType PartType => partType;
     public EAttackType AttackType => attackType;
@@ -97,6 +99,9 @@ public abstract class PartBase : MonoBehaviour
         IDamagable monster = target.GetComponent<IDamagable>();
         if (monster != null)
         {
+            Transform otherParent = target.transform;
+            if (_damagedTargets.Contains(otherParent)) return;
+            _damagedTargets.Add(otherParent);
             monster.ApplyDamage((_owner.Stats.CombinedPartStats[partType][EStatType.Damage].value * coefficient * hitZoneValue), targetMask);
         }
         else
@@ -104,6 +109,9 @@ public abstract class PartBase : MonoBehaviour
             monster = target.transform.GetComponentInParent<IDamagable>();
             if (monster != null)
             {
+                Transform otherParent = target.transform.GetComponentInParent<FSM>().transform;
+                if (_damagedTargets.Contains(otherParent)) return;
+                _damagedTargets.Add(otherParent);
                 monster.ApplyDamage((_owner.Stats.CombinedPartStats[partType][EStatType.Damage].value * coefficient * hitZoneValue), targetMask);
             }
         }

@@ -542,6 +542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8141999157721786167}
   - component: {fileID: 8969946270419495231}
+  - component: {fileID: 7030370980317644726}
   m_Layer: 19
   m_Name: body
   m_TagString: Enemy
@@ -585,6 +586,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: fa690b1f640ee4bc6b691936d11284b8, type: 2}
+  - {fileID: 2100000, guid: 793e0dc4af7664f108415db9e6551fd2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -658,6 +660,22 @@ SkinnedMeshRenderer:
     m_Center: {x: -1.3513737, y: -0.031641245, z: 0.000004172325}
     m_Extent: {x: 2.6954174, y: 1.0387247, z: 3.8479161}
   m_DirtyAABB: 0
+--- !u!114 &7030370980317644726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593679187990380595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33922f745c1fc4a22adb8f1e74ddcab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinnedMeshRenderer: {fileID: 8969946270419495231}
+  dissolveDuration: 2
+  spawnDissolveDuration: 0.5
+  isDissolved: 0
 --- !u!1 &1845427683494664234
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,9 +1458,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2c89e2618e864ded9e0c66fd258c7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1004
+  id: 1011
   navMeshAgent: {fileID: 9217592334198567424}
   agent: {fileID: 6286681193180418720}
+  characterController: {fileID: 5927752548913885654}
   animatorParameterSetter: {fileID: 7451541218372005455}
   target: {fileID: 0}
   deathEffect: {fileID: 5047884406303276142}
@@ -1450,6 +1469,7 @@ MonoBehaviour:
   - {fileID: 6660527236076430513}
   - {fileID: 1338054135995684399}
   ragdollController: {fileID: 6023463154771921642}
+  dissolve: {fileID: 7030370980317644726}
   patrolInfo:
     isPatrol: 0
     minPatrolTime: 2
@@ -2541,13 +2561,14 @@ GameObject:
   - component: {fileID: 7451541218372005455}
   - component: {fileID: 5779031931549564723}
   - component: {fileID: 9217592334198567424}
+  - component: {fileID: 5927752548913885654}
   m_Layer: 19
   m_Name: Mini_Ralph
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2962799710447328152
 Transform:
   m_ObjectHideFlags: 0
@@ -2590,6 +2611,7 @@ MonoBehaviour:
   deathClip: {fileID: 8300000, guid: 5f232b086921f48889d8f3cb697e9e5b, type: 3}
   walkClip: {fileID: 8300000, guid: 7cde35bc2bf0b40639c4cf9e629f1270, type: 3}
   meleeAudioClip: {fileID: 8300000, guid: 0170f341905c14d02893a346cec40c9b, type: 3}
+  hitStunTime: 0.3
 --- !u!114 &8630640425078239174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2662,6 +2684,32 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!143 &5927752548913885654
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286681193180418720}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 4.09
+  m_Radius: 1.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &6344428284890451074
 GameObject:
   m_ObjectHideFlags: 0
@@ -4279,32 +4327,32 @@ PrefabInstance:
     - target: {fileID: 4730290345464178581, guid: 4814d64383a0a478090086f3fb9e470e,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4730290345464178581, guid: 4814d64383a0a478090086f3fb9e470e,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4730290345464178581, guid: 4814d64383a0a478090086f3fb9e470e,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7089413377233125893, guid: 4814d64383a0a478090086f3fb9e470e,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.5001464
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7089413377233125893, guid: 4814d64383a0a478090086f3fb9e470e,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.5001457
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7089413377233125893, guid: 4814d64383a0a478090086f3fb9e470e,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.5001457
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7089413377233125893, guid: 4814d64383a0a478090086f3fb9e470e,
         type: 3}

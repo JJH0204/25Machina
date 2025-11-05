@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 432262}
   - component: {fileID: 10862694}
   - component: {fileID: 6659795062125610906}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 447816}
   - component: {fileID: 19825952}
   - component: {fileID: 19962420}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: LaserTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4868,7 +4868,7 @@ GameObject:
   - component: {fileID: -7477289806948060389}
   - component: {fileID: -8192409540983828068}
   - component: {fileID: 1083972140838546779}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Vfx_Bullet_Rapid
   m_TagString: Bullet
   m_Icon: {fileID: 0}

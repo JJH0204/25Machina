@@ -14,6 +14,9 @@ public class ShoulderHeavy : PartBaseShoulder
     private Coroutine _skillCoroutine = null;
     protected Coroutine _morphBlendRoutine = null;
 
+    [SerializeField] protected float damage = 200.0f;
+    [SerializeField] protected float cooldown = 15.0f;
+
     [SerializeField] protected List<CinemachineVirtualCamera> cutsceneCams = new();
     protected CinemachineBrain brain;
     protected CinemachineBlendDefinition defaultBlend;
@@ -142,7 +145,7 @@ public class ShoulderHeavy : PartBaseShoulder
         _owner.SetMovable(false);
         LookCameraDirection();
 
-        Vector3 spawnPoint = transform.position + _owner.transform.forward + Vector3.up * 2.5f;
+        Vector3 spawnPoint = transform.position + _owner.transform.forward + Vector3.up * 2.0f;
         Vector3 targetPoint = GetTargetPoint(out RaycastHit hit);
         Vector3 camShootDirection = (targetPoint - spawnPoint);
         camShootDirection.y = 0.0f;
@@ -180,7 +183,8 @@ public class ShoulderHeavy : PartBaseShoulder
         Bullet orbComp = orb.GetComponent<Bullet>();
         if (orbComp != null)
         {
-            orbComp.Init(_owner.gameObject, null, spawnPoint, Vector3.zero, camShootDirection, 200.0f);
+            orbComp.Parent = transform;
+            orbComp.Init(_owner.gameObject, null, spawnPoint, Vector3.zero, camShootDirection, damage);
         }
 
         yield return new WaitForSeconds(0.4f);
@@ -199,7 +203,7 @@ public class ShoulderHeavy : PartBaseShoulder
         brain.m_DefaultBlend = defaultBlend;
         cutsceneCams[0].m_Priority = 10;
 
-        float time = 5.0f;
+        float time = cooldown;
         GUIManager.Instance.SetBackSkillCooldown(true);
         GUIManager.Instance.SetBackSkillCooldown(time);
         while (true)

@@ -2343,6 +2343,9 @@
             "m_Id": "580d4c151ef44aa29c83a053931c37ae"
         },
         {
+            "m_Id": "0b67e591257b486087002204d864aea2"
+        },
+        {
             "m_Id": "0b1d31c42c504e0cb964e0ef3ba47159"
         },
         {
@@ -2380,7 +2383,8 @@
         "97628688-ce0e-4bef-9ce8-0b1c19a21f96",
         "0b86c88c-fd32-4982-a127-3bad1c78c809",
         "2cb3bdc1-dfc8-47eb-b6e4-a24841d05ca0",
-        "1ad7c27d-7e98-4d0c-b8be-e59f6488f647"
+        "1ad7c27d-7e98-4d0c-b8be-e59f6488f647",
+        "8d200456-1b83-4e8d-bf08-6a40076d7147"
     ],
     "m_PropertyIds": [
         -1587262157,
@@ -2389,7 +2393,8 @@
         1452868099,
         -419993085,
         -2086250754,
-        -1882682823
+        -1882682823,
+        -994674067
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
@@ -2493,6 +2498,24 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Texture2DInputMaterialSlot",
+    "m_ObjectId": "0b67e591257b486087002204d864aea2",
+    "m_Id": -994674067,
+    "m_DisplayName": "GradientTexture",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_GradientTexture",
+    "m_StageCapability": 2,
+    "m_BareResource": false,
+    "m_Texture": {
+        "m_SerializedTexture": "",
+        "m_Guid": ""
+    },
+    "m_DefaultType": 0
 }
 
 {
@@ -5881,7 +5904,7 @@
     "m_Title": "Normal Map",
     "m_Position": {
         "x": -4401.0,
-        "y": -121.0
+        "y": -120.99971771240235
     }
 }
 
@@ -9904,7 +9927,7 @@
     "m_Title": "RimLight",
     "m_Position": {
         "x": -2892.0,
-        "y": -1812.0
+        "y": -1812.000244140625
     }
 }
 
@@ -10413,8 +10436,8 @@
     "m_ObjectId": "ba5711a5b80b44efb4301e0c2bbc03b7",
     "m_Title": "MatCap (Blend Mode)",
     "m_Position": {
-        "x": 2156.0,
-        "y": -24.0
+        "x": 2156.00048828125,
+        "y": -23.999958038330079
     }
 }
 
@@ -12017,7 +12040,7 @@
     "m_Title": "Base Map",
     "m_Position": {
         "x": -2911.0,
-        "y": -3.0
+        "y": -2.9997177124023439
     }
 }
 
@@ -13125,7 +13148,7 @@
     "m_Title": "Matcap",
     "m_Position": {
         "x": -1611.0,
-        "y": -12.0
+        "y": -11.999713897705079
     }
 }
 

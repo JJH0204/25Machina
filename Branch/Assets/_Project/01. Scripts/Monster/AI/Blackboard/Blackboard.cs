@@ -21,13 +21,13 @@ namespace Monster.AI.Blackboard
         [Header("Dependency")] // 의존성 주입
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private GameObject agent;          // AI 에이전트 (몬스터)
-        // [SerializeField] private Collider agentCollider;
-        // [SerializeField] private Rigidbody agentRigidbody;
+        [SerializeField] private CharacterController characterController;
         [SerializeField] private AnimatorParameterSetter animatorParameterSetter;
         [SerializeField] private GameObject target;
         [SerializeField] private GameObject deathEffect;    // 몬스터 사망 이펙트 프리팹
         [SerializeField] private GameObject[] hitEffects;   // 몬스터 피격 이펙트 프리팹들
         [SerializeField] private RagdollController ragdollController;
+        [SerializeField] private MonsterDissolve dissolve; // 몬스터 디졸브 스크립트
         
         [SerializeField] private MonsterPatrol patrolInfo; // 몬스터 순찰 스크립트
         [SerializeField] private MonsterWander wanderInfo; // 몬스터 방황 스크립트
@@ -71,17 +71,11 @@ namespace Monster.AI.Blackboard
             set => agent = value;
         }
         
-        // public Collider AgentCollider
-        // {
-        //     get => agentCollider;
-        //     set => agentCollider = value;
-        // }
-        //
-        // public Rigidbody AgentRigidbody
-        // {
-        //     get => agentRigidbody;
-        //     set => agentRigidbody = value;
-        // }
+        public CharacterController CharacterController
+        {
+            get => characterController;
+            set => characterController = value;
+        }
         
         public AnimatorParameterSetter AnimatorParameterSetter
         {
@@ -106,6 +100,8 @@ namespace Monster.AI.Blackboard
             get => hitEffects;
             set => hitEffects = value;
         }
+        
+        public MonsterDissolve Dissolve => dissolve;
         
         public MonsterPatrol PatrolInfo
         {
@@ -253,6 +249,7 @@ namespace Monster.AI.Blackboard
             NavMeshAgent.ResetPath();
             CurrentHealth = MaxHealth;
             State.SetState("Spawn");
+            Dissolve?.Init();
             Target = MonsterManager.Instance.Player;
         }
 

@@ -5,6 +5,7 @@ using Monster.AI;
 using Managers;
 using _Project._01._Scripts.Monster;
 using Cinemachine;
+using Monster.AI.FSM;
 
 public class LegsEnhanced : PartBaseLegs
 {
@@ -23,7 +24,6 @@ public class LegsEnhanced : PartBaseLegs
     private bool _isCooldown = false;
     private float _currentCooldownTime = 0.0f;
     private bool _isAttack = false;
-    protected List<Transform> _damagedTargets = new();
     protected CinemachineImpulseSource source;
     protected AudioSource _audioSource;
 
@@ -61,10 +61,7 @@ public class LegsEnhanced : PartBaseLegs
             _isCooldown = false;
             _isAttack = false;
 
-            for (int i = 0; i < _damagedTargets.Count; ++i)
-            {
-                _damagedTargets[i] = null;
-            }
+            _damagedTargets.Clear();
 
             if (_skillCoroutine != null)
             {
@@ -76,6 +73,9 @@ public class LegsEnhanced : PartBaseLegs
             GUIManager.Instance.SetLegsSkillCooldown(0.0f);
             GUIManager.Instance.SetLegsSkillCooldown(false);
         }
+
+        GUIManager.Instance.SetLegsSkillTimer(Color.white);
+        GUIManager.Instance.RapidInfo.SetActive(false);
 
         _audioSource.volume = 0.0f;
         _audioSource.Play();
@@ -92,10 +92,7 @@ public class LegsEnhanced : PartBaseLegs
             _isCooldown = false;
             _isAttack = false;
 
-            for (int i = 0; i < _damagedTargets.Count; ++i)
-            {
-                _damagedTargets[i] = null;
-            }
+            _damagedTargets.Clear();
 
             if (_skillCoroutine != null)
             {
@@ -137,9 +134,10 @@ public class LegsEnhanced : PartBaseLegs
         if (_currentCooldownTime > 0.0f || _isCooldown) return;
 
         // 점프 연출 이후 실행
-        Utils.Instantiate(jumpEffectPrefab, _owner.transform.position + Vector3.up * 2.0f, Quaternion.Euler(new Vector3(90.0f, 0.0f, 0.0f)));
+        Utils.Destroy(
+            Utils.Instantiate(jumpEffectPrefab, _owner.transform.position + Vector3.up * 2.0f, Quaternion.Euler(new Vector3(90.0f, 0.0f, 0.0f))), 1.0f);
 
-        GameObject go = Utils.Instantiate(RapidPlayerPrefab, _owner.transform.position, Quaternion.Euler(new Vector3(-90.0f, 0.0f, 0.0f)));
+        GameObject go = Utils.Instantiate(RapidPlayerPrefab, _owner.transform.position, _owner.transform.rotation);
         RapidPlayer rapidPlayer = go.GetComponent<RapidPlayer>();
         if (rapidPlayer != null)
         {
@@ -159,7 +157,7 @@ public class LegsEnhanced : PartBaseLegs
             Utils.Destroy(Utils.Instantiate(landingEffectPrefab, _owner.transform.position, Quaternion.identity), 0.5f);
             _owner.FollowCamera.ApplyShake(source);
 
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, skillRange);
+            Collider[] hitColliders = Physics.OverlapSphere(_owner.transform.position, skillRange, targetMask);
             foreach (Collider hit in hitColliders)
             {
                 float hitZoneValue = 1.0f;
@@ -172,23 +170,27 @@ public class LegsEnhanced : PartBaseLegs
                 IDamagable monster = hit.transform.GetComponent<IDamagable>();
                 if (monster != null)
                 {
-                    Transform otherParent = GetTopParent(hit.gameObject).transform;
-                    if (_damagedTargets.Contains(otherParent)) return;
+                    Transform otherParent = hit.transform;
+                    if (_damagedTargets.Contains(otherParent)) continue;
                     _damagedTargets.Add(otherParent);
                     monster.ApplyDamage(skillDamage * hitZoneValue, targetMask);
+                    Debug.LogError("원본 데미지: " + skillDamage + ", 육질 데미지: " + skillDamage * hitZoneValue);
                 }
                 else
                 {
                     monster = hit.transform.GetComponentInParent<IDamagable>();
                     if (monster != null)
                     {
-                        Transform otherParent = GetTopParent(hit.gameObject).transform;
-                        if (_damagedTargets.Contains(otherParent)) return;
+                        Transform otherParent = hit.transform.GetComponentInParent<FSM>().transform;
+                        if (_damagedTargets.Contains(otherParent)) continue;
                         _damagedTargets.Add(otherParent);
                         monster.ApplyDamage(skillDamage * hitZoneValue, targetMask);
+                        Debug.LogError("원본 데미지: " + skillDamage + ", 육질 데미지: " + skillDamage * hitZoneValue);
                     }
                 }
             }
+
+            _damagedTargets.Clear();
         }
     }
 

@@ -63,9 +63,4 @@ public class RagdollController : MonoBehaviour
             r.AddForce(force, forceMode);
         }
     }
-
-    // private void Update()
-    // {
-    //     SetRagdollState(isRagdollActive);
-    // }
 }

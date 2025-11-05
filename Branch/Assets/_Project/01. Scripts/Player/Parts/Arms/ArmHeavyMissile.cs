@@ -86,6 +86,7 @@ public class ArmHeavyMissile : PartBaseArm
         Bullet bulletComp = bullet.GetComponent<Bullet>();
         if (bulletComp != null)
         {
+            bulletComp.Parent = bulletSpawnPoint;
             bulletComp.Init(_owner.gameObject, _currentTarget, bulletSpawnPoint.position, randomizedTargetPoint, randomDir,
                 (int)_owner.Stats.CombinedPartStats[partType][EStatType.Damage].value);
         }

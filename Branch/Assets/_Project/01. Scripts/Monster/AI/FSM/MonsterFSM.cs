@@ -4,6 +4,7 @@ using Monster.AI.Blackboard;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Serialization;
 
 namespace Monster.AI.FSM
@@ -18,7 +19,10 @@ namespace Monster.AI.FSM
         [SerializeField] private AudioClip deathClip;
         [SerializeField] private AudioClip walkClip;
         [SerializeField] private AudioClip meleeAudioClip;
-        
+
+        [Header("경직 시간")]
+        [SerializeField] private float hitStunTime = 0.5f;
+
         #region private Fields
         
         // 상태별 로직에 필요한 내부 변수들
@@ -28,6 +32,8 @@ namespace Monster.AI.FSM
 
         // private AmonMeleeCollision _amonMeleeCollision;
         private AmonMeleeCollision _meleeCollision;
+        // private bool _isHit;
+
         #endregion
 
         #region Core FSM Methods: Think & Act (Overrided)
@@ -51,6 +57,11 @@ namespace Monster.AI.FSM
             {
                 ChangeState("Death");
                 return;
+            }
+            
+            if (blackboard.State.GetStates() == "Hit")
+            {
+                return; // 피격 상태에서는 판단을 하지 않음
             }
             
             // 전투 상태 일 때 상태 변경 체크
@@ -145,6 +156,9 @@ namespace Monster.AI.FSM
                 case "Attack":
                     ActAttack();
                     break;
+                case "Hit":
+                    ActHit();
+                    break;
             }
         }
 
@@ -178,17 +192,22 @@ namespace Monster.AI.FSM
                 case "Attack":
                     blackboard.NavMeshAgent.isStopped = true;
                     break;
+                case "Hit":
+                    blackboard.NavMeshAgent.isStopped = true;
+                    blackboard.NavMeshAgent.ResetPath();
+                    break;
             }
         }
         
         #endregion
 
-        #region State Actions (Act에서 호출되는 행동 함수들)
+        #region State Actions
         
         private void ActSpawn()
         {
             // 스폰 사운드 클립 재생
             audioSource.PlayOneShot(spawnClip);
+            blackboard.Dissolve?.StartDissolve(true);
             ChangeState("Idle");
         }
         
@@ -232,6 +251,8 @@ namespace Monster.AI.FSM
             audioSource.PlayOneShot(deathClip);
             if (blackboard.LegAnimator) blackboard.LegAnimator.enabled = false;
             blackboard.RagdollController.ActivateRagdoll();
+            
+            blackboard.Dissolve?.StartDissolve(false);
             
             StartCoroutine(PoolReleaseAfterDeathEffect());
         }
@@ -291,11 +312,9 @@ namespace Monster.AI.FSM
 
         private IEnumerator PoolReleaseAfterDeathEffect()
         {
-            yield return new WaitForSeconds(10f);
+            while (!blackboard.Dissolve.isDissolved) yield return null;
             ResetForPool();
-            // gameObject.SetActive(false);
             PoolManager.Instance.ReleaseObject(gameObject);
-            // gameObject.SetActive(true);
         }
 
         private void ActPatrol()
@@ -311,15 +330,45 @@ namespace Monster.AI.FSM
 
         private void ActChase()
         {
-            if (_isDeath)  return;
-            // 추격 상태의 행동: 매 프레임 타겟의 위치로 목적지를 갱신합니다.
-            blackboard.NavMeshAgent.SetDestination(blackboard.Target.transform.position);
+            if (_isDeath) return;
+            if (blackboard.Target is null) return;
             
-            var distance = Vector3.Distance(transform.position, blackboard.Target.transform.position);
-            if (distance <= blackboard.MinDetectionRange)
+            // 추격 상태의 행동: 매 프레임 타겟의 위치로 목적지를 갱신합니다.
+            var agent = blackboard.NavMeshAgent;
+            agent.SetDestination(blackboard.Target.transform.position);
+            agent.speed = blackboard.RunSpeed;
+            
+            // 주변 동료와 겹침을 피하기 위한 간단한 분리(separation) 처리
+            float separationRadius = Mathf.Max(agent.radius * 2f, 1f);
+            int enemyLayerMask = LayerMask.GetMask("Enemy");
+            Vector3 separation = Vector3.zero;
+            int neighbors = 0;
+            
+            Collider[] hits = new Collider[16];
+            int hitCount = Physics.OverlapSphereNonAlloc(agent.transform.position, separationRadius, hits, enemyLayerMask, QueryTriggerInteraction.Ignore);
+            for (int i = 0; i < hitCount; i++)
             {
-                blackboard.AnimatorParameterSetter.Animator.SetBool("IsRun", false);
+                var hit = hits[i];
+                if (hit == null || hit.gameObject == gameObject) continue;
+                Vector3 toSelf = agent.transform.position - hit.transform.position;
+                float distSqr = toSelf.sqrMagnitude;
+                if (distSqr > 1e-6f)
+                {
+                    separation += toSelf / distSqr; // 거리가 가까울수록 더 강하게 밀어냄
+                    neighbors++;
+                }
             }
+            
+            if (neighbors > 0)
+            {
+                separation /= neighbors;
+                float separationStrength = agent.radius * 1.2f;
+                Vector3 adjustedTarget = blackboard.Target.transform.position + separation.normalized * separationStrength;
+                agent.SetDestination(adjustedTarget);
+            }
+            
+            // NavMeshAgent가 위치 업데이트를 처리하도록 유지 (CharacterController와 중복 이동 제거)
+            agent.updatePosition = true;
         }
 
         private void ActAttack()
@@ -331,6 +380,45 @@ namespace Monster.AI.FSM
             transform.LookAt(blackboard.Target.transform);
             
             _useSkill.Execute(blackboard);
+        }
+
+        protected override void ActHit()
+        {
+            base.ActHit();
+            
+            if (blackboard != null)
+            {
+                try
+                {
+                    // 사용 중인 스킬 코루틴 정지
+                    foreach(var skill in blackboard.Skills)
+                    {
+                        StopCoroutine(skill.CUseSkill);
+                    }
+                } catch { }
+            
+                if (blackboard.AnimatorParameterSetter?.Animator != null)
+                {
+                    Animator animator = blackboard.AnimatorParameterSetter.Animator;
+                    // 초기 애니메이션 플래그 재설정
+                    InitAnimationFlags();
+                    
+                    animator.Rebind();
+                    animator.Update(0f);
+                }
+            
+                _useSkill = null;
+            }
+
+            DelAmonMeleeCollision();
+            
+            StartCoroutine(AfterHitEffect());
+        }
+
+        private IEnumerator AfterHitEffect()
+        {
+            yield return new WaitForSeconds(hitStunTime);
+            ChangeState("Idle");
         }
 
         #endregion

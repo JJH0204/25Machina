@@ -358,7 +358,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
             if (weapon && (weapon.IsOverheat || !weapon.IsAnimating)) return;
 
             _currentPlayerState |= EPlayerState.LeftShooting;
-            Shoot();
+            Shoot(true);
         }
 
         if (context.canceled)
@@ -377,7 +377,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
             if (weapon && (weapon.IsOverheat || !weapon.IsAnimating)) return;
 
             _currentPlayerState |= EPlayerState.RightShooting;
-            Shoot();
+            Shoot(false);
         }
 
         if (context.canceled)
@@ -401,6 +401,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
         // 특정 상황에서 키 입력이 불가능하도록 설정
         if ((_currentPlayerState & partChangeBlockMask) != 0) return;
         if (Managers.GUIManager.Instance.HelpUI.activeSelf) return;
+        if (Managers.GUIManager.Instance.WorldMap.activeSelf) return;
         if (Managers.GUIManager.Instance.PauseUI.activeSelf) return;
 
         if (context.started)
@@ -423,6 +424,20 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
         {
             if (!Managers.GUIManager.Instance.RadialUI.activeSelf) return;
             CloseRadialUI();
+        }
+    }
+
+    void PlayerActions.IPlayerActionMapActions.OnBaseSet(InputAction.CallbackContext context)
+    {
+        if (!Managers.GUIManager.Instance.RadialUI.activeSelf) return;
+
+        if (context.started)
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                SelectAndChangePart(i, 0);
+            }
+            Managers.GUIManager.Instance.ToggleRadialUI(false);
         }
     }
 
@@ -475,20 +490,28 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
     {
         if (context.started)
         {
-            Managers.GUIManager.Instance.SetIndicator(true);
-
-            if (_indicatorRoutine != null)
+            if (Managers.GUIManager.Instance.IndicatorUI.gameObject.activeSelf)
             {
-                StopCoroutine(_indicatorRoutine);
-                _indicatorRoutine = null;
+                Managers.GUIManager.Instance.SetIndicator(false);
             }
-            _indicatorRoutine = StartCoroutine(CoStartIndicatorTimer(5.0f));
+            else
+            {
+                Managers.GUIManager.Instance.SetIndicator(true);
+            }
+
+            //if (_indicatorRoutine != null)
+            //{
+            //    StopCoroutine(_indicatorRoutine);
+            //    _indicatorRoutine = null;
+            //}
+            //_indicatorRoutine = StartCoroutine(CoStartIndicatorTimer(5.0f));
         }
     }
 
     void PlayerActions.IPlayerActionMapActions.OnHelp(InputAction.CallbackContext context)
     {
         if (Managers.GUIManager.Instance.RadialUI.activeSelf) return;
+        if (Managers.GUIManager.Instance.WorldMap.activeSelf) return;
 
         if (context.started)
         {
@@ -496,6 +519,8 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
 
             if (!Managers.GUIManager.Instance.HelpUI.activeSelf)
             {
+                _followCamera.OnUIOpen();
+
                 Managers.GUIManager.Instance.HelpUI.SetActive(true);
                 Managers.GUIManager.Instance.HUD.SetActive(false);
                 Time.timeScale = 0.0f;
@@ -506,6 +531,40 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
 
                 if (!Managers.GUIManager.Instance.PauseUI.activeSelf)
                 {
+                    _followCamera.OnUIClose();
+
+                    Managers.GUIManager.Instance.HUD.SetActive(true);
+                    Time.timeScale = 1.0f;
+                }
+            }
+        }
+    }
+
+    void PlayerActions.IPlayerActionMapActions.OnMap(InputAction.CallbackContext context)
+    {
+        if (Managers.GUIManager.Instance.RadialUI.activeSelf) return;
+        if (Managers.GUIManager.Instance.HelpUI.activeSelf) return;
+
+        if (context.started)
+        {
+            if (Managers.GUIManager.Instance.PauseUI.activeSelf && !Managers.GUIManager.Instance.WorldMap.activeSelf) return;
+
+            if (!Managers.GUIManager.Instance.WorldMap.activeSelf)
+            {
+                _followCamera.OnUIOpen();
+
+                Managers.GUIManager.Instance.WorldMap.SetActive(true);
+                Managers.GUIManager.Instance.HUD.SetActive(false);
+                Time.timeScale = 0.0f;
+            }
+            else
+            {
+                Managers.GUIManager.Instance.WorldMap.SetActive(false);
+
+                if (!Managers.GUIManager.Instance.PauseUI.activeSelf)
+                {
+                    _followCamera.OnUIClose();
+
                     Managers.GUIManager.Instance.HUD.SetActive(true);
                     Time.timeScale = 1.0f;
                 }
@@ -526,6 +585,26 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
 
                 if (!Managers.GUIManager.Instance.PauseUI.activeSelf)
                 {
+                    _followCamera.OnUIClose();
+
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    Managers.GUIManager.Instance.HUD.SetActive(true);
+                    Time.timeScale = 1.0f;
+                }
+
+                return;
+            }
+
+            if (Managers.GUIManager.Instance.WorldMap.activeSelf)
+            {
+                Managers.GUIManager.Instance.WorldMap.SetActive(false);
+                Managers.GUIManager.Instance.HUD.SetActive(true);
+
+                if (!Managers.GUIManager.Instance.PauseUI.activeSelf)
+                {
+                    _followCamera.OnUIClose();
+
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     Managers.GUIManager.Instance.HUD.SetActive(true);
@@ -537,6 +616,8 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
 
             if (!Managers.GUIManager.Instance.PauseUI.activeSelf)
             {
+                _followCamera.OnUIOpen();
+
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
 
@@ -546,6 +627,8 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
             }
             else
             {
+                _followCamera.OnUIClose();
+
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 
@@ -554,6 +637,11 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
                 Time.timeScale = 1.0f;
             }
         }
+    }
+
+    void PlayerActions.IPlayerActionMapActions.OnLook(InputAction.CallbackContext context)
+    {
+        
     }
 
     // 우클릭을 통해 사격을 위한 줌을 준비하는 기능
@@ -752,12 +840,12 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
         _currentPlayerState &= ~EPlayerState.Dashing;
         if ((_currentPlayerState & EPlayerState.LeftShooting) != 0)
         {
-            Shoot();
+            Shoot(true);
         }
             
         if ((_currentPlayerState & EPlayerState.RightShooting) != 0)
         {
-            Shoot();
+            Shoot(false);
         }
 
         animator.SetBool("isDashing", false);
@@ -793,9 +881,11 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
 
         if ((_currentPlayerState & EPlayerState.ShootState) == 0)
         {
-            SetOvrrideAnimator(_currentAnimType);
             Stats.RemoveModifier(this);
             _followCamera.CurrentCameraState = (ECameraState)(_currentAnimType);
+
+            if (inventory.EquippedItems[EPartType.ArmL][0] is ArmBasic && isLeft) return;
+            SetOvrrideAnimator(_currentAnimType);
         }
     }
 
@@ -881,6 +971,11 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
         }
 
         stats.CurrentHealth = Mathf.Clamp(stats.CurrentHealth + amount, 0.0f, stats.MaxHealth);
+
+        if ((stats.CurrentHealth / stats.MaxHealth) >= 0.25f && lowHp.gameObject.activeSelf)
+        {
+            lowHp.gameObject.SetActive(false);
+        }
     }
 
     public bool SetOvrrideAnimator(EAnimationType type)
@@ -922,6 +1017,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
     public bool SetOvrrideAnimator()
     {
         // 기본 팔 파츠일 경우 애니메이션 전환 X
+        if (inventory.EquippedItems[EPartType.ArmL][0] is ArmBasic) return false;
 
         animator.runtimeAnimatorController = animations[(int)_shootAnimType].overrideController;
         animator.SetBool("isOnlyLoop", animations[(int)_shootAnimType].isOnlyLoop);
@@ -1193,7 +1289,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
         }
     }
 
-    private void Shoot()
+    private void Shoot(bool isLeft)
     {
         if ((_currentPlayerState & shootBlockMask) != 0) return;
         _currentPlayerState |= EPlayerState.Rotating;
@@ -1208,7 +1304,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
             stats.AddModifier(new StatModifier(EStatType.WalkSpeed, EStackType.PercentMul, -0.3f, this));
         }
 
-        if ((_currentPlayerState & EPlayerState.LeftShooting) != 0)
+        if ((_currentPlayerState & EPlayerState.LeftShooting) != 0 && isLeft)
         {
             if (inventory.EquippedItems[EPartType.ArmL][0].IsZooming)
             {
@@ -1221,7 +1317,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
             }
         }
 
-        if ((_currentPlayerState & EPlayerState.RightShooting) != 0)
+        if ((_currentPlayerState & EPlayerState.RightShooting) != 0 && !isLeft)
         {
             if (inventory.EquippedItems[EPartType.ArmR][0].IsZooming)
             {

@@ -31,8 +31,8 @@ MonoBehaviour:
   softZoneHeight: 0
   softZoneOffsetX: 0
   softZoneOffsetY: 0
-  sensitivityX: 1.5
-  sensitivityY: 0.5
+  sensitivityX: 0.15
+  sensitivityY: 0.05
   maxAimRangeX: 180
   minAimRangeX: -180
   maxAimRangeY: 70

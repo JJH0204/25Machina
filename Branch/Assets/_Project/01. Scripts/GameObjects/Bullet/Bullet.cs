@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 using Monster.AI;
 using Managers;
 using _Project._01._Scripts.Monster;
+using Monster.AI.FSM;
 
 public class Bullet : MonoBehaviour
 {
@@ -170,7 +171,7 @@ public class Bullet : MonoBehaviour
         }
 
         // 벽(또는 기타 오브젝트)에 닿은 경우
-        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))
+        if (collision.gameObject && (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle") || collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("Breakable")))
         {
             ImpactObstacle(collision);
             return;
@@ -194,7 +195,15 @@ public class Bullet : MonoBehaviour
         if (muzzleParticlePrefab)
         {
             // 필요할 경우 Pooling
-            muzzleParticle = Utils.Instantiate(muzzleParticlePrefab, transform.position, Quaternion.LookRotation(-_targetDirection), Parent);
+            if (_parent)
+            {
+                muzzleParticle = Utils.Instantiate(muzzleParticlePrefab, _parent.position, Quaternion.LookRotation(-_targetDirection), Parent);
+            }
+            else
+            {
+                muzzleParticle = Utils.Instantiate(muzzleParticlePrefab, transform.position, Quaternion.LookRotation(-_targetDirection));
+            }
+
             Utils.Destroy(muzzleParticle, 1.0f); // Lifetime of muzzle effect.
         }
     }
@@ -353,7 +362,7 @@ public class Bullet : MonoBehaviour
         IDamagable enemy = target.GetComponent<IDamagable>();
         if (enemy != null)
         {
-            Transform otherParent = GetTopParent(target.gameObject).transform;
+            Transform otherParent = target.transform;
             if (_damagedTargets.Contains(otherParent)) return;
             _damagedTargets.Add(otherParent);
 
@@ -367,7 +376,7 @@ public class Bullet : MonoBehaviour
             enemy = target.transform.GetComponentInParent<IDamagable>();
             if (enemy != null)
             {
-                Transform otherParent = GetTopParent(target.gameObject).transform;
+                Transform otherParent = target.transform.GetComponentInParent<FSM>().transform;
                 if (_damagedTargets.Contains(otherParent)) return;
                 _damagedTargets.Add(otherParent);
 

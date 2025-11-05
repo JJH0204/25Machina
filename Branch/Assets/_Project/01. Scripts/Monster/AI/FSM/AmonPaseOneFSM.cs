@@ -193,5 +193,12 @@ namespace Monster.AI.FSM
                     break;
             }
         }
+        
+        public override void ApplyDamage(float inDamage, LayerMask targetMask = default, float unitOfTime = 1, float defenceIgnoreRate = 0)
+        {
+            base.ApplyDamage(inDamage, targetMask, unitOfTime, defenceIgnoreRate);
+        
+            GUIManager.Instance.UpdateBossHpBar("아몬", blackboard.CurrentHealth, blackboard.MaxHealth);
+        }
     }
 }

@@ -114,6 +114,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "BaseSet",
+                    "type": "Button",
+                    "id": "61462fd9-8e79-4971-a3b1-2c8fa9d3a1fb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "LaserSet",
                     "type": "Button",
                     "id": "9fb97049-4e22-43fa-b825-447f82720ae6",
@@ -153,6 +162,24 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "fca1fe55-4c28-4826-96d8-89bc34507af0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "3472f349-3725-4efe-9337-ed51bb430612",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Map",
+                    "type": "Button",
+                    "id": "df30c0c8-58bc-47ac-98c5-55aa5c838e88",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -339,7 +366,7 @@
                 {
                     "name": "",
                     "id": "8f346de3-c2e4-4337-9f4a-c092f29a35a6",
-                    "path": "<Keyboard>/1",
+                    "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": ";PC_Keyboard",
@@ -350,7 +377,7 @@
                 {
                     "name": "",
                     "id": "43ead0d8-55de-45de-a27f-d63a580bca3c",
-                    "path": "<Keyboard>/2",
+                    "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": ";PC_Keyboard",
@@ -361,7 +388,7 @@
                 {
                     "name": "",
                     "id": "3ee7216c-4480-49e4-84aa-1eb2e4a4ccdd",
-                    "path": "<Keyboard>/3",
+                    "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
                     "groups": ";PC_Keyboard",
@@ -388,6 +415,39 @@
                     "processors": "",
                     "groups": ";PC_Keyboard",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "65ab2e21-aa24-476f-822b-87633394af22",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC_Keyboard",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e2e521c-5056-4ff8-9c03-e207313e9075",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC_Keyboard",
+                    "action": "Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c1f1bc1-83c4-4954-b5b9-4003ba4404f2",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC_Keyboard",
+                    "action": "BaseSet",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -423,6 +483,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "fa7ed4b0-7faf-4c1c-b006-93592329a54e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -500,6 +569,17 @@
                     "processors": "",
                     "groups": ";PC_Keyboard",
                     "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2465e8a0-4a9c-4157-8db8-b15ef180fb84",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

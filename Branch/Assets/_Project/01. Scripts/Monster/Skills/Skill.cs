@@ -26,6 +26,8 @@ namespace _Test.Skills
         public event Action OnDeactivate;
         public event Action OnReady;
 
+        public Coroutine CUseSkill;
+
         public Skill(SkillData skillData, MonoBehaviour owner)
         {
             this.skillData = skillData;
@@ -37,7 +39,7 @@ namespace _Test.Skills
         public void Execute(Blackboard blackboard)
         {
             if (CurrentState == SkillState.isReady)
-                _owner.StartCoroutine(C_Execute(blackboard));
+                CUseSkill = _owner.StartCoroutine(C_Execute(blackboard));
         }
 
         private IEnumerator C_Execute(Blackboard blackboard)

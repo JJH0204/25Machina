@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace FORGE3D
@@ -61,9 +61,9 @@ namespace FORGE3D
         void Update()
         {
             // Despawn on mouse up        
-            if (Input.GetMouseButtonUp(0))
-                if (aSrc != null && aSrc.loop || DespawnOnMouseUp)
-                    Despawn();
+            //if (Input.GetMouseButtonUp(0))
+            //    if (aSrc != null && aSrc.loop || DespawnOnMouseUp)
+            //        Despawn();
         }
     }
 }

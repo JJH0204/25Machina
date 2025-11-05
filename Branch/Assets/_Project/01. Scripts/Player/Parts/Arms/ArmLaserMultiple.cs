@@ -115,7 +115,10 @@ public class ArmLaserMultiple : PartBaseArm
         base.UseAbility();
         if (chargeEffectPrefab)
         {
-            chargeEffect = Utils.Instantiate(chargeEffectPrefab, bulletSpawnPoint.position + chargeOffset, Quaternion.identity, bulletSpawnPoint);
+            if (!chargeEffect)
+            {
+                chargeEffect = Utils.Instantiate(chargeEffectPrefab, bulletSpawnPoint.position + chargeOffset, Quaternion.identity, bulletSpawnPoint);
+            }
         }
     }
 
@@ -191,7 +194,9 @@ public class ArmLaserMultiple : PartBaseArm
         Vector3 targetPoint = GetTargetPoint(out hit);
         Vector3 shootDirection = (targetPoint - bulletSpawnPoint.position).normalized;
 
-        for (int i = 0; i < bulletPerShot; i++)
+        int bulletCount = (int)(bulletPerShot * _currentChargeTime) + 1;
+
+        for (int i = 0; i < bulletCount; i++)
         {
             Vector3 randomizedDirection = GetRandomSpreadDirection(shootDirection, Mathf.Lerp(maxSpreadAngle, minSpreadAngle, _currentChargeTime));
             SpawnBullet(randomizedDirection);
@@ -280,14 +285,15 @@ public class ArmLaserMultiple : PartBaseArm
 
     protected void SpawnBullet(Vector3 direction)
     {
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(direction.normalized));
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position + direction * 1.5f, Quaternion.LookRotation(direction.normalized));
         Bullet bulletComponent = bullet.GetComponent<Bullet>();
         if (bulletComponent != null)
         {
+            bulletComponent.Parent = bulletSpawnPoint;
             bulletComponent.Init(
                 _owner.gameObject,
                 null,
-                bulletSpawnPoint.position,
+                bulletSpawnPoint.position + direction * 1.5f,
                 Vector3.zero,
                 direction,
                 (int)_owner.Stats.CombinedPartStats[partType][EStatType.Damage].value

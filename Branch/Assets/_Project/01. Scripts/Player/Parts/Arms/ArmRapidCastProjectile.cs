@@ -92,7 +92,10 @@ public class ArmRapidCastProjectile : PartBaseArm
 
         if (castEffectPrefab)
         {
-            castEffect = Utils.Instantiate(castEffectPrefab, bulletSpawnPoint.position + castOffset, Quaternion.identity, bulletSpawnPoint);
+            if (!castEffect)
+            {
+                castEffect = Utils.Instantiate(castEffectPrefab, bulletSpawnPoint.position + castOffset, Quaternion.identity, bulletSpawnPoint);
+            }
         }
 
         _audioSource.Play();
@@ -141,6 +144,7 @@ public class ArmRapidCastProjectile : PartBaseArm
         Bullet bulletComponent = bullet.GetComponent<Bullet>();
         if (bulletComponent != null)
         {
+            bulletComponent.Parent = bulletSpawnPoint;
             bulletComponent.Init(_owner.gameObject, null,bulletSpawnPoint.position, Vector3.zero, camShootDirection, (int)_owner.Stats.CombinedPartStats[partType][EStatType.Damage].value);
         }
 

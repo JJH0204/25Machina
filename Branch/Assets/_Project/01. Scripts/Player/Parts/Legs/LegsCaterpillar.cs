@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using Managers;
 using Cinemachine;
+using _Project._01._Scripts.Monster;
+using Monster.AI.FSM;
 
 public class LegsCaterpillar : PartBaseLegs
 {
     [Header("캐터필러 설정")]
     [SerializeField] protected GameObject impactEffectPrefab;
     [SerializeField] protected Material caterpillarMaterial;
+    [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] private float turnMoveSpeed = 120.0f;
     [SerializeField] private float turnRotateSpeed = 10.0f;
     [SerializeField] protected float backwardThreshold = -0.7f;
     [SerializeField] protected Vector2 animSpeed = Vector2.zero;
+    [SerializeField] protected Vector2 shootOffset = Vector2.zero;
     private Vector3 _currentMoveDirection = Vector3.forward;
     private bool _isBackward = false;
     private Quaternion _originalRotation;
     protected CinemachineImpulseSource source;
-    private bool _isSiegeMode = false;
     private bool _isCooldown = false;
     protected AudioSource _audioSource;
 
@@ -26,7 +29,6 @@ public class LegsCaterpillar : PartBaseLegs
         base.Awake();
         _legsAnimType = EAnimationType.Caterpillar;
         _isAnimating = false;
-        _isSiegeMode = false;
         source = gameObject.GetComponent<CinemachineImpulseSource>();
         _audioSource = gameObject.GetComponent<AudioSource>();
     }
@@ -40,12 +42,22 @@ public class LegsCaterpillar : PartBaseLegs
 
         _audioSource.volume = 0.0f;
         _audioSource.Play();
+
+        _damagedTargets.Clear();
     }
 
     protected void OnDisable()
     {
         _currentSkillCount = 0;
         _owner.SetMovable(true);
+        _owner.PlayerAnimator.SetBool("isPlayLegsAnim", false);
+        _owner.SetPlayerState(EPlayerState.Nuking, false);
+        GUIManager.Instance.SetLegsSkillIcon(false);
+        _owner.FollowCamera.SetCameraRotatable(true);
+        _isCooldown = false;
+
+        _audioSource.volume = 1.0f;
+        _audioSource.Stop();
 
         if (_skillCoroutine != null)
         {
@@ -60,13 +72,12 @@ public class LegsCaterpillar : PartBaseLegs
             GUIManager.Instance.SetLegsSkillCooldown(false);
         }
 
-        _audioSource.volume = 1.0f;
-        _audioSource.Stop();
+        _damagedTargets.Clear();
     }
 
     public override void UseAbility()
     {
-        Impact();
+        Impact(true);
     }
 
     public override Vector3 GetMoveDirection(Vector2 moveInput, Transform characterTransform, Transform cameraTransform)
@@ -128,21 +139,18 @@ public class LegsCaterpillar : PartBaseLegs
         return _currentMoveDirection * (_owner.Stats.TotalStats[EStatType.WalkSpeed].value + _owner.Stats.TotalStats[EStatType.AddMoveSpeed].value); // 좌우가 서서히 꺾이는 이동방향
     }
 
-    protected void Impact()
+    protected void Impact(bool isOn)
     {
         if (_isCooldown) return;
 
-        if (!_isSiegeMode)
+        if (isOn)
         {
             // 시즈 모드 진입 애니메이션 재생
             // 일정 시간 대기
-            if (_skillCoroutine != null)
+            if (_skillCoroutine == null)
             {
-                StopCoroutine(_skillCoroutine);
-                _skillCoroutine = null;
+                _skillCoroutine = StartCoroutine(CoPlaySiegeMode(true));
             }
-            _skillCoroutine = StartCoroutine(CoPlaySiegeMode(true));
-            _isSiegeMode = true;
         }
         else
         {
@@ -203,39 +211,112 @@ public class LegsCaterpillar : PartBaseLegs
             LookCameraDirection();
 
             _owner.PlayerAnimator.SetBool("isPlayLegsAnim", true);
-            _owner.SetPlayerState(EPlayerState.Skilling, true);
+            _owner.SetPlayerState(EPlayerState.Nuking, true);
             GUIManager.Instance.SetLegsSkillIcon(true);
             _owner.SetMovable(false);
             _owner.FollowCamera.SetCameraRotatable(false);
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(2.0f);
 
             _owner.FollowCamera.SetCameraRotatable(true);
             _owner.SetMovable(false, true);
+
+            // N초간 바라보는 방향으로 누킹 딜
+            float time = skillDuration;
+            while (true)
+            {
+                yield return new WaitForSeconds(1.0f);
+
+                // 공격 로직
+                Vector3 startPoint = _owner.transform.position + _owner.transform.forward * shootOffset.x + _owner.transform.up * shootOffset.y;
+                Camera cam = Camera.main;
+                float maxDistance = skillRange;
+                float radius = 10.0f;
+                Vector3 targetDirection = _owner.transform.forward;
+                Collider[] hitResults = new Collider[10];
+
+                Utils.Destroy(
+                    Utils.Instantiate(
+                        impactEffectPrefab,
+                        startPoint,
+                        Quaternion.LookRotation(-_owner.transform.forward)),
+                    1.0f
+                    );
+
+                // 적 데미지 처리
+                int hitCount = Physics.OverlapCapsuleNonAlloc(
+                    startPoint,
+                    startPoint + targetDirection * maxDistance,
+                    radius,
+                    hitResults,
+                    targetMask
+                );
+                for (int i = 0; i < hitCount; i++)
+                {
+                    var collider = hitResults[i];
+                    float hitZoneValue = 1.0f;
+                    PartialBlow partialBlow = collider.GetComponent<PartialBlow>();
+                    if (partialBlow)
+                    {
+                        hitZoneValue = partialBlow.fValue;
+                    }
+
+                    IDamagable enemy = collider.transform.GetComponent<IDamagable>();
+                    if (enemy != null)
+                    {
+                        Transform otherParent = collider.transform;
+                        if (_damagedTargets.Contains(otherParent)) continue;
+                        _damagedTargets.Add(otherParent);
+                        enemy.ApplyDamage(skillDamage * hitZoneValue, targetMask);
+                    }
+                    else
+                    {
+                        enemy = collider.transform.GetComponentInParent<IDamagable>();
+                        if (enemy != null)
+                        {
+                            Transform otherParent = collider.transform.GetComponentInParent<FSM>().transform;
+                            if (_damagedTargets.Contains(otherParent)) continue;
+                            _damagedTargets.Add(otherParent);
+                            enemy.ApplyDamage(skillDamage * hitZoneValue, targetMask);
+                        }
+                    }
+
+                    Utils.Destroy(Utils.Instantiate(bulletPrefab, collider.transform.position, Quaternion.identity), 0.1f);
+                }
+
+                time -= 1.0f;
+                if (time <= 0.0f)
+                {
+                    break;
+                }
+            }
+
+            Impact(false);
         }
         else
         {
             _isCooldown = true;
             _owner.PlayerAnimator.SetBool("isPlayLegsAnim", false);
             _owner.SetMovable(false);
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(2.0f);
+
+            _damagedTargets.Clear();
 
             _currentMoveDirection = _owner.transform.forward;
-            _owner.SetPlayerState(EPlayerState.Skilling, false);
+            _owner.SetPlayerState(EPlayerState.Nuking, false);
             _owner.SetMovable(true);
             _owner.FollowCamera.SetCameraRotatable(true);
-            _isSiegeMode = false;
 
             // 스킬 쿨타임
-            float time = 5.0f;
+            float endTime = skillCooldown;
             GUIManager.Instance.SetLegsSkillCooldown(true);
-            GUIManager.Instance.SetLegsSkillCooldown(time);
+            GUIManager.Instance.SetLegsSkillCooldown(endTime);
             while (true)
             {
                 yield return new WaitForSeconds(0.1f);
 
-                time -= 0.1f;
-                GUIManager.Instance.SetLegsSkillCooldown(time);
-                if (time <= 0.0f)
+                    endTime -= 0.1f;
+                GUIManager.Instance.SetLegsSkillCooldown(endTime);
+                if (endTime <= 0.0f)
                 {
                     break;
                 }
@@ -250,46 +331,49 @@ public class LegsCaterpillar : PartBaseLegs
         _skillCoroutine = null;
     }
 
-    protected IEnumerator CoImpartRoutine()
+    void OnDrawGizmosSelected()
     {
-        GUIManager.Instance.SetLegsSkillIcon(true);
-        _owner.PlayerAnimator.SetBool("isPlayLegsAnim", true);
-        yield return new WaitForSeconds(3.0f);
+        if (_owner == null)
+            return;
 
-        _owner.PlayerAnimator.SetTrigger("heavyShootTrigger");
-        _owner.FollowCamera.ApplyShake(source);
-        Destroy(Instantiate(impactEffectPrefab, _owner.transform.position, Quaternion.Euler(_owner.transform.rotation.eulerAngles + new Vector3(-90.0f, 0.0f, 0.0f))), 5.0f);
+        Vector3 startPoint = _owner.transform.position + _owner.transform.forward * shootOffset.x + _owner.transform.up * shootOffset.y;
+        Camera cam = Camera.main;
+        float maxDistance = 20.0f;
+        float radius = 10.0f;
+        Vector3 targetDirection = _owner.transform.forward;
 
-        // 이동 불가 적용
-        _owner.SetMovable(false, true);
-        Debug.Log("캐터필러 스킬 효과: 이동 불가");
-        yield return new WaitForSeconds(skillDuration);
+        Vector3 point1 = _owner.transform.position;
+        Vector3 point2 = _owner.transform.position + targetDirection.normalized * maxDistance;
 
-        _owner.PlayerAnimator.SetBool("isPlayLegsAnim", false);
-        yield return new WaitForSeconds(2.0f);
+        Gizmos.color = Color.red;
 
-        _owner.SetMovable(true);                            // skillDuration 끝나면 다시 이동 가능
-        Debug.Log("캐터필러 스킬 효과: 이동 불가 해제");
+        // 캡슐 끝단 두 개의 구 그리기
+        Gizmos.DrawWireSphere(point1, radius);
+        Gizmos.DrawWireSphere(point2, radius);
 
-        // 쿨타임 시작
-        float time = (skillCooldown - _owner.Stats.TotalStats[EStatType.CooldownReduction].value);
-        GUIManager.Instance.SetLegsSkillCooldown(true);
-        GUIManager.Instance.SetLegsSkillCooldown(time);
-        while (true)
-        {
-            yield return new WaitForSeconds(0.1f);
+        // 두 구를 연결하는 선을 원통처럼 보이게 라인으로 표시 
+        DrawCapsuleLines(point1, point2, radius);
+    }
 
-            time -= 0.1f;
-            GUIManager.Instance.SetLegsSkillCooldown(time);
-            if (time <= 0.0f)
-            {
-                break;
-            }
-        }
+    // 캡슐 형태의 옆선을 그리는 헬퍼 함수
+    void DrawCapsuleLines(Vector3 start, Vector3 end, float radius)
+    {
+        // start와 end를 잇는 방향 벡터
+        Vector3 direction = (end - start).normalized;
 
-        GUIManager.Instance.SetLegsSkillIcon(false);
-        GUIManager.Instance.SetLegsSkillCooldown(false);
-        _skillCoroutine = null;
-        Debug.Log("캐터필러 스킬 쿨타임 종료");
+        // 임의의 벡터를 사용해 캡슐 원주 부분을 그리기 위한 기준 벡터 3개 선택
+        Vector3 up = Vector3.up * radius;
+        Vector3 right = Vector3.right * radius;
+        Vector3 forward = Vector3.forward * radius;
+
+        // 각 벡터를 start와 end 둘 다 더하고 빼서 라인 그리기
+        Gizmos.DrawLine(start + up, end + up);
+        Gizmos.DrawLine(start - up, end - up);
+
+        Gizmos.DrawLine(start + right, end + right);
+        Gizmos.DrawLine(start - right, end - right);
+
+        Gizmos.DrawLine(start + forward, end + forward);
+        Gizmos.DrawLine(start - forward, end - forward);
     }
 }

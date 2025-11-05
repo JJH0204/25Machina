@@ -408,7 +408,6 @@ GameObject:
   - component: {fileID: 832408681024809516}
   - component: {fileID: 2865889349400932555}
   - component: {fileID: 8202195718756793635}
-  - component: {fileID: 1768811423388493612}
   - component: {fileID: 3007356906683536869}
   - component: {fileID: 1987053423265468178}
   m_Layer: 19
@@ -489,19 +488,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4bac5589fa945ad9ae75e11558ab176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1768811423388493612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4906482552251351476}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1ff8e8e9d264695a15b83f50bddfcbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blackboard: {fileID: 5589947934752730126}
 --- !u!114 &3007356906683536869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,6 +782,7 @@ MonoBehaviour:
   id: 1010
   navMeshAgent: {fileID: 832408681024809516}
   agent: {fileID: 4906482552251351476}
+  characterController: {fileID: 0}
   animatorParameterSetter: {fileID: 2865889349400932555}
   target: {fileID: 0}
   deathEffect: {fileID: 0}

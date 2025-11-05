@@ -149,7 +149,9 @@ MonoBehaviour:
   - {fileID: -1571728344049975624}
   - {fileID: -1510027453311653109}
   - {fileID: 3935896436674868693}
-  m_RendererFeatureMap: e6010d85337d7dcbfa6991f0e1dcdb5fe3e886b192dcc31ab8fe7c01661930ea0b6b451c084e0bebd535bbb4f41c9f36
+  - {fileID: 1801289326048895534}
+  - {fileID: 2263948989350165309}
+  m_RendererFeatureMap: e6010d85337d7dcbfa6991f0e1dcdb5fe3e886b192dcc31ab8fe7c01661930ea0b6b451c084e0bebd535bbb4f41c9f362ee2d8301977ff183d3bd2639c296b1f
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -181,7 +183,7 @@ MonoBehaviour:
   m_AssetVersion: 2
   m_OpaqueLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 16252791
   m_TransparentLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -198,6 +200,48 @@ MonoBehaviour:
   m_CopyDepthMode: 1
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &1801289326048895534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
+  m_Name: EnemyRenderer
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    passTag: EnemyRenderer
+    Event: 300
+    filterSettings:
+      RenderQueueType: 0
+      LayerMask:
+        serializedVersion: 2
+        m_Bits: 17301504
+      PassNames: []
+    overrideMaterial: {fileID: 0}
+    overrideMaterialPassIndex: 0
+    overrideShader: {fileID: 0}
+    overrideShaderPassIndex: 0
+    overrideMode: 1
+    overrideDepthState: 0
+    depthCompareFunction: 4
+    enableWrite: 1
+    stencilSettings:
+      overrideStencilState: 1
+      stencilReference: 2
+      stencilCompareFunction: 8
+      passOperation: 2
+      failOperation: 0
+      zFailOperation: 0
+    cameraSettings:
+      overrideCamera: 0
+      restoreCamera: 1
+      offset: {x: 0, y: 0, z: 0, w: 0}
+      cameraFieldOfView: 60
 --- !u!114 &1928627588046448867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +262,7 @@ MonoBehaviour:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 17301888
+        m_Bits: 384
       PassNames: []
     overrideMaterial: {fileID: 2100000, guid: eed8b86f5e281cc419c29482d6b8f894, type: 2}
     overrideMaterialPassIndex: 0
@@ -232,6 +276,48 @@ MonoBehaviour:
       overrideStencilState: 0
       stencilReference: 0
       stencilCompareFunction: 8
+      passOperation: 0
+      failOperation: 0
+      zFailOperation: 0
+    cameraSettings:
+      overrideCamera: 0
+      restoreCamera: 1
+      offset: {x: 0, y: 0, z: 0, w: 0}
+      cameraFieldOfView: 60
+--- !u!114 &2263948989350165309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
+  m_Name: PlayerRenderer
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    passTag: PlayerRenderer
+    Event: 300
+    filterSettings:
+      RenderQueueType: 0
+      LayerMask:
+        serializedVersion: 2
+        m_Bits: 17344
+      PassNames: []
+    overrideMaterial: {fileID: 2100000, guid: 90d3bb1da0b19e6478a6121c1601ee34, type: 2}
+    overrideMaterialPassIndex: 0
+    overrideShader: {fileID: 0}
+    overrideShaderPassIndex: 0
+    overrideMode: 1
+    overrideDepthState: 0
+    depthCompareFunction: 4
+    enableWrite: 1
+    stencilSettings:
+      overrideStencilState: 1
+      stencilReference: 2
+      stencilCompareFunction: 3
       passOperation: 0
       failOperation: 0
       zFailOperation: 0
@@ -282,7 +368,7 @@ MonoBehaviour:
         serializedVersion: 2
         m_Bits: 64
       PassNames: []
-    overrideMaterial: {fileID: 0}
+    overrideMaterial: {fileID: 2100000, guid: 445d270c9c7ff3a47b13a39cfb36d897, type: 2}
     overrideMaterialPassIndex: 0
     overrideShader: {fileID: 0}
     overrideShaderPassIndex: 0
