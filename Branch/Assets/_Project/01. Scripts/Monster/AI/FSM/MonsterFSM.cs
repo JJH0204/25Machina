@@ -207,7 +207,8 @@ namespace Monster.AI.FSM
         {
             // 스폰 사운드 클립 재생
             audioSource.PlayOneShot(spawnClip);
-            blackboard.Dissolve?.StartDissolve(true);
+            foreach (MonsterDissolve dissolve in blackboard.Dissolve)
+                dissolve.StartDissolve(true);
             ChangeState("Idle");
         }
         
@@ -252,7 +253,8 @@ namespace Monster.AI.FSM
             if (blackboard.LegAnimator) blackboard.LegAnimator.enabled = false;
             blackboard.RagdollController.ActivateRagdoll();
             
-            blackboard.Dissolve?.StartDissolve(false);
+            foreach (MonsterDissolve dissolve in blackboard.Dissolve)
+                dissolve.StartDissolve(false);
             
             StartCoroutine(PoolReleaseAfterDeathEffect());
         }
@@ -312,7 +314,8 @@ namespace Monster.AI.FSM
 
         private IEnumerator PoolReleaseAfterDeathEffect()
         {
-            while (!blackboard.Dissolve.isDissolved) yield return null;
+            foreach (MonsterDissolve dissolve in blackboard.Dissolve)
+                while (!dissolve.isDissolved) yield return null;
             ResetForPool();
             PoolManager.Instance.ReleaseObject(gameObject);
         }

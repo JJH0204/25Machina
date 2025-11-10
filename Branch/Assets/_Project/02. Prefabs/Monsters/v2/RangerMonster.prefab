@@ -506,7 +506,8 @@ MonoBehaviour:
   - {fileID: 6637933159885279868}
   - {fileID: 1569509923116568742}
   ragdollController: {fileID: 5889141319387458524}
-  dissolve: {fileID: 4170228264625231682}
+  dissolve:
+  - {fileID: 4170228264625231682}
   patrolInfo:
     isPatrol: 0
     minPatrolTime: 2

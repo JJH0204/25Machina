@@ -49,6 +49,11 @@ public class SoulSphereObject : MonoBehaviour
 
     private void ExplosionObject()
     {
+        var player = Managers.MonsterManager.Instance.Player.GetComponent<PlayerController>();
+        {
+            player.ApplyDamage(_damage, LayerMask.NameToLayer("Player"));
+        }
+
         Utils.Destroy(Utils.Instantiate(explosionPrefab, transform.position, Quaternion.identity), 1.5f);
         Utils.Destroy(gameObject);
     }

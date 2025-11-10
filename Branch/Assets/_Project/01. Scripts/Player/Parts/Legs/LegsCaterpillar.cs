@@ -241,6 +241,7 @@ public class LegsCaterpillar : PartBaseLegs
                         Quaternion.LookRotation(-_owner.transform.forward)),
                     1.0f
                     );
+                _owner.FollowCamera.ApplyShake(source);
 
                 // 적 데미지 처리
                 int hitCount = Physics.OverlapCapsuleNonAlloc(
@@ -267,6 +268,11 @@ public class LegsCaterpillar : PartBaseLegs
                         if (_damagedTargets.Contains(otherParent)) continue;
                         _damagedTargets.Add(otherParent);
                         enemy.ApplyDamage(skillDamage * hitZoneValue, targetMask);
+
+                        if (_owner.CompareTag("Player"))
+                        {
+                            Managers.GUIManager.Instance.StartHitCrosshair();
+                        }
                     }
                     else
                     {
@@ -277,11 +283,18 @@ public class LegsCaterpillar : PartBaseLegs
                             if (_damagedTargets.Contains(otherParent)) continue;
                             _damagedTargets.Add(otherParent);
                             enemy.ApplyDamage(skillDamage * hitZoneValue, targetMask);
+
+                            if (_owner.CompareTag("Player"))
+                            {
+                                Managers.GUIManager.Instance.StartHitCrosshair();
+                            }
                         }
                     }
 
                     Utils.Destroy(Utils.Instantiate(bulletPrefab, collider.transform.position, Quaternion.identity), 0.1f);
                 }
+
+                _damagedTargets.Clear();
 
                 time -= 1.0f;
                 if (time <= 0.0f)

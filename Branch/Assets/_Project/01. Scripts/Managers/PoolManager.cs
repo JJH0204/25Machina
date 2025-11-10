@@ -6,6 +6,22 @@ using UnityEngine.Pool;
 
 namespace Managers
 {
+    public class PoolableObject : MonoBehaviour
+    {
+        public bool IsInPool { get; set; } = false;
+
+        // 초기화가 필요하면 여기에 구현 가능
+        public virtual void OnGetFromPool()
+        {
+            IsInPool = false;
+        }
+
+        public virtual void OnReturnToPool()
+        {
+            IsInPool = true;
+        }
+    }
+
     public class PoolManager : Singleton<PoolManager>
     {
         /// <summary>
@@ -45,11 +61,28 @@ namespace Managers
                 if (_pools.ContainsKey(key)) continue;
 
                 ObjectPool<GameObject> pool = new(
-                    createFunc: () => InstantiateObject(poolData.prefab),
-                    actionOnGet: obj => obj.SetActive(true),
-                    actionOnRelease: obj => OnRelease(obj),
+                    createFunc: () =>
+                    {
+                        GameObject obj = InstantiateObject(poolData.prefab);
+                        AddPoolableComponent(obj);
+                        return obj;
+                    },
+                    actionOnGet: obj =>
+                    {
+                        var poolable = obj.GetComponent<PoolableObject>();
+                        if (poolable != null)
+                            poolable.OnGetFromPool();
+                        obj.SetActive(true);
+                    },
+                    actionOnRelease: obj =>
+                    {
+                        OnRelease(obj);
+                        var poolable = obj.GetComponent<PoolableObject>();
+                        if (poolable != null)
+                            poolable.OnReturnToPool();
+                    },
                     actionOnDestroy: Destroy,
-                    collectionCheck: true,
+                    collectionCheck: false,
                     defaultCapacity: poolData.defaultSize,
                     maxSize: poolData.maxSize
                 );
@@ -63,12 +96,20 @@ namespace Managers
 
                 for (int i = 0; i < poolData.defaultSize; i++)
                 {
-                    //GameObject obj = pool.Get();
-                    GameObject obj = InstantiateObject(poolData.prefab);
+                    GameObject obj = InstantiateObject(poolData.prefab); // 컴포넌트 부착까지 보장
+                    AddPoolableComponent(obj); // PoolableObject 부착 안 되어있으면 부착
                     pool.Release(obj);
                 }
 
                 _pools.Add(key, pool);
+            }
+        }
+
+        private void AddPoolableComponent(GameObject obj)
+        {
+            if (obj.GetComponent<PoolableObject>() == null)
+            {
+                obj.AddComponent<PoolableObject>();
             }
         }
 
@@ -86,44 +127,105 @@ namespace Managers
         public GameObject GetObject(GameObject prefab)
         {
             string key = prefab.name;
-            return _pools[key]?.Get();
+
+            if (_pools.TryGetValue(key, out var pool))
+            {
+                return pool.Get();
+            }
+            else
+            {
+                Debug.LogError($"Pool not found for key: {key}");
+                return null;
+            }
         }
 
         public GameObject GetObject(string key)
         {
-            return _pools[key]?.Get();
+            if (_pools.TryGetValue(key, out var pool))
+            {
+                return pool.Get();
+            }
+            else
+            {
+                Debug.LogError($"Pool not found for key: {key}");
+                return null;
+            }
         }
 
         public GameObject GetObject(GameObject prefab, Transform parent)
         {
             string key = prefab.name;
-            GameObject obj = _pools[key]?.Get();
-            obj?.transform.SetParent(parent);
-            return obj;
+            GameObject go = null;
+
+            if (_pools.TryGetValue(key, out var pool))
+            {
+                go = pool.Get();
+            }
+            else
+            {
+                Debug.LogError($"Pool not found for key: {key}");
+                return null;
+            }
+
+            go.transform.SetParent(parent);
+            return go;
         }
         
         public GameObject GetObject(string key, Transform parent)
         {
-            GameObject obj = _pools[key]?.Get();
-            obj?.transform.SetParent(parent);
-            return obj;
+            GameObject go = null;
+
+            if (_pools.TryGetValue(key, out var pool))
+            {
+                go = pool.Get();
+            }
+            else
+            {
+                Debug.LogError($"Pool not found for key: {key}");
+                return null;
+            }
+
+            go.transform.SetParent(parent);
+            return go;
         }
         
         public GameObject GetObject(GameObject prefab, Vector3 position, Quaternion rotation)
         {
             string key = prefab.name;
-            GameObject obj = _pools[key]?.Get();
-            obj?.transform.SetPositionAndRotation(position, rotation);
-            return obj;
+            GameObject go = null;
+
+            if (_pools.TryGetValue(key, out var pool))
+            {
+                go = pool.Get();
+            }
+            else
+            {
+                Debug.LogError($"Pool not found for key: {key}");
+                return null;
+            }
+
+            go.transform.SetPositionAndRotation(position, rotation);
+            return go;
         }
 
         public GameObject GetObject(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent)
         {
             string key = prefab.name;
-            GameObject obj = _pools[key]?.Get();
-            obj?.transform.SetParent(parent);
-            obj?.transform.SetPositionAndRotation(position, rotation);
-            return obj;
+            GameObject go = null;
+
+            if (_pools.TryGetValue(key, out var pool))
+            {
+                go = pool.Get();
+            }
+            else
+            {
+                Debug.LogError($"Pool not found for key: {key}");
+                return null;
+            }
+
+            go.transform.SetParent(parent);
+            go.transform.SetPositionAndRotation(position, rotation);
+            return go;
         }
 
         /// <summary>
@@ -131,24 +233,59 @@ namespace Managers
         /// </summary>
         public void ReleaseObject(GameObject obj, float delay = 0.0f)
         {
-            // string key = obj.name.Replace("(Clone)", "").Trim();
-            (bool keyExists, string key) = IsPooledObject(obj);
-            //if (keyExists) _pools[key].Release(obj);
-            if (keyExists) StartCoroutine(CoReleaseObject(obj, key, delay));
-            else Destroy(obj, delay);
+            var poolable = obj.GetComponent<PoolableObject>();
+            if (poolable == null)
+            {
+                // 풀에 없는 오브젝트는 그냥 Destroy
+                Destroy(obj, delay);
+                return;
+            }
+
+            if (poolable.IsInPool)
+            {
+                // 이미 풀에 반환된 상태면 중복 Release 방지 위해 무시
+                Debug.LogWarning($"Attempted to release object '{obj.name}' that is already in pool.");
+                return;
+            }
+
+            string key = obj.name;
+
+            if (_pools.ContainsKey(key))
+            {
+                if (delay <= 0f)
+                {
+                    _pools[key].Release(obj);
+                }
+                else
+                {
+                    StartCoroutine(CoReleaseObject(obj, key, delay));
+                }
+            }
+            else
+            {
+                // 풀에 없는 오브젝트 별도 처리
+                Destroy(obj, delay);
+            }
         }
 
         public void OnRelease(GameObject go)
         {
-            go.transform.SetParent(_poolParents[go.name]);
+            string key = go.name.Replace("(Clone)", "").Trim();
+            if (_poolParents.TryGetValue(key, out Transform parent))
+            {
+                go.transform.SetParent(parent);
+            }
+            else
+            {
+                Debug.LogWarning($"Pool parent not found for key: {key}");
+                go.transform.SetParent(null);
+            }
             go.SetActive(false);
         }
 
         public (bool, string) IsPooledObject(GameObject o)
         {
-            // 오브젝트의 이름에서 "(Clone)" 제거
-            //string key = o.name.Replace("(Clone)", "").Trim();
-            string key = o.name;
+            string key = o.name.Replace("(Clone)", "").Trim();
             return (_pools.ContainsKey(key), key);
         }
 
@@ -156,15 +293,20 @@ namespace Managers
         {
             yield return new WaitForSeconds(delay);
 
-            try
+            if (!_pools.ContainsKey(key))
             {
-                _pools[key].Release(go);
+                Destroy(go);
+                yield break;
             }
-            catch (InvalidOperationException ex)
+
+            var poolable = go.GetComponent<PoolableObject>();
+            if (poolable != null && poolable.IsInPool)
             {
-                // 이미 Release된 오브젝트일 경우 에러 메시지 반환 또는 무시
-                Debug.LogWarning(ex.Message);
+                Debug.LogWarning($"Attempted to release object '{go.name}' that is already in pool (delayed).");
+                yield break;
             }
+
+            _pools[key].Release(go);
         }
     }
 }

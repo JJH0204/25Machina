@@ -57,6 +57,7 @@ namespace Managers
             // 플레이어 캐릭터와 카메라 Pause
             player.FollowCamera.SetCameraRotatable(false);
             player.SetMovable(false);
+            player.SetPlayerState(EPlayerState.Cutscene, true);
 
             // 현재 존재하는 모든 몬스터 Pause
             MonsterManager.Instance.PauseMonsters();
@@ -66,6 +67,8 @@ namespace Managers
         {
             player.FollowCamera.SetCameraRotatable(true);
             player.SetMovable(true);
+            player.SetPlayerState(EPlayerState.Cutscene, false);
+
             MonsterManager.Instance.UnpauseMonsters();
         }
     }

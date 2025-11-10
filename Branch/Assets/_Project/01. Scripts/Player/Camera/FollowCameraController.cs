@@ -259,10 +259,10 @@ public class FollowCameraController : MonoBehaviour
 
     public void OnUIOpen()
     {
-        //if (_inputProvider)
-        //{
-        //    _inputProvider.enabled = false;  // 입력 비활성화
-        //}
+        if (_inputProvider)
+        {
+            _inputProvider.enabled = false;  // 입력 비활성화
+        }
 
         if (_cameraAim != null)
         {
@@ -278,10 +278,10 @@ public class FollowCameraController : MonoBehaviour
 
     public void OnUIClose()
     {
-        //if (_inputProvider)
-        //{
-        //    _inputProvider.enabled = true;  // 입력 비활성화
-        //}
+        if (_inputProvider)
+        {
+            _inputProvider.enabled = true;  // 입력 비활성화
+        }
 
         _isLockedByUI = false;
     }

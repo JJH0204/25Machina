@@ -37,6 +37,9 @@ public class ExcutionerFSM : FSM
             blackboard.NavMeshAgent.ResetPath();
         }
         
+        foreach (var dissolve in blackboard.Dissolve)
+            dissolve.Init(0f);
+        
         ChangeState("Spawn");
         isInit = true;
     }
@@ -177,6 +180,10 @@ public class ExcutionerFSM : FSM
             Destroy(meleeCollision.gameObject);
         
         blackboard.RagdollController.ActivateRagdoll();
+        
+        foreach (var dissolve in blackboard.Dissolve)
+            dissolve.StartDissolve(false);
+        
         StartCoroutine(PoolReleaseAfterDeathEffect());
     }
 
@@ -212,7 +219,7 @@ public class ExcutionerFSM : FSM
 
             // 스킬/타깃 정리
             _useSkill = null;
-            blackboard.Init();
+            Init();
         }
 
         // FSM 플래그 초기화
@@ -222,7 +229,8 @@ public class ExcutionerFSM : FSM
 
     private IEnumerator PoolReleaseAfterDeathEffect()
     {
-        yield return new WaitForSeconds(10f);
+        foreach (MonsterDissolve dissolve in blackboard.Dissolve)
+            while (!dissolve.isDissolved) yield return null;
 
         ResetForPool();
         // gameObject.SetActive(false);

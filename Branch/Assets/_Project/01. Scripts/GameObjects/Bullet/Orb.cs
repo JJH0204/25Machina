@@ -6,15 +6,11 @@ public class Orb : Bullet
 {
     [SerializeField] private GameObject bladePrefab;    // 칼날 투사체 프리팹
     [SerializeField] private GameObject collisionBulletPrefab; // 충돌 이펙트 프리팹
+    [SerializeField] private float explosionDamage = 300.0f;
+    [SerializeField] private float bladeDamage = 50.0f;
     [SerializeField] private float bladeInterval = 0.2f;  // 칼날 발사 주기
     [SerializeField] private int bladesOnDeath = 14;    // 소멸 시 발사 칼날 수
     private float bladeTimer = 0f;
-
-    protected override void Start()
-    {
-        base.Start();
-        bladeTimer = 0.0f;
-    }
 
     protected override void Update()
     {
@@ -64,10 +60,12 @@ public class Orb : Bullet
 
     private void ExplodeBlades()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, targetMask);
         foreach (Collider collider in colliders)
         {
-            //TakeDamage(collider.transform);
+            _damagedTargets.Clear();
+
+            TakeDamage(collider.transform);
             Utils.Destroy(Utils.Instantiate(collisionBulletPrefab, collider.transform.position, Quaternion.identity), 0.1f);
         }
 
@@ -87,9 +85,16 @@ public class Orb : Bullet
             ProjectileBlade bladeComp = blade.GetComponent<ProjectileBlade>();
             if (bladeComp != null)
             {
-                bladeComp.Init(From, null, transform.position, Vector3.zero, direction.normalized, 250);
+                bladeComp.Init(From, null, transform.position, Vector3.zero, direction.normalized, bladeDamage);
             }
         }
+    }
+
+    public override void ResetBullet()
+    {
+        base.ResetBullet();
+
+        bladeTimer = 0.0f;
     }
 
     public override string ToString()
@@ -98,4 +103,17 @@ public class Orb : Bullet
         string log = $"{baseLog}\n" + $"Blade Interval: {bladeInterval}, Blades On Death: {bladesOnDeath}, Blade Timer: {bladeTimer}";
         return log;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        // 폭발 반경을 빨간색 반투명 구로 표시
+        Gizmos.color = new Color(1f, 0f, 0f, 0.35f);
+        Gizmos.DrawSphere(transform.position, explosionRadius);
+
+        // 폭발 반경 외곽선(선택사항)
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
+    }
+#endif
 }

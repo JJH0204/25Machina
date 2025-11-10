@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2163519256573054314}
   - component: {fileID: 1780172405589123880}
   - component: {fileID: 3339271869515012335}
-  m_Layer: 18
+  m_Layer: 21
   m_Name: Soul_Sphere
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 8350594408837622864, guid: a0fb4e952475f764d9bbf3720032cf91,
     type: 3}
-  lifeTime: 5
+  lifeTime: 10
 --- !u!114 &3339271869515012335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd5cc0e0efc1144b8764190c5b9595f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHp: 1
+  _currentHp: 0
   statList:
   - StatName: ID
     StatValue: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   - StatName: RunSpeed
     StatValue: 0
   - StatName: Defence
-    StatValue: 0
+    StatValue: 1000
   - StatName: MaxDetectiveRange
     StatValue: 0
   - StatName: MinDetectiveRange

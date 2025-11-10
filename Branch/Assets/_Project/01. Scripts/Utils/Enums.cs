@@ -84,6 +84,7 @@ public enum EPlayerState
     Invincibility = 1 << 10,
     Skilling = 1 << 11,
     Nuking = 1 << 12,
+    Cutscene = 1 << 13,
 
     RotateState = Moving | LeftShooting | RightShooting | Zooming | Skilling | Nuking,
     ActionState = Idle | Moving | Dashing | LeftShooting | RightShooting | Zooming,

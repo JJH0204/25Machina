@@ -4,6 +4,16 @@ using Monster.AI.FSM;
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// 1: 데시
+/// 2: 날개 휘두르기
+/// 3: 소울 스피어 소환
+/// 4: 소울 오브 발사
+/// 5: 영혼 흡수
+/// 6: 락다운
+/// 7: 텔레포트
+/// </summary>
+
 public class AmonPaseTwoFSM : FSM
 {
     [SerializeField] private GameObject spawnModel;
@@ -19,15 +29,7 @@ public class AmonPaseTwoFSM : FSM
     
     protected override void Think()
     {
-        if (!isEnabled) return; // FSM이 활성화되지 않은 경우 아무 작업도 수행하지 않음(매니저에 의해 활성화 됨)
-
-        if (!_isSpawned) return;
-        
-        if (blackboard?.Target is null)
-        {
-            Debug.Log("Target is null");
-            return;
-        }
+        if (!isEnabled || !_isSpawned || blackboard?.Target is null) return; // FSM이 활성화되지 않은 경우 아무 작업도 수행하지 않음(매니저에 의해 활성화 됨)
 
         if (blackboard.State.GetStates() == "Death")
         {
@@ -105,8 +107,7 @@ public class AmonPaseTwoFSM : FSM
 
     protected override void Act()
     {
-        if (!isEnabled) return;
-        if (blackboard?.Target is null) return;
+        if (!isEnabled || blackboard?.Target is null) return;
         
         string state = blackboard.State.GetStates();
         if (state is null) return;
@@ -140,6 +141,14 @@ public class AmonPaseTwoFSM : FSM
             case "UsingSkill4":
                 // 소울 오브
                 blackboard.Skills[3].Execute(blackboard);
+                break;
+            case "UsingSkill5":
+                // 영혼 흡수
+                blackboard.Skills[4].Execute(blackboard);
+                break;
+            case "UsingSkill6":
+                // 락다운
+                blackboard.Skills[5].Execute(blackboard);
                 break;
             case "UsingSkill7":
                 // 텔레포트

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GasBarrel : GlobalGameObject
 {
-    // [SerializeField] private List<string> target;
     [SerializeField] private List<string> target;
     
     private void OnTriggerEnter(Collider other)

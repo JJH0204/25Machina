@@ -8,6 +8,7 @@ public class PlatformEndCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Player를 기준으로 할지, Platform을 기준으로 할지 결정 필요
         if (other.gameObject.CompareTag("Player"))
         {
             player.TriggerPlatformEnd();

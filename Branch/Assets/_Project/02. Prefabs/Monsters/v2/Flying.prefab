@@ -520,7 +520,7 @@ Transform:
   m_GameObject: {fileID: 748813217672725097}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.233, z: 0}
   m_LocalScale: {x: 45, y: 45, z: 45}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1653,7 +1653,8 @@ MonoBehaviour:
   - {fileID: 4658079295326541033}
   - {fileID: 5475897667114860484}
   ragdollController: {fileID: 7005824753446508947}
-  dissolve: {fileID: 1086754600991846334}
+  dissolve:
+  - {fileID: 1086754600991846334}
   patrolInfo:
     isPatrol: 0
     minPatrolTime: 0

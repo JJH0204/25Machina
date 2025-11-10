@@ -22,9 +22,6 @@ MonoBehaviour:
   - sheetKey: MonsterSkill
     sheetLink: 1Haa-bYjMBgwnmZcYOElVQ2_zyMGfy0GDxbJr5TP6pF8
     workSheetGid: 192128569
-  - sheetKey: Monster2Skill
-    sheetLink: 1Haa-bYjMBgwnmZcYOElVQ2_zyMGfy0GDxbJr5TP6pF8
-    workSheetGid: 934060537
   sheetDatas:
   - sheetKey: CharacterStats
     rows:
@@ -800,7 +797,7 @@ MonoBehaviour:
         value:
           statType: 8
           stringValue: 
-          value: 10
+          value: 3
           minValue: -3.4028235e+38
           maxValue: 3.4028235e+38
       - key: 22
@@ -4376,143 +4373,6 @@ MonoBehaviour:
       - key: 22
         value:
           statType: 22
-          stringValue: 
-          value: 0
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-  - sheetKey: Monster2Skill
-    rows:
-    - statEntries:
-      - key: 0
-        value:
-          statType: 0
-          stringValue: 
-          value: 1002
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-      - key: 23
-        value:
-          statType: 23
-          stringValue: 4001 4002
-          value: 0
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-    - statEntries:
-      - key: 0
-        value:
-          statType: 0
-          stringValue: 
-          value: 1003
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-      - key: 23
-        value:
-          statType: 23
-          stringValue: 4001 4003
-          value: 0
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-    - statEntries:
-      - key: 0
-        value:
-          statType: 0
-          stringValue: 
-          value: 1004
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-      - key: 23
-        value:
-          statType: 23
-          stringValue: 
-          value: 4006
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-    - statEntries:
-      - key: 0
-        value:
-          statType: 0
-          stringValue: 
-          value: 1005
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-      - key: 23
-        value:
-          statType: 23
-          stringValue: 
-          value: 0
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-    - statEntries:
-      - key: 0
-        value:
-          statType: 0
-          stringValue: 
-          value: 1006
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-      - key: 23
-        value:
-          statType: 23
-          stringValue: 
-          value: 0
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-    - statEntries:
-      - key: 0
-        value:
-          statType: 0
-          stringValue: 
-          value: 1007
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-      - key: 23
-        value:
-          statType: 23
-          stringValue: 
-          value: 0
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-    - statEntries:
-      - key: 0
-        value:
-          statType: 0
-          stringValue: 
-          value: 1008
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-      - key: 23
-        value:
-          statType: 23
-          stringValue: 
-          value: 0
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-    - statEntries:
-      - key: 0
-        value:
-          statType: 0
-          stringValue: 
-          value: 1009
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-      - key: 23
-        value:
-          statType: 23
-          stringValue: 
-          value: 0
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-    - statEntries:
-      - key: 0
-        value:
-          statType: 0
-          stringValue: 
-          value: 1010
-          minValue: -3.4028235e+38
-          maxValue: 3.4028235e+38
-      - key: 23
-        value:
-          statType: 23
           stringValue: 
           value: 0
           minValue: -3.4028235e+38

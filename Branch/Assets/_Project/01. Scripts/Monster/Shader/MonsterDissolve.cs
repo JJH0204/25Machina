@@ -22,6 +22,14 @@ public class MonsterDissolve : MonoBehaviour
         }
     }
     
+    public void Init(float dissolveValue)
+    {
+        foreach (Material material in skinnedMeshRenderer.materials)
+        {
+            material.SetFloat(DissolveAmount, dissolveValue);
+        }
+    }
+    
     // 디졸브 효과 시작
     public void StartDissolve(bool isSpawning)
     {

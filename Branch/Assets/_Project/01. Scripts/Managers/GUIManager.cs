@@ -243,6 +243,12 @@ namespace Managers
                 Cursor.visible = false;
 
                 Time.timeScale = 0.0f;
+
+                var player = Managers.MonsterManager.Instance.GetComponent<PlayerController>();
+                if (player)
+                {
+                    player.FollowCamera.OnUIOpen();
+                }
             }
         }
 
@@ -272,7 +278,7 @@ namespace Managers
             float rate = currentHealth / maxHealth;
 
             testHpBar.value = rate;
-            playerHpText.text = $"{currentHealth} / {maxHealth}";
+            playerHpText.text = string.Format("{0:F0} / {1:F0}", currentHealth, maxHealth);
         }
 
         public void OnGameOverPanel()

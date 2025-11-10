@@ -174,6 +174,11 @@ public class ShoulderLaser : PartBaseShoulder
                 if (_damagedTargets.Contains(otherParent)) continue;
                 _damagedTargets.Add(otherParent);
                 enemy.ApplyDamage(beamDamage * _timer * hitZoneValue, targetMask, _timer, 0.0f);
+
+                if (_owner.CompareTag("Player"))
+                {
+                    Managers.GUIManager.Instance.StartHitCrosshair();
+                }
             }
             else
             {
@@ -184,6 +189,11 @@ public class ShoulderLaser : PartBaseShoulder
                     if (_damagedTargets.Contains(otherParent)) continue;
                     _damagedTargets.Add(otherParent);
                     enemy.ApplyDamage(beamDamage * _timer * hitZoneValue, targetMask, _timer, 0.0f);
+
+                    if (_owner.CompareTag("Player"))
+                    {
+                        Managers.GUIManager.Instance.StartHitCrosshair();
+                    }
                 }
             }
 
@@ -233,7 +243,7 @@ public class ShoulderLaser : PartBaseShoulder
         _owner.SetPlayerState(EPlayerState.Skilling, true);
         beamStart = Utils.Instantiate(beamStartPrefab, Vector3.zero, Quaternion.identity);
         beamEnd = Utils.Instantiate(beamEndPrefab, Vector3.zero, Quaternion.identity);
-        beam = Instantiate(beamLineRendererPrefab, Vector3.zero, Quaternion.identity);
+        beam = Utils.Instantiate(beamLineRendererPrefab, Vector3.zero, Quaternion.identity);
         line = beam.GetComponent<LineRenderer>();
         _isShooting = true;
 

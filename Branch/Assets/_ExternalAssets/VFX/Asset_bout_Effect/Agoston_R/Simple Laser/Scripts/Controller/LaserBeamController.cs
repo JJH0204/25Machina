@@ -51,13 +51,21 @@ namespace Controller
             SetUpParticles();
             SetUpRaycaster();
 
-            if (layersThatStopLaser == 0 || layersThatStopLaser == LayerMask.NameToLayer("Default"))
+            if (layersThatStopLaser == 0 || (layersThatStopLaser & (1 << LayerMask.NameToLayer("Default"))) != 0)
             {
                 // 레이어 설정이 없거나, 기본 값인 Default로만 설정되어 있을 경우
                 layersThatStopLaser = 0;
                 layersThatStopLaser |= (1 << LayerMask.NameToLayer("Default"));
                 layersThatStopLaser |= (1 << LayerMask.NameToLayer("Player"));
                 layersThatStopLaser |= (1 << LayerMask.NameToLayer("Enemy"));
+                layersThatStopLaser |= (1 << LayerMask.NameToLayer("Breakable"));
+                layersThatStopLaser |= (1 << LayerMask.NameToLayer("Platform"));
+                layersThatStopLaser |= (1 << LayerMask.NameToLayer("Wall"));
+                layersThatStopLaser |= (1 << LayerMask.NameToLayer("Interaction"));
+                layersThatStopLaser |= (1 << LayerMask.NameToLayer("Damagable"));
+                layersThatStopLaser |= (1 << LayerMask.NameToLayer("InteractionSecond"));
+                layersThatStopLaser |= (1 << LayerMask.NameToLayer("Gimmick"));
+                layersThatStopLaser |= (1 << LayerMask.NameToLayer("MonsterDead"));
             }
 
             if (damagePerSecond <= 0.0f)
@@ -214,7 +222,7 @@ namespace Controller
             IDamagable damagable = hit.Target.GetComponent<IDamagable>();
             if (damagable == null)
             {
-                damagable = hit.Target.GetComponentInChildren<IDamagable>();
+                damagable = hit.Target.GetComponentInParent<IDamagable>();
             }
 
             if (damagable != null)

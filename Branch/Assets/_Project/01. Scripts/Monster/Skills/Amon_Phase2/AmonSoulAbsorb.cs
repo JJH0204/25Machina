@@ -6,15 +6,6 @@ using UnityEngine;
 
 namespace _Test.Skills
 {
-    /// <summary>
-    /// 스킬 이름: 돌진 (2페이즈)
-    /// - 캐스팅: 1.5초
-    /// - 효과: 대상을 향해 돌진, 적중 시 넉백 및 대미지
-    /// - 예외처리1: 캐스팅 중 스턴, 넉백, 이동 불가 상태가 되면 스킬 취소
-    /// - 예외처리2: 대상과 거리가 너무 멀 경우 스킬 취소
-    /// - 예외처리3: 돌진 중 장애물에 부딪히면 돌진 취소
-    /// </summary>
-    
     [CreateAssetMenu(fileName = "SoulAbsorb", menuName = "MonsterSkills/Amon_Phase2/SoulAbsorb")]
     public class AmonSoulAbsorb : SkillData
     {

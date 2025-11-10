@@ -236,11 +236,11 @@ Transform:
   m_GameObject: {fileID: 1595977801262597187}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.76, z: 0}
+  m_LocalPosition: {x: 0, y: 3.06, z: 0}
   m_LocalScale: {x: 45, y: 45, z: 45}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8603632694229441094}
+  m_Father: {fileID: 6961243041253458213}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5060085548364596455
 MonoBehaviour:
@@ -427,15 +427,14 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6961243041253458213}
   - {fileID: 5830852260770230812}
   - {fileID: 6599241868969402572}
   - {fileID: 3532145660649818988}
   - {fileID: 678262496191001772}
-  - {fileID: 2376564455574308210}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &832408681024809516
@@ -788,6 +787,7 @@ MonoBehaviour:
   deathEffect: {fileID: 0}
   hitEffects: []
   ragdollController: {fileID: 0}
+  dissolve: []
   patrolInfo:
     isPatrol: 0
     minPatrolTime: 0
@@ -1573,6 +1573,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7480443783000221459}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 752d2b5efb3c9524fbfa5eb2d2dfbc56,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2376564455574308210}
     - targetCorrespondingSourceObject: {fileID: 124588938789000044, guid: 752d2b5efb3c9524fbfa5eb2d2dfbc56,
         type: 3}
       insertIndex: -1

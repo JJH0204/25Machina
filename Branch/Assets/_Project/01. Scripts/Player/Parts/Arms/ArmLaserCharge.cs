@@ -38,6 +38,11 @@ public class ArmLaserCharge : PartBaseArm
         GUIManager.Instance.SetAmmoColor(partType, Color.blue);
         Managers.GUIManager.Instance.SetAmmoColor(partType, false);
 
+        if (_owner)
+        {
+            _currentReloadTime = _owner.Stats.CombinedPartStats[partType][EStatType.IntervalBetweenShots].value;
+        }
+
         _damagedTargets.Clear();
     }
 
@@ -59,7 +64,7 @@ public class ArmLaserCharge : PartBaseArm
 
             if (_currentReloadTime > 0.0f) return;
             _currentAmmo = Mathf.Clamp(_currentAmmo + 1, 0, maxAmmo);
-            _currentReloadTime = reloadTime;
+            _currentReloadTime = _owner.Stats.CombinedPartStats[partType][EStatType.IntervalBetweenShots].value;
 
             if (_currentAmmo >= maxAmmo)
             {
@@ -256,8 +261,11 @@ public class ArmLaserCharge : PartBaseArm
 
     protected IEnumerator CoDestroyLaser()
     {
+        GUIManager.Instance.SetAmmoColor(partType, true);
+
         yield return new WaitForSeconds(_owner.Stats.CombinedPartStats[partType][EStatType.IntervalBetweenShots].value);
 
+        GUIManager.Instance.SetAmmoColor(partType, false);
         _isAnimating = true;
         Utils.Destroy(currentLaserObject.gameObject);
         currentLaser = null;

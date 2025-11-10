@@ -7,6 +7,8 @@ using Monster.AI;
 using Managers;
 using _Project._01._Scripts.Monster;
 using Monster.AI.FSM;
+using System.Linq;
+using Unity.VisualScripting;
 
 public class Bullet : MonoBehaviour
 {
@@ -17,15 +19,15 @@ public class Bullet : MonoBehaviour
     [Header("Bullet Information")]
     [SerializeField] protected float bulletSpeed = 30.0f;
     [SerializeField] protected float explosionRadius = 2.0f;
+    [SerializeField] private float lifeTime = 5f; // 총알의 생명 시간
+    [SerializeField] protected LayerMask targetMask;
+    [SerializeField] private List<string> collisionTags = new();
+    private float _timer;
     private float _damage;
     private GameObject _from; // 발사 주체
     protected Vector3 _to; // 타겟 위치
     protected Transform _parent; // Spawn Point (Muzzle Flash 등의 Position을 위한 변수)
     protected Vector3 _targetDirection;
-
-    [SerializeField] private float lifeTime = 5f; // 총알의 생명 시간
-    [SerializeField] protected LayerMask targetMask;
-    private float _timer;
     protected bool _isCollided = false;
     protected List<Transform> _damagedTargets = new();
 
@@ -89,6 +91,14 @@ public class Bullet : MonoBehaviour
             targetMask |= (1 << LayerMask.NameToLayer("Enemy"));
             targetMask |= (1 << LayerMask.NameToLayer("Damagable"));
         }
+
+        if (collisionTags.Count <= 0)
+        {
+            collisionTags.Add("Wall");
+            collisionTags.Add("Breakable");
+            collisionTags.Add("Obstacle");
+            collisionTags.Add("Platform");
+        }
     }
 
     protected virtual void Start()
@@ -98,14 +108,12 @@ public class Bullet : MonoBehaviour
 
     protected void OnEnable()
     {
-        _isCollided = false;
-        _damagedTargets.Clear();
+        ResetBullet();
     }
 
     protected void OnDisable()
     {
-        _isCollided = false;
-        _damagedTargets.Clear();
+        ResetBullet();
     }
 
     protected virtual void Update()
@@ -128,21 +136,21 @@ public class Bullet : MonoBehaviour
         // 3. 총알은 벽(또는 기타 오브젝트)에 닿으면 파괴된다.
 
         // 플레이어가 발사한 총알
-        if (From && From.CompareTag("Player") && other && other.CompareTag("Enemy"))
+        if (From && other && From.CompareTag("Player") && other.CompareTag("Enemy"))
         {
             ShootByPlayer(other);
             return;
         }
         
         // 적이 발사한 총알
-        if (From && From.CompareTag("Enemy") && other && other.CompareTag("Player"))
+        if (From && other && From.CompareTag("Enemy") && other.CompareTag("Player"))
         {
             ShootByEnemy(other);
             return;
         }
         
         // 벽(또는 기타 오브젝트)에 닿은 경우
-        if (other && (other.CompareTag("Wall") || other.CompareTag("Obstacle") || other.CompareTag("Platform") || other.CompareTag("Breakable")))
+        if (other && collisionTags.Contains(other.gameObject.tag))
         {
             ImpactObstacle(other);
             return;
@@ -171,7 +179,7 @@ public class Bullet : MonoBehaviour
         }
 
         // 벽(또는 기타 오브젝트)에 닿은 경우
-        if (collision.gameObject && (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle") || collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("Breakable")))
+        if (collision.gameObject && collisionTags.Contains(collision.gameObject.tag))
         {
             ImpactObstacle(collision);
             return;
@@ -182,8 +190,7 @@ public class Bullet : MonoBehaviour
     #region Public Methods
     public void Init(GameObject shooter, Transform target, Vector3 start, Vector3 end, Vector3 direction, float damage)
     {
-        _isCollided = false;
-        _damagedTargets.Clear();
+        ResetBullet();
 
         _from = shooter;
         _to = end;
@@ -194,7 +201,6 @@ public class Bullet : MonoBehaviour
 
         if (muzzleParticlePrefab)
         {
-            // 필요할 경우 Pooling
             if (_parent)
             {
                 muzzleParticle = Utils.Instantiate(muzzleParticlePrefab, _parent.position, Quaternion.LookRotation(-_targetDirection), Parent);
@@ -208,6 +214,18 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    public virtual void ResetBullet()
+    {
+        _rb.velocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+        _timer = lifeTime;
+        muzzleParticle = null;
+        impactP = null;
+
+        _isCollided = false;
+        _damagedTargets.Clear();
+    }
+
     public override string ToString()
     {
         string fromName = _from != null ? _from.name : "Null";
@@ -217,16 +235,6 @@ public class Bullet : MonoBehaviour
             $"Bullet Direction: {_targetDirection}, Parent(Muzzle Flash): {_parent}, Damage: {_damage:F2}, Bullet Speed: {bulletSpeed:F2}, " +
             $"Explosion Radius: {explosionRadius:F2}, Max Life Time: {lifeTime:F2}, Current Life Time: {_timer:F2}";
         return log;
-    }
-
-    public GameObject GetTopParent(GameObject obj)
-    {
-        Transform current = obj.transform;
-        while (current.parent != null)
-        {
-            current = current.parent;
-        }
-        return current.gameObject;
     }
     #endregion
 
@@ -277,19 +285,15 @@ public class Bullet : MonoBehaviour
         _isCollided = true;
 
         // 풀링 전 총알의 상태를 초기화
-        _rb.velocity = Vector3.zero;
-        _rb.angularVelocity = Vector3.zero;
-        _timer = lifeTime;
-        muzzleParticle = null;
-        impactP = null;
+        ResetBullet();
 
-        if (explosionEffectPrefab)
-        {
-            Explode();
-        }
         if (impactParticle)
         {
             CreateImpaceEffect();
+        }
+        if (explosionEffectPrefab)
+        {
+            Explode();
         }
 
         Utils.Destroy(gameObject);
@@ -301,19 +305,15 @@ public class Bullet : MonoBehaviour
         _isCollided = true;
 
         // 풀링 전 총알의 상태를 초기화
-        _rb.velocity = Vector3.zero;
-        _rb.angularVelocity = Vector3.zero;
-        _timer = lifeTime;
-        muzzleParticle = null;
-        impactP = null;
+        ResetBullet();
 
-        if (explosionEffectPrefab)
-        {
-            Explode();
-        }
         if (impactParticle)
         {
             CreateImpaceEffect(collision);
+        }
+        if (explosionEffectPrefab)
+        {
+            Explode();
         }
 
         Utils.Destroy(gameObject);
@@ -321,15 +321,12 @@ public class Bullet : MonoBehaviour
 
     protected virtual void CreateImpaceEffect()
     {   
-        // 필요할 경우 Pooling
-        // Pooling 할 경우 Scale 초기화 할 것
         impactP = Utils.Instantiate(impactParticle, transform.position, Quaternion.LookRotation(-transform.forward));
         Utils.Destroy(impactP, 2.0f);
     }
 
     protected virtual void CreateImpaceEffect(Collision collision)
     {
-        // 필요할 경우 Pooling
         Vector3 contactP = collision.contacts[0].point;
         Vector3 contactN = collision.contacts[0].normal;
         impactP = Utils.Instantiate(impactParticle, contactP, Quaternion.FromToRotation(Vector3.up, contactN));
@@ -338,6 +335,7 @@ public class Bullet : MonoBehaviour
         if (collision != null && collision.transform.localScale != Vector3.one)
         {
             // Scale이 1이 아닐 경우 이펙트의 Scale 문제가 발생할 수 있음
+            // Y Scale을 기준으로 삼았으나 추후 수정될 수 있음
             impactP.transform.localScale /= collision.transform.localScale.y;
         }
     }
@@ -369,7 +367,10 @@ public class Bullet : MonoBehaviour
             enemy.ApplyDamage(_damage * coefficient * hitZoneValue, targetMask);
             Debug.Log($"원본 데미지: {_damage * coefficient}, 육질 데미지: {_damage * coefficient * hitZoneValue}");
 
-            Managers.GUIManager.Instance.StartHitCrosshair();
+            if (_from.CompareTag("Player"))
+            {
+                Managers.GUIManager.Instance.StartHitCrosshair();
+            }
         }
         else
         {
@@ -383,7 +384,10 @@ public class Bullet : MonoBehaviour
                 enemy.ApplyDamage(_damage * coefficient * hitZoneValue, targetMask);
                 Debug.Log($"원본 데미지: {_damage * coefficient}, 육질 데미지: {_damage * coefficient * hitZoneValue}");
 
-                Managers.GUIManager.Instance.StartHitCrosshair();
+                if (_from.CompareTag("Player"))
+                {
+                    Managers.GUIManager.Instance.StartHitCrosshair();
+                }
             }
         }
     }

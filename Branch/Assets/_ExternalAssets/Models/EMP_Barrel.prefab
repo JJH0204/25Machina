@@ -19635,6 +19635,7 @@ GameObject:
   - component: {fileID: 70201935805168185}
   - component: {fileID: 7021211809464082899}
   - component: {fileID: 1734695950982768143}
+  - component: {fileID: 3543975614083103405}
   m_Layer: 0
   m_Name: BlueUltimateNova
   m_TagString: Untagged
@@ -24365,6 +24366,27 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3543975614083103405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767250639390300042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fac44351d07e4246a85253bbd68c34b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionBulletPrefab: {fileID: 914363595772914150, guid: 54c0c4d3bf9e54547a040ca32ebbe207,
+    type: 3}
+  explosionRadius: 5
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 2621952
+  _damage: 30
+  debuffTime: 3
+  deceleration: 0.5
 --- !u!1 &4812364186385160382
 GameObject:
   m_ObjectHideFlags: 0

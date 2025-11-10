@@ -937,7 +937,8 @@ MonoBehaviour:
   - {fileID: 4647179729578114694}
   - {fileID: 2393121779310810020}
   ragdollController: {fileID: 7097551138121868837}
-  dissolve: {fileID: 7664813496158202948}
+  dissolve:
+  - {fileID: 7664813496158202948}
   patrolInfo:
     isPatrol: 0
     minPatrolTime: 2

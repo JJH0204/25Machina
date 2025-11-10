@@ -1,4 +1,5 @@
 using Managers;
+using Monster.AI.FSM;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,17 +9,10 @@ public class Bouncer : Bullet
     [SerializeField] protected int maxBounces = 3;          // 충돌 최대 횟수
     private int _bounceCount = 0;
 
-    protected override void OnCollisionEnter(Collision collision)
-    {
-        _bounceCount++;
-        base.OnCollisionEnter(collision);
-        
-        CreateImpaceEffect(collision);
-        CheckBounceCount(collision);
-    }
-
     protected override void ShootByPlayer(Collision collision)
     {
+        _bounceCount++;
+
         CreateImpaceEffect(collision);
         TakeDamage(collision.transform);
 
@@ -27,22 +21,18 @@ public class Bouncer : Bullet
 
     protected override void ShootByEnemy(Collision collision)
     {
-        CreateImpaceEffect(collision);
-        IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
-        if (damagable != null)
-        {
-            Transform otherParent = GetTopParent(collision.gameObject).transform;
-            if (_damagedTargets.Contains(otherParent)) return;
-            _damagedTargets.Add(otherParent);
+        _bounceCount++;
 
-            damagable.ApplyDamage(Damage, targetMask);
-        }
+        CreateImpaceEffect(collision);
+        TakeDamage(collision.transform);
 
         CheckBounceCount(collision);
     }
 
     protected override void ImpactObstacle(Collision collision)
     {
+        _bounceCount++;
+
         CreateImpaceEffect(collision);
         CheckBounceCount(collision);
     }
@@ -58,6 +48,13 @@ public class Bouncer : Bullet
         }
 
         return false;
+    }
+
+    public override void ResetBullet()
+    {
+        base.ResetBullet();
+
+        _bounceCount = 0;
     }
 
     public override string ToString()

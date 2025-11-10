@@ -5050,9 +5050,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7137650674708280168}
-  m_Layer: 0
+  m_Layer: 23
   m_Name: Gas_Barrel
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5142,6 +5142,7 @@ GameObject:
   - component: {fileID: 8651109280149296752}
   - component: {fileID: 4254270433565614155}
   - component: {fileID: 6661367812037468819}
+  - component: {fileID: 1944455028024884367}
   m_Layer: 4
   m_Name: Explosion 3
   m_TagString: Untagged
@@ -10070,6 +10071,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1944455028024884367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5562357277078209500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e82b42e953f5d549a11365d80ff9195, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionBulletPrefab: {fileID: 914363595772914150, guid: 54c0c4d3bf9e54547a040ca32ebbe207,
+    type: 3}
+  explosionRadius: 5
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 2621952
+  _damage: 150
+  isIgnoreDefence: 1
 --- !u!1 &6488880656525214654
 GameObject:
   m_ObjectHideFlags: 0
@@ -11284,9 +11305,9 @@ GameObject:
   - component: {fileID: 7382078118728561226}
   - component: {fileID: 3353897641797246233}
   - component: {fileID: 4978851355875129766}
-  m_Layer: 0
+  m_Layer: 23
   m_Name: Sci-Fi Barrel_Red
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

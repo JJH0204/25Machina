@@ -11,6 +11,8 @@ namespace _Project.Scripts.VisualScripting
 
         public override void Execute()
         {
+            if (IsOn) return;
+
             Managers.GUIManager.Instance.ObjectText.text = objectDescription;
 
             if (target)
@@ -18,6 +20,8 @@ namespace _Project.Scripts.VisualScripting
                 Managers.GUIManager.Instance.SetIndicatorTarget(target);
                 Managers.GUIManager.Instance.SetIndicator(true);
             }
+
+            IsOn = true;
         }
     }
 }

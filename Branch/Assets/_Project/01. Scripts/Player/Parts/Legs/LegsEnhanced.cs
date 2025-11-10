@@ -135,7 +135,7 @@ public class LegsEnhanced : PartBaseLegs
 
         // 점프 연출 이후 실행
         Utils.Destroy(
-            Utils.Instantiate(jumpEffectPrefab, _owner.transform.position + Vector3.up * 2.0f, Quaternion.Euler(new Vector3(90.0f, 0.0f, 0.0f))), 1.0f);
+            Utils.Instantiate(jumpEffectPrefab, _owner.transform.position + Vector3.up * 10.0f, Quaternion.Euler(new Vector3(90.0f, 0.0f, 0.0f))), 1.0f);
 
         GameObject go = Utils.Instantiate(RapidPlayerPrefab, _owner.transform.position, _owner.transform.rotation);
         RapidPlayer rapidPlayer = go.GetComponent<RapidPlayer>();
@@ -154,6 +154,9 @@ public class LegsEnhanced : PartBaseLegs
 
         if (_isAttack)
         {
+            Utils.Destroy(
+                Utils.Instantiate(jumpEffectPrefab, _owner.transform.position + Vector3.up * -5.0f, Quaternion.Euler(new Vector3(-90.0f, 0.0f, 0.0f))), 1.0f);
+
             Utils.Destroy(Utils.Instantiate(landingEffectPrefab, _owner.transform.position, Quaternion.identity), 0.5f);
             _owner.FollowCamera.ApplyShake(source);
 
@@ -175,6 +178,11 @@ public class LegsEnhanced : PartBaseLegs
                     _damagedTargets.Add(otherParent);
                     monster.ApplyDamage(skillDamage * hitZoneValue, targetMask);
                     Debug.LogError("원본 데미지: " + skillDamage + ", 육질 데미지: " + skillDamage * hitZoneValue);
+
+                    if (_owner.CompareTag("Player"))
+                    {
+                        Managers.GUIManager.Instance.StartHitCrosshair();
+                    }
                 }
                 else
                 {
@@ -186,12 +194,17 @@ public class LegsEnhanced : PartBaseLegs
                         _damagedTargets.Add(otherParent);
                         monster.ApplyDamage(skillDamage * hitZoneValue, targetMask);
                         Debug.LogError("원본 데미지: " + skillDamage + ", 육질 데미지: " + skillDamage * hitZoneValue);
+
+                        if (_owner.CompareTag("Player"))
+                        {
+                            Managers.GUIManager.Instance.StartHitCrosshair();
+                        }
                     }
                 }
             }
-
-            _damagedTargets.Clear();
         }
+
+        _damagedTargets.Clear();
     }
 
     public GameObject GetTopParent(GameObject obj)

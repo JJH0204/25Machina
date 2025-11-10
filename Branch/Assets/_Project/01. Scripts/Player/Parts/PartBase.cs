@@ -103,6 +103,11 @@ public abstract class PartBase : MonoBehaviour
             if (_damagedTargets.Contains(otherParent)) return;
             _damagedTargets.Add(otherParent);
             monster.ApplyDamage((_owner.Stats.CombinedPartStats[partType][EStatType.Damage].value * coefficient * hitZoneValue), targetMask);
+
+            if (_owner.CompareTag("Player"))
+            {
+                Managers.GUIManager.Instance.StartHitCrosshair();
+            }
         }
         else
         {
@@ -113,6 +118,11 @@ public abstract class PartBase : MonoBehaviour
                 if (_damagedTargets.Contains(otherParent)) return;
                 _damagedTargets.Add(otherParent);
                 monster.ApplyDamage((_owner.Stats.CombinedPartStats[partType][EStatType.Damage].value * coefficient * hitZoneValue), targetMask);
+
+                if (_owner.CompareTag("Player"))
+                {
+                    Managers.GUIManager.Instance.StartHitCrosshair();
+                }
             }
         }
     }

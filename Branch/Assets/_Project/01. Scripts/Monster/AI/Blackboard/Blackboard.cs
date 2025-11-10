@@ -27,7 +27,7 @@ namespace Monster.AI.Blackboard
         [SerializeField] private GameObject deathEffect;    // 몬스터 사망 이펙트 프리팹
         [SerializeField] private GameObject[] hitEffects;   // 몬스터 피격 이펙트 프리팹들
         [SerializeField] private RagdollController ragdollController;
-        [SerializeField] private MonsterDissolve dissolve; // 몬스터 디졸브 스크립트
+        [SerializeField] private MonsterDissolve[] dissolve; // 몬스터 디졸브 스크립트
         
         [SerializeField] private MonsterPatrol patrolInfo; // 몬스터 순찰 스크립트
         [SerializeField] private MonsterWander wanderInfo; // 몬스터 방황 스크립트
@@ -101,7 +101,7 @@ namespace Monster.AI.Blackboard
             set => hitEffects = value;
         }
         
-        public MonsterDissolve Dissolve => dissolve;
+        public MonsterDissolve[] Dissolve => dissolve;
         
         public MonsterPatrol PatrolInfo
         {
@@ -249,7 +249,8 @@ namespace Monster.AI.Blackboard
             NavMeshAgent.ResetPath();
             CurrentHealth = MaxHealth;
             State.SetState("Spawn");
-            Dissolve?.Init();
+            foreach (var dissolve in Dissolve)
+                dissolve.Init();
             Target = MonsterManager.Instance.Player;
         }
 

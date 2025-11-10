@@ -9929,11 +9929,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 0}
   bulletSpeed: 5
-  explosionRadius: 10
+  explosionRadius: 3
   lifeTime: 5
   targetMask:
     serializedVersion: 2
     m_Bits: 0
+  collisionTags: []
   muzzleParticlePrefab: {fileID: 0}
   impactParticle: {fileID: 0}
   explosionEffectPrefab: {fileID: 197368, guid: 992d56df7c560f84f916b4b55bbbd763,
@@ -9942,6 +9943,7 @@ MonoBehaviour:
     type: 3}
   collisionBulletPrefab: {fileID: 914363595772914150, guid: 54c0c4d3bf9e54547a040ca32ebbe207,
     type: 3}
+  bladeDamage: 50
   bladeInterval: 0.05
   bladesOnDeath: 14
 --- !u!1 &364168584227093103
