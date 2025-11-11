@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
     [Header("State")]
     [SerializeField] private EPlayerState movementBlockMask = EPlayerState.Dashing;
     [SerializeField] private EPlayerState dashBlockMask;
+    [SerializeField] private EPlayerState skillBlockMask;
     [SerializeField] private EPlayerState shootBlockMask = EPlayerState.Dashing;
     [SerializeField] private EPlayerState zoomBlockMask = EPlayerState.Dashing;
     [SerializeField] private EPlayerState partChangeBlockMask;
@@ -340,7 +341,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
     {
         if (context.started)
         {
-            if ((_currentPlayerState & dashBlockMask) != 0) return;
+            if ((_currentPlayerState & skillBlockMask) != 0) return;
 
             inventory.EquippedItems[EPartType.Shoulder][0].UseAbility();
         }

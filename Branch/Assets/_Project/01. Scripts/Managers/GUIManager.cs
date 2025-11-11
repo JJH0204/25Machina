@@ -113,6 +113,7 @@ namespace Managers
 
         [Header("Skill")]
         [SerializeField] private GameObject rapidInfo;
+        [SerializeField] private TextMeshProUGUI rapidCooldownText;
 
         public GameObject HUD
         {
@@ -927,6 +928,11 @@ namespace Managers
                 }
             }
             ToggleRadialUI(false);
+        }
+
+        public void SetRapidCooldownText(float remainingTime)
+        {
+            rapidCooldownText.text = $"{remainingTime:F0}";
         }
 
         #region Fade In/Out

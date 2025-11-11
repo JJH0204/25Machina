@@ -129,7 +129,7 @@ namespace Controller
             if (_timer >= unitTime && ((1 << hit.Target.gameObject.layer) & targetMask) != 0)
             {
                 _timer = 0.0f;
-                TakeDamage(hit, damagePerSecond * Time.deltaTime / unitTime);
+                TakeDamage(hit, damagePerSecond * unitTime);
             }
         }
 
@@ -246,7 +246,7 @@ namespace Controller
 
             if (damagable != null)
             {
-                damagable.ApplyDamage(damage, layersThatStopLaser, Time.deltaTime / unitTime, 1.0f);
+                damagable.ApplyDamage(damage, layersThatStopLaser, unitTime, 1.0f);
             }
         }
     }

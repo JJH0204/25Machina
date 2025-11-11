@@ -72,6 +72,7 @@ public class RapidPlayer : MonoBehaviour, PlayerActions.IJumpAttackActionMapActi
     {
         _currentTime -= Time.deltaTime;
         GUIManager.Instance.SetLegsSkillCooldown(_currentTime);
+        GUIManager.Instance.SetRapidCooldownText(_currentTime);
         if (_currentTime <= 0.0f)
         {
             Apply();

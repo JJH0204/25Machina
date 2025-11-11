@@ -210,7 +210,6 @@ public class LegsEnhanced : PartBaseLegs
                     if (_damagedTargets.Contains(otherParent)) continue;
                     _damagedTargets.Add(otherParent);
                     monster.ApplyDamage(skillDamage * hitZoneValue, targetMask);
-                    Debug.LogError("원본 데미지: " + skillDamage + ", 육질 데미지: " + skillDamage * hitZoneValue);
 
                     if (_owner.CompareTag("Player"))
                     {
@@ -226,7 +225,6 @@ public class LegsEnhanced : PartBaseLegs
                         if (_damagedTargets.Contains(otherParent)) continue;
                         _damagedTargets.Add(otherParent);
                         monster.ApplyDamage(skillDamage * hitZoneValue, targetMask);
-                        Debug.LogError("원본 데미지: " + skillDamage + ", 육질 데미지: " + skillDamage * hitZoneValue);
 
                         if (_owner.CompareTag("Player"))
                         {

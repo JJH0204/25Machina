@@ -1572,6 +1572,7 @@ MonoBehaviour:
   volume: {fileID: 0}
   movementBlockMask: 8968
   dashBlockMask: 11012
+  skillBlockMask: 11012
   shootBlockMask: 11016
   zoomBlockMask: 8960
   partChangeBlockMask: 15164
@@ -21719,7 +21720,7 @@ MonoBehaviour:
   baseTransform: {fileID: 0}
   Hips: {fileID: 2078838933849667625}
   ScaleReferenceMode: 3
-  finalScaleReference: 0.9814358
+  finalScaleReference: 0.9814367
   finalScaleReferenceSqrt: 0.1
   customScaleReferenceValue: 0.5
   DelayedInitialization: 0

@@ -70,7 +70,8 @@ public class BreakObject : ProcessBase
         yield return new WaitForSeconds(lapseTime);
 
         // 현재는 그냥 삭제하며, 추후 로직 변경 가능
-        Destroy(breakableObject);
+        //Destroy(breakableObject);
+        breakableObject.SetActive(false);
     }
 
     public override string ToString()

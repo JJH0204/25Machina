@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RagdollController : MonoBehaviour
@@ -9,8 +7,6 @@ public class RagdollController : MonoBehaviour
     
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody mainRigidbody;
-    
-    // public bool isRagdollActive;
 
     private void Awake()
     {
