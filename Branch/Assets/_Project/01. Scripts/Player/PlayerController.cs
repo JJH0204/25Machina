@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
     [SerializeField] private Transform groundCheck;
     [SerializeField] private GameObject followCameraPrefab;
     [SerializeField] private Volume volume;
+    [SerializeField] private GameObject lowHp;
     private FollowCameraController _followCamera;
     private MotionBlur _motionBlur;
 
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
     private EPlayerState _previousState = 0;
     private bool _isLeftAttackReady = false;
     private bool _isRightAttackReady = false;
+    private bool _isLowHp = false;
 
     [Header("Movement")]
     [SerializeField, Range(0.0f, 100.0f)] private float jumpVelocity = 50.0f;
@@ -98,8 +100,8 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
     [SerializeField] private AudioClip deadClip;
     [SerializeField] private AudioSource seSource;
 
-    [SerializeField] private GameObject lowHp;
     private Coroutine _indicatorRoutine = null;
+    private Coroutine _hitRoutine = null;
     #endregion
 
     #region Properties
@@ -295,6 +297,17 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
 
     private void OnDisable()
     {
+        if (_hitRoutine != null)
+        {
+            StopCoroutine(_hitRoutine);
+            _hitRoutine = null;
+        }
+
+        if (!_isLowHp)
+        {
+            lowHp.SetActive(false);
+        }
+
         _playerActions.PlayerActionMap.Disable();
     }
     #endregion
@@ -718,6 +731,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
     #region Public Methods
     public void Spawn()
     {
+        _isLowHp = false;
         lowHp.gameObject.SetActive(false);
 
         // Spawn은 게임 시작 또는 리스폰 시에만 호출
@@ -766,6 +780,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
             inventory.EquippedItems[(EPartType)(1 << i)][0].FinishActionForced();
         }
 
+        _isLowHp = false;
         lowHp.gameObject.SetActive(false);
     }
 
@@ -915,6 +930,16 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
         var damage = Utils.GetDamage(takeDamage, defenceIgnoreRate, unitOfTime, stats.TotalStats);
         if (damage > 0)
         {
+            if (!_isLowHp)
+            {
+                if (_hitRoutine != null)
+                {
+                    StopCoroutine(_hitRoutine);
+                    _hitRoutine = null;
+                }
+                _hitRoutine = StartCoroutine(CoStartHitEffect(0.1f));
+            }
+
             seSource.Stop();
             int randIndex = UnityEngine.Random.Range(0, hitClips.Count);
             seSource.clip = hitClips[randIndex];
@@ -953,8 +978,9 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
             // TODO: 데미지가 음수일때 어떻게 처리할 것인지 논의 필요 (힐을 시킬 것인지 무시할 것인지)
         }
 
-        if ((stats.CurrentHealth / stats.MaxHealth) <= 0.25f && !lowHp.gameObject.activeSelf)
+        if ((stats.CurrentHealth / stats.MaxHealth) <= 0.25f && lowHp.gameObject.activeSelf)
         {
+            _isLowHp = true;
             lowHp.gameObject.SetActive(true);
         }
 
@@ -984,6 +1010,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
 
         if ((stats.CurrentHealth / stats.MaxHealth) >= 0.25f && lowHp.gameObject.activeSelf)
         {
+            _isLowHp = false;
             lowHp.gameObject.SetActive(false);
         }
     }
@@ -1481,6 +1508,19 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
 
         Managers.GUIManager.Instance.SetIndicator(false);
         _indicatorRoutine = null;
+    }
+
+    private IEnumerator CoStartHitEffect(float duration)
+    {
+        lowHp.SetActive(true);
+
+        yield return new WaitForSeconds(duration);
+
+        if (!_isLowHp)
+        {
+            lowHp.SetActive(false);
+        }
+        _hitRoutine = null;
     }
     #endregion
 }

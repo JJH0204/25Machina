@@ -15,7 +15,7 @@ MonoBehaviour:
   skillID: 4018
   skillName: OneInThePipe
   skillDescription: "\uB9DD\uB098\uB2C8 \uC6D0\uAC70\uB9AC \uACF5\uACA9"
-  damage: 110
+  damage: 100
   range: 60
   cooldown: 6
   castTime: 1.75

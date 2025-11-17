@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class SafeZoneObject : MonoBehaviour
 {
-    private PlayerController player = null;
-
-    private void OnDisable()
-    {
-        if (player)
-        {
-            player.SetPlayerState(EPlayerState.Invincibility, false);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.CompareTag("Player"))
@@ -22,7 +12,6 @@ public class SafeZoneObject : MonoBehaviour
             if (player)
             {
                 player.SetPlayerState(EPlayerState.Invincibility, true);
-                this.player = player;
             }
         }
     }

@@ -198,6 +198,8 @@ public class Inventory : MonoBehaviour
 	// TODO: 파츠별,파리미터별 적용 방식 디테일한 논의 필요
     public void EquipItem(EPartType partType, EAttackType attackType)
     {
+        if (partType < 0 || attackType < 0 || _items[partType][attackType].Count <= 0) return;
+
         EquipItem(_items[partType][attackType][0]);
     }
 

@@ -9933,7 +9933,7 @@ MonoBehaviour:
   lifeTime: 5
   targetMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   muzzleParticlePrefab: {fileID: 0}
   impactParticle: {fileID: 0}
   explosionEffectPrefab: {fileID: 197368, guid: 992d56df7c560f84f916b4b55bbbd763,
@@ -9944,6 +9944,7 @@ MonoBehaviour:
     type: 3}
   bladeInterval: 0.075
   bladesOnDeath: 10
+  bladeSpeed: 10
 --- !u!1 &364168584227093103
 GameObject:
   m_ObjectHideFlags: 0

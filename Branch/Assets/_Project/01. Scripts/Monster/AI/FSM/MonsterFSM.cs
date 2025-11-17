@@ -165,7 +165,7 @@ namespace Monster.AI.FSM
         // 상태 진입 시 1회 호출되는 초기화 메서드 (기존 코드와 동일)
         protected override void EnterState(string stateName)
         {
-            InitAnimationFlags();
+            // InitAnimationFlags();
             blackboard.NavMeshAgent.isStopped = false;
             Debug.Log("Entered " + stateName);
 
@@ -302,7 +302,7 @@ namespace Monster.AI.FSM
 
                 // 스킬/타깃 정리
                 _useSkill = null;
-                // blackboard.IsAnySkillRunning = false; // 블랙보드에 이런 필드가 있다면 초기화
+                // 블랙보드에 이런 필드가 있다면 초기화
                 // 필요한 추가 초기화가 있다면 blackboard.Init()으로 처리
                 blackboard.Init();
             }
@@ -402,12 +402,12 @@ namespace Monster.AI.FSM
             
                 if (blackboard.AnimatorParameterSetter?.Animator != null)
                 {
-                    Animator animator = blackboard.AnimatorParameterSetter.Animator;
-                    // 초기 애니메이션 플래그 재설정
-                    InitAnimationFlags();
-                    
-                    animator.Rebind();
-                    animator.Update(0f);
+                    // Animator animator = blackboard.AnimatorParameterSetter.Animator;
+                    // // 초기 애니메이션 플래그 재설정
+                    // InitAnimationFlags();
+                    //
+                    // animator.Rebind();
+                    // animator.Update(0f);
                 }
             
                 _useSkill = null;

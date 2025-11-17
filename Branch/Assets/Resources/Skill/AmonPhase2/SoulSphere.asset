@@ -16,7 +16,7 @@ MonoBehaviour:
   skillName: SoulSphere
   skillDescription: "\uC544\uBAAC 2 \uD398\uC774\uC988 \uC2A4\uD0AC: \uC601\uD63C
     \uAD6C\uCCB4"
-  damage: 70
+  damage: 60
   range: 35
   cooldown: 8
   castTime: 1.4

@@ -16,13 +16,20 @@ public class ExplosionMissile : MonoBehaviour
     protected float _curLifeTime;
     protected Coroutine _damageRoutine = null;
 
-    protected void OnEnable()
+    protected void Start()
     {
         _curLifeTime = debuffTime;
         _damagedTargets.Clear();
 
+        // OnEnable에서 실행시키면 제대로 실행이 안 되는 문제 있음 (풀링 시 주의)
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, targetMask);
         _damageRoutine = StartCoroutine(ProcessExplosionColliders(colliders));
+    }
+
+    protected void OnEnable()
+    {
+        //_curLifeTime = debuffTime;
+        //_damagedTargets.Clear();
     }
 
     protected void OnDisable()
@@ -57,6 +64,7 @@ public class ExplosionMissile : MonoBehaviour
 
     protected virtual void DestroyExplosion()
     {
+        _damagedTargets.Clear();
         Utils.Destroy(gameObject);
     }
 
@@ -81,7 +89,10 @@ public class ExplosionMissile : MonoBehaviour
             enemy = target.transform.GetComponentInParent<IDamagable>();
             if (enemy != null)
             {
-                Transform otherParent = target.transform.GetComponentInParent<FSM>().transform;
+                FSM fsm = target.transform.GetComponentInParent<FSM>();
+                if (!fsm) return;
+
+                Transform otherParent = fsm.transform;
                 if (_damagedTargets.Contains(otherParent)) return;
                 _damagedTargets.Add(otherParent);
 
@@ -110,7 +121,7 @@ public class ExplosionMissile : MonoBehaviour
             }
 
             // 매 반복마다 다음 프레임을 기다려 CPU 부하를 분산시킵니다.
-            yield return null;
+            //yield return null;
         }
 
         if (_curLifeTime <= 0.0f)
@@ -119,18 +130,19 @@ public class ExplosionMissile : MonoBehaviour
         }
 
         _damageRoutine = null;
+        yield break;
     }
 
-//#if UNITY_EDITOR
-//    private void OnDrawGizmosSelected()
-//    {
-//        // 폭발 반경을 빨간색 반투명 구로 표시
-//        Gizmos.color = new Color(1f, 0f, 0f, 0.35f);
-//        Gizmos.DrawSphere(transform.position, explosionRadius);
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        // 폭발 반경을 빨간색 반투명 구로 표시
+        Gizmos.color = new Color(1f, 0f, 0f, 0.35f);
+        Gizmos.DrawSphere(transform.position, explosionRadius);
 
-//        // 폭발 반경 외곽선(선택사항)
-//        Gizmos.color = Color.red;
-//        Gizmos.DrawWireSphere(transform.position, explosionRadius);
-//    }
-//#endif
+        // 폭발 반경 외곽선(선택사항)
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
+    }
+#endif
 }

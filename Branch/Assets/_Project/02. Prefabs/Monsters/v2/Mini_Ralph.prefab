@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 5529908147310686888}
   - component: {fileID: 2745244340510203715}
   - component: {fileID: 8408694620698868664}
+  - component: {fileID: 7565445159417494287}
   m_Layer: 19
   m_Name: Heatbox
   m_TagString: Enemy
@@ -134,6 +135,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 2
   fValue: 0.8
+--- !u!114 &7565445159417494287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274060942466725777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a506dd8d82f44f0aa3d918344a3462a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitRigidbody: {fileID: 7950574537869477827}
 --- !u!1 &531391584184073129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1762,6 +1776,7 @@ GameObject:
   - component: {fileID: 1574416925777881442}
   - component: {fileID: 929917463828451496}
   - component: {fileID: 8895911552323143449}
+  - component: {fileID: 4591242779746290133}
   m_Layer: 19
   m_Name: Heatbox
   m_TagString: Enemy
@@ -1821,6 +1836,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 2
   fValue: 0.8
+--- !u!114 &4591242779746290133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4395672222797703548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a506dd8d82f44f0aa3d918344a3462a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitRigidbody: {fileID: 2328825296317584581}
 --- !u!1 &4643292865121749593
 GameObject:
   m_ObjectHideFlags: 0
@@ -2194,6 +2222,7 @@ GameObject:
   - component: {fileID: 8834013237180095865}
   - component: {fileID: 6838915403614579318}
   - component: {fileID: 7927145954278319506}
+  - component: {fileID: 1789266300859268914}
   m_Layer: 19
   m_Name: Heatbox
   m_TagString: Enemy
@@ -2253,6 +2282,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 0
   fValue: 1.5
+--- !u!114 &1789266300859268914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5256615195806973887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a506dd8d82f44f0aa3d918344a3462a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitRigidbody: {fileID: 9156885966207211196}
 --- !u!1 &5358554719161303686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2853,6 +2895,7 @@ GameObject:
   - component: {fileID: 2208431429826527621}
   - component: {fileID: 3170112365556257671}
   - component: {fileID: 3962208197897976430}
+  - component: {fileID: 399805434903225789}
   m_Layer: 19
   m_Name: Heatbox
   m_TagString: Enemy
@@ -2912,6 +2955,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 1
   fValue: 0.8
+--- !u!114 &399805434903225789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6446620393323602183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a506dd8d82f44f0aa3d918344a3462a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitRigidbody: {fileID: 8989470578930502841}
 --- !u!1 &6549942236611425511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2955,6 +3011,7 @@ GameObject:
   - component: {fileID: 3802246660777173021}
   - component: {fileID: 2503526245120877242}
   - component: {fileID: 1749504975599136668}
+  - component: {fileID: 4524125635233756347}
   m_Layer: 19
   m_Name: Heatbox
   m_TagString: Enemy
@@ -3014,6 +3071,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 3
   fValue: 1.2
+--- !u!114 &4524125635233756347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6603611494043528977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a506dd8d82f44f0aa3d918344a3462a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitRigidbody: {fileID: 3899992706727833384}
 --- !u!1 &6681583475646817481
 GameObject:
   m_ObjectHideFlags: 0
@@ -3025,6 +3095,7 @@ GameObject:
   - component: {fileID: 803192123361628164}
   - component: {fileID: 2121695439173178249}
   - component: {fileID: 1940678189321405294}
+  - component: {fileID: 8789817190645461107}
   m_Layer: 19
   m_Name: Heatbox
   m_TagString: Enemy
@@ -3084,6 +3155,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 2
   fValue: 0.8
+--- !u!114 &8789817190645461107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6681583475646817481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a506dd8d82f44f0aa3d918344a3462a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitRigidbody: {fileID: 2952610207380617595}
 --- !u!1 &6808096300551325216
 GameObject:
   m_ObjectHideFlags: 0
@@ -3095,6 +3179,7 @@ GameObject:
   - component: {fileID: 7284407342481241380}
   - component: {fileID: 2924974098478594310}
   - component: {fileID: 6561419462822918188}
+  - component: {fileID: 7737807980857084300}
   m_Layer: 19
   m_Name: Heatbox
   m_TagString: Enemy
@@ -3154,6 +3239,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 0
   fValue: 0.8
+--- !u!114 &7737807980857084300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6808096300551325216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a506dd8d82f44f0aa3d918344a3462a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitRigidbody: {fileID: 8989470578930502841}
 --- !u!1 &6833742575638430797
 GameObject:
   m_ObjectHideFlags: 0
@@ -3764,6 +3862,7 @@ GameObject:
   - component: {fileID: 9109128046229945264}
   - component: {fileID: 5503536129874244699}
   - component: {fileID: 6023463154771921642}
+  - component: {fileID: 4022306769155649694}
   m_Layer: 19
   m_Name: Body
   m_TagString: Enemy
@@ -3795,7 +3894,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8305705863965830682}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
   m_Name: 
@@ -3879,6 +3978,19 @@ MonoBehaviour:
   ragdollColliders: []
   animator: {fileID: 5779031931549564723}
   mainRigidbody: {fileID: 3899992706727833384}
+--- !u!114 &4022306769155649694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8305705863965830682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6927be6febe14209865ffc4b0fd611d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reactionDuration: 0.2
 --- !u!1 &8569775326791418379
 GameObject:
   m_ObjectHideFlags: 0
@@ -4116,6 +4228,7 @@ GameObject:
   - component: {fileID: 8469376988512912321}
   - component: {fileID: 780408855573493150}
   - component: {fileID: 1701216466743776869}
+  - component: {fileID: 6091742437302165931}
   m_Layer: 19
   m_Name: Heatbox
   m_TagString: Enemy
@@ -4175,6 +4288,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 2
   fValue: 0.8
+--- !u!114 &6091742437302165931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9082684275028909545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a506dd8d82f44f0aa3d918344a3462a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitRigidbody: {fileID: 3613154648263060745}
 --- !u!1 &9156787257218456176
 GameObject:
   m_ObjectHideFlags: 0

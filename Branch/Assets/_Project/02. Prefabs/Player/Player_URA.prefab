@@ -511,8 +511,8 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -30
-    m_MaxLimit: 30
+    m_MinLimit: -15
+    m_MaxLimit: 15
     m_AimAxis: 2
     m_UpAxis: 1
     m_WorldUpType: 0
@@ -1570,6 +1570,7 @@ MonoBehaviour:
   followCameraPrefab: {fileID: 8765793853822610566, guid: ef3eb5519f6701e4ab90e7fe45bfb5c8,
     type: 3}
   volume: {fileID: 0}
+  lowHp: {fileID: 0}
   movementBlockMask: 8968
   dashBlockMask: 11012
   skillBlockMask: 11012
@@ -1639,7 +1640,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f5ae46f476c659749b1b6e1319cd19a5, type: 3}
   deadClip: {fileID: 8300000, guid: 82ba3e0ee0703a94290c77d1a7d46616, type: 3}
   seSource: {fileID: 387769054366828555}
-  lowHp: {fileID: 0}
 --- !u!114 &1874341672980470719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22447,7 +22447,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   maxAmmo: 1
-  reloadTime: 0
+  reloadTime: 0.001
   muzzleFlashEffectPrefab: {fileID: 0}
   hitEffectPrefab: {fileID: 0}
   projectileEffectPrefab: {fileID: 0}
@@ -23468,9 +23468,11 @@ GameObject:
   - component: {fileID: 8261462207663945465}
   - component: {fileID: 3987929273160029720}
   - component: {fileID: 9137063613874716638}
+  - component: {fileID: 6790631188675610635}
+  - component: {fileID: 6054019394397729109}
   m_Layer: 8
   m_Name: Heavy_Leg
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23808,6 +23810,54 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: 0.5, z: -1}
+--- !u!65 &6790631188675610635
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7769002295777732743}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.530806, y: 1.9632676, z: 0.7209968}
+  m_Center: {x: 0.0000003576279, y: -0.07117581, z: 0.334989}
+--- !u!54 &6054019394397729109
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7769002295777732743}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7784449770241891343
 GameObject:
   m_ObjectHideFlags: 0

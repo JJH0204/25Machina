@@ -15,7 +15,10 @@ public class AmonMeleeCollision : MonoBehaviour
         if (other.transform.CompareTag("Player"))
         {
             IDamagable target = other.transform.GetComponent<IDamagable>();
-            target.ApplyDamage(_damage, targetMask);
+            if (target != null)
+            {
+                target.ApplyDamage(_damage, targetMask);
+            }
         }
     }
 

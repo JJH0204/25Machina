@@ -15,7 +15,7 @@ MonoBehaviour:
   skillID: 4023
   skillName: V_Rush
   skillDescription: "\uC0B4\uBAA8\uC0AC \uC9C8\uC8FC \uACF5\uACA9"
-  damage: 50
+  damage: 40
   range: 10
   cooldown: 5
   castTime: 1

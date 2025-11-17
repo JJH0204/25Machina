@@ -16,6 +16,8 @@ using UnityEngine;
 
 public class AmonPaseTwoFSM : FSM
 {
+    private static readonly int IsMoving = Animator.StringToHash("isMoving");
+    
     [SerializeField] private GameObject spawnModel;
     [SerializeField] private GameObject deathModel;
     [SerializeField] private GameObject amonBody;
@@ -30,6 +32,8 @@ public class AmonPaseTwoFSM : FSM
     protected override void Think()
     {
         if (!isEnabled || !_isSpawned || blackboard?.Target is null) return; // FSM이 활성화되지 않은 경우 아무 작업도 수행하지 않음(매니저에 의해 활성화 됨)
+        
+        Debug.Log($"{blackboard.CurrentHealth} / {blackboard.MaxHealth}");
 
         if (blackboard.State.GetStates() == "Death")
         {
@@ -49,20 +53,17 @@ public class AmonPaseTwoFSM : FSM
             return; // 스킬이 실행 중이면 상태 전환을 하지 않음
         }
         
-        // TODO: 영혼 흡수 기믹 추가
+        if (blackboard.CurrentHealth <= blackboard.MaxHealth * 0.5f && !blackboard.HasUsedSoulAbsorptionAt50Percent)
         {
-            if (blackboard.CurrentHealth <= blackboard.MaxHealth * 0.5f && !blackboard.HasUsedSoulAbsorptionAt50Percent)
-            {
-                blackboard.HasUsedSoulAbsorptionAt50Percent = true;
-                ChangeState("UsingSkill5"); // 영혼 흡수
-                return;
-            }
-            if (blackboard.CurrentHealth <= blackboard.MaxHealth * 0.2f && !blackboard.HasUsedSoulAbsorptionAt20Percent)
-            {
-                blackboard.HasUsedSoulAbsorptionAt20Percent = true;
-                ChangeState("UsingSkill5"); // 영혼 흡수
-                return;
-            }
+            blackboard.HasUsedSoulAbsorptionAt50Percent = true;
+            ChangeState("UsingSkill5"); // 영혼 흡수
+            return;
+        }
+        if (blackboard.CurrentHealth <= blackboard.MaxHealth * 0.2f && !blackboard.HasUsedSoulAbsorptionAt20Percent)
+        {
+            blackboard.HasUsedSoulAbsorptionAt20Percent = true;
+            ChangeState("UsingSkill5"); // 영혼 흡수
+            return;
         }
         
         // 체력이 50% 이하로 떨어지면 락다운 스킬을 쿨타임 마다 사용
@@ -232,15 +233,30 @@ public class AmonPaseTwoFSM : FSM
         }
 
         // 애니메이션 설정
-        blackboard.AnimatorParameterSetter.Animator.SetBool("isMoving", true);
+        blackboard.AnimatorParameterSetter.Animator.SetBool(IsMoving, true);
     }
 
     protected override void EnterState(string stateName)
     {
         switch (stateName)
         {
-            default:
-                // 아무 작업도 수행하지 않음
+            case "Idle":
+                blackboard.AnimatorParameterSetter.Animator.SetBool(IsMoving, false);
+                if (blackboard.NavMeshAgent != null)
+                    blackboard.NavMeshAgent.isStopped = true;
+                break;
+            case "Chase":
+                // 추적 상태 진입 시 추가 로직이 필요하면 여기에 작성
+                break;
+            case "UsingSkill1":
+            case "UsingSkill2":
+            case "UsingSkill3":
+            case "UsingSkill4":
+            case "UsingSkill5":
+            case "UsingSkill6":
+            case "UsingSkill7":
+                if (blackboard.NavMeshAgent != null)
+                    blackboard.NavMeshAgent.isStopped = true;
                 break;
         }
     }
@@ -256,8 +272,15 @@ public class AmonPaseTwoFSM : FSM
     
     public override void ApplyDamage(float inDamage, LayerMask targetMask = default, float unitOfTime = 1, float defenceIgnoreRate = 0)
     {
-        base.ApplyDamage(inDamage, targetMask, unitOfTime, defenceIgnoreRate);
+        if (blackboard.State.GetStates() == "UsingSkill5") // 영혼 흡수 스킬 실행 중일 때는 데미지 절반으로
+        {
+            base.ApplyDamage(inDamage / 2f, targetMask, unitOfTime, defenceIgnoreRate);
+        }
+        else
+        {
+            base.ApplyDamage(inDamage, targetMask, unitOfTime, defenceIgnoreRate);
+        }
         
-        GUIManager.Instance.UpdateBossHpBar("아몬", blackboard.CurrentHealth, blackboard.MaxHealth);
+        GUIManager.Instance.UpdateBossHpBar("해방된 아몬", blackboard.CurrentHealth, blackboard.MaxHealth);
     }
 }

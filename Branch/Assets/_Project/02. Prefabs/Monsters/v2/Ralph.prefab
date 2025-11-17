@@ -90,10 +90,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3817920945223808335}
-  boolParameterNames:
-  - IsWalk
-  - IsRun
-  boolParameterHashes: 6f6a002b65f9317d
+  boolParameterNames: []
+  boolParameterHashes: 
 --- !u!95 &3817920945223808335
 Animator:
   serializedVersion: 5

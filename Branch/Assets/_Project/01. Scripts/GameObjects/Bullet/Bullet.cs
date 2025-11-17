@@ -379,7 +379,10 @@ public class Bullet : MonoBehaviour
             enemy = target.transform.GetComponentInParent<IDamagable>();
             if (enemy != null)
             {
-                Transform otherParent = target.transform.GetComponentInParent<FSM>().transform;
+                FSM fsm = target.transform.GetComponentInParent<FSM>();
+                if (!fsm) return;
+
+                Transform otherParent = fsm.transform;
                 if (_damagedTargets.Contains(otherParent)) return;
                 _damagedTargets.Add(otherParent);
 

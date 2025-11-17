@@ -2,6 +2,7 @@ using Monster.AI.Blackboard;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 namespace _Test.Skills
@@ -16,43 +17,15 @@ namespace _Test.Skills
         [SerializeField] private float originalCooldown;                    // 쿨타임 절반 증가를 위한 본래 쿨타임 값
                                                                             // 원래 쿨타임이 변경될 때마다 직접 수정해야하므로 개선 필요
         private GameObject _barrierInstance;
-        private bool isShieldRemovedByPlayer = false;
 
-        public bool IsSheldRemovedByPlayer
-        {
-            get => isShieldRemovedByPlayer;
-            set => isShieldRemovedByPlayer = value;
-        }
-
-        public override IEnumerator Activate(Blackboard data)
-        {
-            Debug.Log("[Amon Phase 2] 영혼 흡수 시작");
-
-            // 2. 캐스팅 시간 초과 처리
-            Utils.Destroy(_barrierInstance);
-            data.AnimatorParameterSetter.Animator.SetBool("isBarrier", false);
-
-            // 캐스팅 성공 시 플레이어 최대 체력의 N% 흡수
-            PlayerController target = data.Target.GetComponent<PlayerController>();
-            if (target)
-            {
-                float absorbAmount = target.Stats.MaxHealth * 0.2f;
-                target.ApplyDamage(absorbAmount, LayerMask.GetMask("Player"), 1.0f, 1.0f);
-
-                // 보스 체력 회복 처리
-                data.CurrentHealth = Mathf.Clamp(data.CurrentHealth + absorbAmount, data.CurrentHealth, data.MaxHealth);
-            }
-
-            Debug.Log("[Amon Phase 2] 영혼 흡수 종료");
-            yield break;
-        }
+        public bool IsShieldRemovedByPlayer { get; set; }
 
         public override IEnumerator Casting(Blackboard data)
         {
             Debug.Log("[Amon Phase 2] 영혼 흡수 준비");
 
             // 1. 캐스팅 시작
-            isShieldRemovedByPlayer = false;
+            IsShieldRemovedByPlayer = false;
             data.AnimatorParameterSetter.Animator.SetBool("isBarrier", true);
             cooldown = originalCooldown;                                        // 쿨타임 초기화
 
@@ -61,7 +34,11 @@ namespace _Test.Skills
             _barrierInstance = Utils.Instantiate(barrierPrefab, data.Agent.transform);
             _barrierInstance.transform.localPosition = barrierOffset;
             _barrierInstance.transform.localRotation = Quaternion.identity;
-
+            
+            // 보호막 초기화
+            var _barrier = _barrierInstance.GetComponent<AmonBarrier>();
+            _barrier.Initialize(data.MaxHealth, () => { IsShieldRemovedByPlayer = true; });
+            
             // To-do: 실제 보스에 무적 상태를 적용시키고(현재 적용 X), 실제 데미지는 보호막을 통해 계산
             // 보호막에 충돌 판정이 있긴 하나 관통이나 범위 공격을 피할 수가 없어 무적 상태(보호막으로부터의 데미지는 받을 수 있어야함) 고려가 필요한 상황
             // 보호막 체력이 다 될 경우 보스 쪽 변수를 변경하여 보호막 파괴 여부를 확인하고 그에 따른 기믹 처리
@@ -69,7 +46,7 @@ namespace _Test.Skills
             float elapsed = 0f;
             while (elapsed < castTime)
             {
-                Debug.Log("Hp: " + data.CurrentHealth + "/" + data.MaxHealth);
+                // Debug.Log("Hp: " + data.CurrentHealth + "/" + data.MaxHealth);
                 Vector3 direction = data.Target.transform.position - data.Agent.transform.position;
                 direction.y = 0;
 
@@ -80,9 +57,9 @@ namespace _Test.Skills
                 }
 
                 // 보호막이 파괴되었는지 체크
-                if (isShieldRemovedByPlayer)
+                if (IsShieldRemovedByPlayer)
                 {
-                    Utils.Destroy(_barrierInstance);
+                    // Utils.Destroy(_barrierInstance);
                     data.AnimatorParameterSetter.Animator.SetBool("isBarrier", false);
 
                     cooldown += originalCooldown * 0.5f;   // 쿨타임 절반 증가
@@ -92,6 +69,37 @@ namespace _Test.Skills
                 elapsed += Time.deltaTime;
                 yield return null;
             }
+        }
+
+        public override IEnumerator Activate(Blackboard data)
+        {
+            Debug.Log("[Amon Phase 2] 영혼 흡수 시작");
+            
+            data.AnimatorParameterSetter.Animator.SetBool("isBarrier", false);
+
+            if (!IsShieldRemovedByPlayer)
+            {
+                // 2. 캐스팅 시간 초과 처리
+                Utils.Destroy(_barrierInstance);
+                // 캐스팅 성공 시 플레이어 최대 체력의 N% 흡수
+                PlayerController target = data.Target.GetComponent<PlayerController>();
+                if (target)
+                {
+                    float absorbAmount = target.Stats.MaxHealth * 0.2f;
+                    target.ApplyDamage(absorbAmount, LayerMask.GetMask("Player"), 1.0f, 1.0f);
+
+                    // 보스 체력 회복 처리
+                    data.CurrentHealth = Mathf.Clamp(data.CurrentHealth + absorbAmount, data.CurrentHealth, data.MaxHealth);
+                }
+            }
+            else
+            {
+                // 아무 행동을 하지 않음
+                Debug.Log("[Amon Phase 2] 영혼 흡수가 플레이어에 의해 중단됨");
+            }
+
+            Debug.Log("[Amon Phase 2] 영혼 흡수 종료");
+            yield break;
         }
     }
 }

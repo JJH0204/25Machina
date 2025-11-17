@@ -14,12 +14,11 @@ namespace _Test.Skills
     /// - 예외처리2: 대상과 거리가 너무 멀 경우 스킬 취소
     /// - 예외처리3: 돌진 중 장애물에 부딪히면 돌진 취소
     /// </summary>
-    
+
     [CreateAssetMenu(fileName = "SoulOrb", menuName = "MonsterSkills/Amon_Phase2/SoulOrb")]
     public class AmonSoulOrb : SkillData
     {
-        [Header("그 외 스킬 정보")]
-        [SerializeField] private GameObject bulletPrefab;
+        [Header("그 외 스킬 정보")] [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private List<Vector3> bulletSpawnOffset = new();
 
         public override IEnumerator Activate(Blackboard data)
@@ -40,6 +39,7 @@ namespace _Test.Skills
                     bullet.Init(data.Agent, data.Target.transform, startPosition, Vector3.zero, direction, damage);
                 }
             }
+
             data.AnimatorParameterSetter.Animator.SetBool("isCharging", false);
 
             Debug.Log("[Amon Phase 2] 영혼 보주 종료");
@@ -63,17 +63,13 @@ namespace _Test.Skills
                 if (direction != Vector3.zero)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(direction);
-                    data.Agent.transform.rotation = Quaternion.Slerp(data.Agent.transform.rotation, targetRotation, Time.deltaTime * 5f);
+                    data.Agent.transform.rotation = Quaternion.Slerp(data.Agent.transform.rotation, targetRotation,
+                        Time.deltaTime * 5f);
                 }
 
                 elapsed += Time.deltaTime;
                 yield return null; // 다음 프레임까지 대기
             }
-
-            //return base.Casting(data);
         }
     }
 }
-
-// TODO: 리지드바디를 이용해 돌진을 구현하였으나 물체와 충돌 후 멈추는 것이 자연스럽지 않음 (오히려 관성으로 더 멀리 감)
-// 제자리에 멈출 수 있는 방법이 무었이 있을까?

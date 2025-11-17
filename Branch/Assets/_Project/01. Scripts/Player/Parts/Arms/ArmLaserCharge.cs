@@ -20,6 +20,7 @@ public class ArmLaserCharge : PartBaseArm
     protected SkinnedMeshRenderer smr;
     protected bool isMaxCharge = false;
     protected AudioSource _audioSource;
+    protected bool _isDelay = false;
 
     protected Coroutine _recoilRoutine = null;
     protected Coroutine _morphBlendRoutine = null;
@@ -38,11 +39,6 @@ public class ArmLaserCharge : PartBaseArm
         GUIManager.Instance.SetAmmoColor(partType, Color.blue);
         Managers.GUIManager.Instance.SetAmmoColor(partType, false);
 
-        if (_owner)
-        {
-            _currentReloadTime = _owner.Stats.CombinedPartStats[partType][EStatType.IntervalBetweenShots].value;
-        }
-
         _damagedTargets.Clear();
     }
 
@@ -60,12 +56,12 @@ public class ArmLaserCharge : PartBaseArm
         if (!_isShooting)
         {
             if (_currentAmmo >= maxAmmo) return;
+
             _currentReloadTime -= Time.deltaTime;
-
             if (_currentReloadTime > 0.0f) return;
-            _currentAmmo = Mathf.Clamp(_currentAmmo + 1, 0, maxAmmo);
-            _currentReloadTime = _owner.Stats.CombinedPartStats[partType][EStatType.IntervalBetweenShots].value;
 
+            _currentAmmo = Mathf.Clamp(_currentAmmo + 1, 0, maxAmmo);
+            _currentReloadTime = reloadTime;
             if (_currentAmmo >= maxAmmo)
             {
                 _isOverheat = false;
@@ -74,6 +70,7 @@ public class ArmLaserCharge : PartBaseArm
             return;
         }
         if ((_owner.CurrentPlayerState & EPlayerState.Rotating) != 0) return;
+        if (_isDelay) return;
 
         _currentShootTime += Time.deltaTime;
         if (_currentShootTime >= maxChargeTime)
@@ -98,6 +95,9 @@ public class ArmLaserCharge : PartBaseArm
         if (!_isAnimating) return;
 
         base.UseAbility();
+
+        if (_isDelay) return;
+
         if (chargeEffectPrefab)
         {
             if (!chargeEffect)
@@ -119,16 +119,19 @@ public class ArmLaserCharge : PartBaseArm
         if (!_isAnimating) return;
 
         base.UseCancleAbility();
+
         if (chargeEffect)
         {
             Utils.Destroy(chargeEffect);
             chargeEffect = null;
         }
 
-        Shoot();
-
         _currentShootTime = 0.0f;
         isMaxCharge = false;
+
+        if (_isDelay) return;
+
+        Shoot();
     }
 
     public override void FinishActionForced()
@@ -172,7 +175,7 @@ public class ArmLaserCharge : PartBaseArm
         }
 
         _damagedTargets.Clear();
-        _isAnimating = true;
+        _isDelay = false;
     }
 
     protected override void Shoot()
@@ -212,7 +215,6 @@ public class ArmLaserCharge : PartBaseArm
         Vector3 camShootDirection = (obstaclePoint - bulletSpawnPoint.position).normalized;
         currentLaser.transform.rotation = Quaternion.LookRotation(camShootDirection);
 
-        _isAnimating = false;
         if (fadeCoroutine != null)
         {
             StopCoroutine(fadeCoroutine);
@@ -262,11 +264,29 @@ public class ArmLaserCharge : PartBaseArm
     protected IEnumerator CoDestroyLaser()
     {
         GUIManager.Instance.SetAmmoColor(partType, true);
+        _isDelay = true;
 
         yield return new WaitForSeconds(_owner.Stats.CombinedPartStats[partType][EStatType.IntervalBetweenShots].value);
 
+        _isDelay = false;
+        if (_isShooting)
+        {
+            if (chargeEffectPrefab)
+            {
+                if (!chargeEffect)
+                {
+                    chargeEffect = Utils.Instantiate(chargeEffectPrefab, bulletSpawnPoint.position + chargeOffset, Quaternion.identity, bulletSpawnPoint);
+                }
+            }
+
+            if (_morphBlendRoutine != null)
+            {
+                StopCoroutine(_morphBlendRoutine);
+            }
+            _morphBlendRoutine = StartCoroutine(CoMorphBlend(0, true));
+        }
+
         GUIManager.Instance.SetAmmoColor(partType, false);
-        _isAnimating = true;
         Utils.Destroy(currentLaserObject.gameObject);
         currentLaser = null;
         currentLaserObject = null;

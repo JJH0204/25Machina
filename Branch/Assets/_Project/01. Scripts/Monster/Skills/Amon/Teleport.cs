@@ -20,9 +20,16 @@ namespace _Test.Skills
             randomDirection.y = 0; // 수평면에서만 이동
             Vector3 targetPosition = data.Target.transform.position + randomDirection;
             data.Agent.transform.position = targetPosition;
-            yield return new WaitForSeconds(0.1f); // 잠시 대기
+
+            if (data.NavMeshAgent is not null)
+            {
+                // 네비메시 에이전트 위치 동기화
+                data.NavMeshAgent.Warp(targetPosition);
+                data.NavMeshAgent.isStopped = true;
+            }
+
+            yield return null;
             Debug.Log("순간 이동 완료");
-            data.CurrentState = "Idle"; // 상태를 Idle로 강제 변경 (이후에 더 나은 방법을 찾아볼 것)
         }
     }
 }

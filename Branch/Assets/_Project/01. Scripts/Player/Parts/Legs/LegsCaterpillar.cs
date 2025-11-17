@@ -330,14 +330,18 @@ public class LegsCaterpillar : PartBaseLegs
                         enemy = collider.transform.GetComponentInParent<IDamagable>();
                         if (enemy != null)
                         {
-                            Transform otherParent = collider.transform.GetComponentInParent<FSM>().transform;
-                            if (_damagedTargets.Contains(otherParent)) continue;
-                            _damagedTargets.Add(otherParent);
-                            enemy.ApplyDamage(skillDamage, targetMask);
-
-                            if (_owner.CompareTag("Player"))
+                            FSM fsm = collider.transform.GetComponentInParent<FSM>();
+                            if (fsm)
                             {
-                                Managers.GUIManager.Instance.StartHitCrosshair();
+                                Transform otherParent = fsm.transform;
+                                if (_damagedTargets.Contains(otherParent)) continue;
+                                _damagedTargets.Add(otherParent);
+                                enemy.ApplyDamage(skillDamage, targetMask);
+
+                                if (_owner.CompareTag("Player"))
+                                {
+                                    Managers.GUIManager.Instance.StartHitCrosshair();
+                                }
                             }
                         }
                     }
