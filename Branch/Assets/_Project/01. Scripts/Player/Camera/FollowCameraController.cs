@@ -106,17 +106,28 @@ public class FollowCameraController : MonoBehaviour
         _inputProvider = gameObject.GetComponent<CinemachineInputProvider>();
     }
 
+    private void Start()
+    {
+        // 시작할 때부터 입력 막고 시작
+        if (_inputProvider != null)
+        {
+            _inputProvider.enabled = false;
+
+            if (_inputProvider.XYAxis != null &&
+                _inputProvider.XYAxis.action != null)
+            {
+                _inputProvider.XYAxis.action.Disable();
+            }
+        }
+    }
+
     private void LateUpdate()
     {
         if (_isLockedByUI)
         {
-            // 축 값 고정
+            // 3. 혹시 모를 값 변화를 막기 위해 각도를 계속 고정
             _cameraAim.m_HorizontalAxis.Value = _lockedValue.x;
             _cameraAim.m_VerticalAxis.Value = _lockedValue.y;
-
-            // 입력값은 0으로 유지해 회전 입력 중지
-            _cameraAim.m_HorizontalAxis.m_InputAxisValue = 0f;
-            _cameraAim.m_VerticalAxis.m_InputAxisValue = 0f;
         }
     }
 
@@ -264,18 +275,23 @@ public class FollowCameraController : MonoBehaviour
 
     public void OnUIOpen()
     {
-        if (_inputProvider)
-        {
-            _inputProvider.enabled = false;  // 입력 비활성화
-        }
-
+        // 1. 현재 각도 저장
         if (_cameraAim != null)
         {
             _lockedValue.x = _cameraAim.m_HorizontalAxis.Value;
             _lockedValue.y = _cameraAim.m_VerticalAxis.Value;
+        }
 
-            _cameraAim.m_HorizontalAxis.m_InputAxisValue = 0f;
-            _cameraAim.m_VerticalAxis.m_InputAxisValue = 0f;
+        // 2. CinemachineInputProvider가 Look 액션을 읽지 못하게
+        if (_inputProvider != null)
+        {
+            if (_inputProvider.XYAxis != null &&
+                _inputProvider.XYAxis.action != null)
+            {
+                _inputProvider.XYAxis.action.Disable();
+            }
+
+            _inputProvider.enabled = false;
         }
 
         _isLockedByUI = true;
@@ -283,9 +299,16 @@ public class FollowCameraController : MonoBehaviour
 
     public void OnUIClose()
     {
-        if (_inputProvider)
+        // 1. 입력 다시 살리기
+        if (_inputProvider != null)
         {
-            _inputProvider.enabled = true;  // 입력 비활성화
+            _inputProvider.enabled = true;
+
+            if (_inputProvider.XYAxis != null &&
+                _inputProvider.XYAxis.action != null)
+            {
+                _inputProvider.XYAxis.action.Enable();
+            }
         }
 
         _isLockedByUI = false;

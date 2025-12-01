@@ -635,6 +635,11 @@ namespace Managers
             if (player)
             {
                 player.Navi.SetTarget(target);
+
+                if (!player.Navi.IsParticleActivate)
+                {
+                    SetIndicator(true);
+                }
             }
         }
 

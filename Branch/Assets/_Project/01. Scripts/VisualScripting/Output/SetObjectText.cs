@@ -18,7 +18,6 @@ namespace _Project.Scripts.VisualScripting
             if (target)
             {
                 Managers.GUIManager.Instance.SetIndicatorTarget(target);
-                Managers.GUIManager.Instance.SetIndicator(true);
             }
 
             IsOn = true;

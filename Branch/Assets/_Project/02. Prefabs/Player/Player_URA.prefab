@@ -271,7 +271,7 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: -0.05, y: 0.05, z: 0}
+  m_DefaultVelocity: {x: 0.05, y: 0.05, z: 0}
 --- !u!114 &8096856311343211582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1753,7 +1753,7 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: 1, y: -1, z: -1}
+  m_DefaultVelocity: {x: -1, y: -1, z: -1}
 --- !u!82 &387769054366828555
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13511,7 +13511,7 @@ MonoBehaviour:
   maxAmmo: 1000
   reloadTime: 0.001
   muzzleFlashEffectPrefab: {fileID: 0}
-  hitEffectPrefab: {fileID: 100002, guid: c471ad8b46167e24582c34d4b5d5539f, type: 3}
+  hitEffectPrefab: {fileID: 169604, guid: 4b921a272ada98543bf75b6742186cbc, type: 3}
   projectileEffectPrefab: {fileID: 0}
   shootingRange: 100
   recoilX: 4
@@ -18212,7 +18212,7 @@ GameObject:
   - component: {fileID: 7045338801476690044}
   - component: {fileID: 2325711673240079744}
   - component: {fileID: 356181344575463785}
-  m_Layer: 8
+  m_Layer: 25
   m_Name: Heavy_Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18254,7 +18254,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e53f2b3d6b5759a489c174b1d61b055b, type: 2}
+  - {fileID: 2100000, guid: 41e5ee0fe43b98b44a8764dad68ecd2d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21059,7 +21059,7 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: 0, y: -1, z: 0}
+  m_DefaultVelocity: {x: 0, y: 1, z: 0}
 --- !u!82 &2672866829417660085
 AudioSource:
   m_ObjectHideFlags: 0
@@ -24104,7 +24104,7 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: -0.05, y: 0.05, z: 0}
+  m_DefaultVelocity: {x: -0.05, y: -0.05, z: 0}
 --- !u!114 &8695153332083899129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25358,7 +25358,7 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: -0.01, y: 0.01, z: 0}
+  m_DefaultVelocity: {x: -0.01, y: -0.01, z: 0}
 --- !u!114 &7425572409170030477
 MonoBehaviour:
   m_ObjectHideFlags: 0
