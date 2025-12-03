@@ -175,7 +175,7 @@ PlayerSettings:
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 22
+  AndroidMinSdkVersion: 28
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -856,23 +856,23 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: DOTWEEN;MAGICACLOTH2
-    EmbeddedLinux: DOTWEEN
+    Android: DOTWEEN;MAGICACLOTH2;KAMGAM_POWER_PIVOT
+    EmbeddedLinux: DOTWEEN;KAMGAM_POWER_PIVOT
     GameCoreScarlett: DOTWEEN
-    GameCoreXboxOne: DOTWEEN
-    LinuxHeadlessSimulation: DOTWEEN
-    Nintendo Switch: DOTWEEN
-    PS4: DOTWEEN
-    PS5: DOTWEEN
-    QNX: DOTWEEN
-    Stadia: DOTWEEN
-    Standalone: MAGICACLOTH2;DOTWEEN
-    VisionOS: DOTWEEN
-    WebGL: DOTWEEN
-    Windows Store Apps: DOTWEEN
-    XboxOne: DOTWEEN
-    iPhone: DOTWEEN
-    tvOS: DOTWEEN
+    GameCoreXboxOne: DOTWEEN;KAMGAM_POWER_PIVOT
+    LinuxHeadlessSimulation: DOTWEEN;KAMGAM_POWER_PIVOT
+    Nintendo Switch: DOTWEEN;KAMGAM_POWER_PIVOT
+    PS4: DOTWEEN;KAMGAM_POWER_PIVOT
+    PS5: DOTWEEN;KAMGAM_POWER_PIVOT
+    QNX: DOTWEEN;KAMGAM_POWER_PIVOT
+    Stadia: DOTWEEN;KAMGAM_POWER_PIVOT
+    Standalone: MAGICACLOTH2;DOTWEEN;KAMGAM_POWER_PIVOT
+    VisionOS: DOTWEEN;KAMGAM_POWER_PIVOT
+    WebGL: DOTWEEN;KAMGAM_POWER_PIVOT
+    Windows Store Apps: DOTWEEN;KAMGAM_POWER_PIVOT
+    XboxOne: DOTWEEN;KAMGAM_POWER_PIVOT
+    iPhone: DOTWEEN;KAMGAM_POWER_PIVOT
+    tvOS: DOTWEEN;KAMGAM_POWER_PIVOT
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
