@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Managers
@@ -14,12 +15,14 @@ namespace Managers
             Epilogue,
             Playing,
             Paused,
-            GameOver
+            GameOver,
+            Credit
         }
 
         public PlayerController Player { get; set; }
         public GameObject MainCamera { get; set; }
         public GameObject FollowCamera { get; set; }
+        public GameObject MinimapObject { get; set; }
         private Coroutine _rebirthRoutine;
 
         public bool IsLoad { get; private set; }
@@ -42,7 +45,6 @@ namespace Managers
         public void SceneLoaded()
         {
             IsLoad = true;
-            SoundManager.Instance.Init();
         }
 
         private void PlayingProcess()
@@ -109,8 +111,14 @@ namespace Managers
         {
             try
             {
-                await SceneController.Instance.LoadSceneAdditive("Scene_UI");
+                Debug.Log("[GameManager] 타이틀 씬 로드 중...");
+                
+                await GUIManager.LoadGUI();
+                await SoundManager.Instance.Init();
+                
                 CurrentState = GameState.Title;
+                
+                Debug.Log("[GameManager] 타이틀 씬 로드 완료!");
             }
             catch (Exception e)
             {
@@ -131,7 +139,7 @@ namespace Managers
                 // await DungeonManager.Instance.LoadAllStage();   // 테스트용 모든 스테이지 로드
                 await DungeonManager.Instance.Init();
                 await PoolManager.Instance.Init();
-                await SceneController.Instance.LoadSceneAdditive("Scene_Player");
+                await LoadPlayerScene();
                 
                 DungeonManager.Instance.SetPlayerStartPosition();
                 
@@ -152,11 +160,86 @@ namespace Managers
             Player = FindObjectOfType<PlayerController>();
         }
 
-        public void ExitGame()
+        public async void ExitGame()
         {
-            // 게임 종료
-            // 모든 씬 언로드
-            SceneController.Instance.UnloadScene("Scene_Game");
+            try
+            {
+                Debug.Log("[GameManager] 게임 종료 중...");
+                
+                // 게임 리소스 씬 언로드
+                await DungeonManager.Instance.UnloadAllStage();
+                
+                // 필수 씬 언로드
+                await UnloadPlayerScene();
+                await GUIManager.Instance.UnloadGUI();
+                // await SceneController.Instance.UnloadScene("Scene_Persistent");
+                
+                // 풀 매니저 리셋
+                // PoolManager.Instance.ClearPools();   // ?? 왜 풀 리셋하면 오류가 나지?
+
+                Debug.Log("[GameManager] 게임 종료 완료!");
+                
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;    // 에디터에서는 플레이 중단
+#else
+                Application.Quit();                                 // 빌드에서는 프로그램 종료
+#endif
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[GameManager] 게임 종료 중 예외 발생: {e}");
+            }
+        }
+        
+        public async void EnterEpilogue()
+        {
+            try
+            {
+                Debug.Log("[GameManager] 에필로그 씬 로드 중...");
+                
+                CurrentState = GameState.Epilogue;
+                
+                // 게임 리소스 씬 언로드
+                await DungeonManager.Instance.UnloadAllStage();
+                await UnloadPlayerScene();
+                
+                Debug.Log("[GameManager] 에필로그 씬 로드 완료!\n> 리소스 메모리 정리 완료!");
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[GameManager] 에필로그 씬 로드 중 예외 발생: {e}");
+            }
+        }
+
+        public void EnterCredit()
+        {
+            try
+            {
+                CurrentState = GameState.Credit;
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[GameManager] 크레딧 씬 진입 중 예외 발생: {e}");
+            }
+        }
+
+        private static Task LoadPlayerScene() => SceneController.Instance.LoadSceneAdditive("Scene_Player");
+        
+        private async Task UnloadPlayerScene()
+        {
+            try
+            {
+                // FollowCamera, MinimapObject의 FollowAudioListener 언로드 (별도의 MonoBehaviour이므로 Update 등에서 참조가 남아 있음)
+                SoundManager.Instance.AudioListener.GetComponent<FollowAudioListener>()?.Unload();
+                MinimapObject.GetComponent<FollowAudioListener>()?.Unload();
+                
+                // 플레이어 씬 언로드
+                await SceneController.Instance.UnloadScene("Scene_Player");
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[GameManager] 플레이어 씬 언로드 중 예외 발생: {e}");
+            }
         }
     }
 }

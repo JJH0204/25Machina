@@ -1,18 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UI;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Managers
 {
     public class GUIManager : Singleton<GUIManager>
     {
-        public GameObject TitleUI { get; private set; }
-        public GameObject PrologueUI { get; private set; }
+        private GameObject TitleUI { get; set; }
+        private GameObject PrologueUI { get; set; }
         public GameUIController GameUIController { get; private set; }
-        public GameObject EpilogueUI { get; private set; }
-        public GameObject LoadingUI { get; private set; }
-        public GameObject CreditUI { get; private set; }
+        private GameObject EpilogueUI { get; set; }
+        private GameObject LoadingUI { get; set; }
+        private GameObject CreditUI { get; set; }
 
         private bool _isInit;
 
@@ -116,6 +118,64 @@ namespace Managers
                     LoadingUI.SetActive(true);
                     CreditUI.SetActive(false);
                     break;
+                case GameManager.GameState.Credit:
+                    TitleUI.SetActive(false);
+                    PrologueUI.SetActive(false);
+                    GameUIController.gameObject.SetActive(false);
+                    EpilogueUI.SetActive(false);
+                    LoadingUI.SetActive(false);
+                    CreditUI.SetActive(true);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// GUI Load
+        /// </summary>
+        public static async Task LoadGUI()
+        {
+            try
+            {
+                Debug.Log("[GUIManager] GUI 매니저 초기화 시작...");
+                await SceneController.Instance.LoadSceneAdditive("Scene_UI");
+                Debug.Log("[GUIManager] GUI 매니저 초기화 완료!");
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[GUIManager] GUI 매니저 초기화 중 예외 발생: {e}");
+            }
+        }
+        
+        /// <summary>
+        /// GUI Unload
+        /// </summary>
+        public async Task UnloadGUI()
+        {
+            try
+            {
+                if (!_isInit) return;
+                
+                Debug.Log("[GUIManager] GUI 언로드 시작...");
+                
+                _isInit = false;
+                
+                // 모든 트윈 애니메이션 종료
+                DOTween.KillAll();
+                
+                TitleUI = null;
+                PrologueUI = null;
+                GameUIController = null;
+                EpilogueUI = null;
+                LoadingUI = null;
+                CreditUI = null;
+                
+                await SceneController.Instance.UnloadScene("Scene_UI");
+                
+                Debug.Log("[GUIManager] GUI 언로드 완료!");
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[GUIManager] GUI 언로드 중 예외 발생: {e}");
             }
         }
     }

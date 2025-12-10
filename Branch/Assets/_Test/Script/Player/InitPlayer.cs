@@ -43,8 +43,9 @@ public class InitPlayer : MonoBehaviour
                 createdObj.Add(obj.prefabType, objInstance);
             }
             
-            // 필요한 초기화 로직 진행
             Init(createdObj);
+            
+            Destroy(gameObject);
         }
         catch (Exception e)
         {
@@ -53,7 +54,7 @@ public class InitPlayer : MonoBehaviour
         }
     }
 
-    private void Init(Dictionary<EPlayerPrefabType, GameObject> createdObj)
+    private static void Init(Dictionary<EPlayerPrefabType, GameObject> createdObj)
     {
         // 1. GameManager에 플레이어 오브젝트 등록
         if (createdObj.TryGetValue(EPlayerPrefabType.Player, out GameObject player))
@@ -76,6 +77,7 @@ public class InitPlayer : MonoBehaviour
 
         if (createdObj.TryGetValue(EPlayerPrefabType.Minimap, out GameObject minimap))
         {
+            GameManager.Instance.MinimapObject = minimap;
             minimap.GetComponent<FollowAudioListener>()?.Init(player);
         }
         

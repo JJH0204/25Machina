@@ -39,4 +39,13 @@ public class FollowAudioListener : MonoBehaviour
         
         _isInit = true;
     }
+
+    public void Unload()
+    {
+        if (!_isInit) return;
+        _isInit = false;
+        
+        positionTarget = null;
+        rotationTarget = null;
+    }
 }

@@ -21,7 +21,7 @@ namespace Managers
         [SerializeField] private StageData[] stageDatas;
         
         // 현재 플레이어가 있는 스테이지 인덱스
-        private int CurrentPlayerStageIndex { get; set; } = 0;
+        private int CurrentPlayerStageIndex { get; set; }
         
         // 로딩된 스테이지 딕셔너리
         private Dictionary<int, string> LoadedStages { get; set; } = new();
@@ -144,7 +144,34 @@ namespace Managers
                 Debug.LogWarning($"[DungeonManager] 모든 스테이지 로드 중 예외 발생: {e}");
             }
         }
+        
+        /// <summary>
+        /// 모든 스테이지 언로드
+        /// </summary>
+        public async Task UnloadAllStage()
+        {
+            try
+            {
+                Debug.Log("[DungeonManager] 모든 스테이지 언로드 시작...");
+                
+                foreach (StageData stageData in stageDatas)
+                {
+                    await SceneController.Instance.UnloadScene(stageData.stageName + "/Static");
+                    await SceneController.Instance.UnloadScene(stageData.stageName + "/Dynamic");
+                    await SceneController.Instance.UnloadScene(stageData.stageName + "/Hybrid");
+                }
+                
+                Debug.Log("[DungeonManager] 모든 스테이지 언로드 완료!");
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[DungeonManager] 모든 스테이지 언로드 중 예외 발생: {e}");
+            }
+        }
 
+        /// <summary>
+        /// 미니맵 리소스 로드
+        /// </summary>
         private void LoadMiniMap()
         {
             if (miniMapPrefab != null)

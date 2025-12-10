@@ -7,17 +7,17 @@ using UnityEngine.Pool;
 
 namespace Managers
 {
-    public class PoolableObject : MonoBehaviour
+    public sealed class PoolableObject : MonoBehaviour
     {
-        public bool IsInPool { get; set; } = false;
+        public bool IsInPool { get; private set; }
 
         // 초기화가 필요하면 여기에 구현 가능
-        public virtual void OnGetFromPool()
+        public void OnGetFromPool()
         {
             IsInPool = false;
         }
 
-        public virtual void OnReturnToPool()
+        public void OnReturnToPool()
         {
             IsInPool = true;
         }
@@ -47,18 +47,11 @@ namespace Managers
         // 하이어라키에서 풀링된 데이터를 보기 쉽게 하기 위한 용도로, 실제 빌드 시 삭제 가능
         private Dictionary<string, Transform> _poolParents;
         
-        public bool IsInitialized { get; private set; } = false;
+        public bool IsInitialized { get; private set; }
 
         /// <summary>
         /// PoolManager 초기화
         /// </summary>
-
-        // private void Update()
-        // {
-        //     if (!GameManager.Instance.IsLoad || GameManager.Instance.CurrentState != GameManager.GameState.Playing || IsInitialized) return;
-        //     
-        //     Init();
-        // }
         public Task Init()
         {
             if (IsInitialized) return Task.CompletedTask;
@@ -130,9 +123,8 @@ namespace Managers
 
         public GameObject InstantiateObject(GameObject prefab)
         {
-            GameObject go = Instantiate(prefab);
+            GameObject go = Instantiate(prefab, _poolParents[prefab.name], false);
             go.name = prefab.name;
-            go.transform.SetParent(_poolParents[prefab.name], false);
             return go;
         }
 
@@ -149,7 +141,7 @@ namespace Managers
             }
             else
             {
-                Debug.LogError($"Pool not found for key: {key}");
+                Debug.LogWarning($"Pool not found for key: {key}");
                 return null;
             }
         }
@@ -160,11 +152,9 @@ namespace Managers
             {
                 return pool.Get();
             }
-            else
-            {
-                Debug.LogError($"Pool not found for key: {key}");
-                return null;
-            }
+            
+            Debug.LogWarning($"Pool not found for key: {key}");
+            return null;
         }
 
         public GameObject GetObject(GameObject prefab, Transform parent)
@@ -178,7 +168,7 @@ namespace Managers
             }
             else
             {
-                Debug.LogError($"Pool not found for key: {key}");
+                Debug.LogWarning($"Pool not found for key: {key}");
                 return null;
             }
 
@@ -196,7 +186,7 @@ namespace Managers
             }
             else
             {
-                Debug.LogError($"Pool not found for key: {key}");
+                Debug.LogWarning($"Pool not found for key: {key}");
                 return null;
             }
 
@@ -215,7 +205,7 @@ namespace Managers
             }
             else
             {
-                Debug.LogError($"Pool not found for key: {key}");
+                Debug.LogWarning($"Pool not found for key: {key}");
                 return null;
             }
 
@@ -234,7 +224,7 @@ namespace Managers
             }
             else
             {
-                Debug.LogError($"Pool not found for key: {key}");
+                Debug.LogWarning($"Pool not found for key: {key}");
                 return null;
             }
 
@@ -315,13 +305,29 @@ namespace Managers
             }
 
             var poolable = go.GetComponent<PoolableObject>();
-            if (poolable != null && poolable.IsInPool)
+            if (poolable && poolable.IsInPool)
             {
                 Debug.LogWarning($"Attempted to release object '{go.name}' that is already in pool (delayed).");
                 yield break;
             }
 
             _pools[key].Release(go);
+        }
+
+        /// <summary>
+        /// 풀 모두 초기화하기
+        /// </summary>
+        public void ClearPools()
+        {
+            if (!IsInitialized) return;
+            
+            foreach (ObjectPool<GameObject> pool in _pools.Values)
+            {
+                pool.Clear();
+            }
+            _pools.Clear();
+
+            IsInitialized = false;
         }
     }
 }

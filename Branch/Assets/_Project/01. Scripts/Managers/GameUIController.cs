@@ -788,10 +788,10 @@ namespace Managers
             indicator.IsOn = false;
             _indicatorFadeRoutine = null;
         }
-
+        
         public void Resume()
         {
-            var player = Managers.MonsterManager.Instance.Player.GetComponent<PlayerController>();
+            PlayerController player = MonsterManager.Instance.Player.GetComponent<PlayerController>();
             if (player)
             {
                 player.FollowCamera.OnUIClose();
@@ -805,9 +805,10 @@ namespace Managers
             Time.timeScale = 1.0f;
         }
 
+        // 게임 종료
         public void Shutdown()
         {
-            Application.Quit();
+            GameManager.Instance.ExitGame();
         }
 
         public void OpenKeyGuide()
