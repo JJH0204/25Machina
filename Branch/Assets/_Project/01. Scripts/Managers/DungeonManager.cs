@@ -21,17 +21,22 @@ namespace Managers
         [SerializeField] private StageData[] stageDatas;
         
         // 현재 플레이어가 있는 스테이지 인덱스
-        private int CurrentPlayerStageIndex { get; set; }
+        [SerializeField] private int currentPlayerStageIndex;
+        public int CurrentPlayerStageIndex { get => currentPlayerStageIndex; private set => currentPlayerStageIndex = value; }
         
         // 로딩된 스테이지 딕셔너리
         private Dictionary<int, string> LoadedStages { get; set; } = new();
 
         #region Initialization
 
+        private bool _isInit;
+        
         public async Task Init()
         {
             try
             {
+                if (_isInit) return;
+                
                 // 초기화 작업 수행
                 CurrentPlayerStageIndex = 0;
                 LoadedStages.Clear();
@@ -47,6 +52,8 @@ namespace Managers
                 
                 // 미니맵 로드
                 LoadMiniMap();
+                
+                _isInit = true;
             }
             catch (Exception e)
             {
@@ -70,6 +77,10 @@ namespace Managers
                 Debug.LogWarning($"[DungeonManager] 플레이어 시작 위치 설정 중 예외 발생: {e}");
             }
         }
+
+        #endregion
+
+        #region Manage Stage Load/Unload
 
         private async Task LoadStage(StageData stageData)
         {
@@ -97,6 +108,9 @@ namespace Managers
         {
             try
             {
+                // TODO: 스테이지 업데이트 로직 수정 필요 (임시 구현)
+                // 뒤로 이동 하는 경우 스테이지 언로드가 제대로 되지 않는 문제 발생 (현재 스테이지가 언로드 되는 문제)
+                
                 if (newStageIndex == CurrentPlayerStageIndex) return;
                 
                 // 새로운 스테이지 인덱스에 따라 필요한 스테이지 로드/언로드
@@ -118,6 +132,8 @@ namespace Managers
         }
 
         #endregion
+
+        #region Test Load All Stages
 
         /// <summary>
         /// 테스트용 모든 스테이지 로드
@@ -144,6 +160,8 @@ namespace Managers
                 Debug.LogWarning($"[DungeonManager] 모든 스테이지 로드 중 예외 발생: {e}");
             }
         }
+
+        #endregion
         
         /// <summary>
         /// 모든 스테이지 언로드
