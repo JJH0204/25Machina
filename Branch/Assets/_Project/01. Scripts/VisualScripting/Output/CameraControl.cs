@@ -124,7 +124,7 @@ for (int i = 0; i < cutsceneData.Length; i++)
                 yield return null;
             }
 
-            GUIManager.Instance.HUD.SetActive(true);
+            GUIManager.Instance.GameUIController.HUD.SetActive(false);
             GameManager.Instance.UnpauseObjects();
             yield break;
         }

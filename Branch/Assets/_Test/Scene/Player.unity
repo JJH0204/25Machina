@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initializePlayerPrefabs:
-  - prefab: {fileID: 853507374332792821, guid: 3bfcb97527e09499ead4e66ea1671e1f, type: 3}
+  - prefab: {fileID: 853507374332792821, guid: f9ed1a34b1a938e4495f06ddcc18c94d, type: 3}
     prefabType: 0
     isActive: 1
   - prefab: {fileID: 8101825418735920585, guid: ede3b087a932a49cd9137c545cc1b96b,
@@ -209,19 +209,19 @@ MonoBehaviour:
       type: 3}
     prefabType: 2
     isActive: 1
-  - prefab: {fileID: 9069380339737678772, guid: fb7fa354ef8974f47b5bb574cae3b1d7,
+  - prefab: {fileID: 9069380339737678772, guid: a8a52d19c3cd6cd458f5cfe071215b44,
       type: 3}
     prefabType: 3
     isActive: 1
-  - prefab: {fileID: 8765793853822610566, guid: 26350bacb3f42465ab261e9fa814f599,
+  - prefab: {fileID: 8765793853822610566, guid: c3e41a66f854ee148a7def6d50cb8e35,
       type: 3}
     prefabType: 4
     isActive: 1
-  - prefab: {fileID: 3621219311917525375, guid: 97b108b74f0124062a787a2d6ef30a15,
+  - prefab: {fileID: 3621219311917525375, guid: c265d360b17a2f3418e78595bff4f0d1,
       type: 3}
     prefabType: 5
     isActive: 1
-  - prefab: {fileID: 6901384372144632134, guid: 12cdb945c9ace40aea49e59aab6f1557,
+  - prefab: {fileID: 6901384372144632134, guid: adf1222091a0b9445b44269a4fe47add,
       type: 3}
     prefabType: 6
     isActive: 1

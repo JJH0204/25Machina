@@ -199,7 +199,7 @@ MonoBehaviour:
     managerPrefab: {fileID: 6181618449983523092, guid: 3ae3c7b1c44124f98b57e995c383dd82,
       type: 3}
   - managerType: 7
-    managerPrefab: {fileID: 1604775639143964874, guid: 9dbd9f7371c2f41ceb47310cc472ab70,
+    managerPrefab: {fileID: 1604775639143964874, guid: a5d3c737b67908a428b5c9da70f9be55,
       type: 3}
   - managerType: 6
     managerPrefab: {fileID: 9211179836300288814, guid: 23bed93b983f24f46b609973d7ce55ee,
