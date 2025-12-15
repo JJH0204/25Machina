@@ -10,7 +10,7 @@ public enum EManagerType
     DataManager,
     MainCamera,
     DungeonManager,
-    MapManager,
+    DungeonStateManager,
     MonsterManager,
     PoolManager,
     SceneManager,
