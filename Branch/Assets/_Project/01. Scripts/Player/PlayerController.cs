@@ -237,7 +237,7 @@ public class PlayerController : MonoBehaviour, PlayerActions.IPlayerActionMapAct
             _hitRoutine = null;
         }
 
-        if (!_isLowHp)
+        if (_isLowHp && lowHp != null)
         {
             lowHp.SetActive(false);
         }

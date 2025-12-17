@@ -12,6 +12,7 @@ namespace Managers
         public int stageIndex;
         public string stageName;
     }
+    
     public class DungeonManager : Singleton<DungeonManager>
     {
         [SerializeField] private GameObject miniMapPrefab;
@@ -23,6 +24,8 @@ namespace Managers
         // 현재 플레이어가 있는 스테이지 인덱스
         [SerializeField] private int currentPlayerStageIndex;
         public int CurrentPlayerStageIndex { get => currentPlayerStageIndex; private set => currentPlayerStageIndex = value; }
+        
+        public Vector3 RestartPosition { get; set; }
         
         // 로딩된 스테이지 딕셔너리
         private Dictionary<int, string> LoadedStages { get; set; } = new();
@@ -254,5 +257,47 @@ namespace Managers
         }
 
         #endregion
+
+        public async void ResetCurrentStage()
+        {
+            try
+            {
+                Debug.Log("[DungeonManager] 현재 스테이지 리셋 시작...");
+                
+                if (!LoadedStages.ContainsKey(CurrentPlayerStageIndex))
+                {
+                    Debug.LogWarning("[DungeonManager] 현재 스테이지가 로드되어 있지 않습니다.");
+                    return;
+                }
+                
+                StageData currentStageData = stageDatas[CurrentPlayerStageIndex];
+                
+                // 1. 현재 스테이지 언로드
+                // await UnloadStage(currentStageData);
+                await SceneController.Instance.UnloadScene(currentStageData.stageName + "/Dynamic");
+                await SceneController.Instance.UnloadScene(currentStageData.stageName + "/Hybrid");
+                
+                // 2. 현재 스테이지 다시 로드
+                // await LoadStage(currentStageData);
+                await SceneController.Instance.LoadSceneAdditive(currentStageData.stageName + "/Dynamic");
+                await SceneController.Instance.LoadSceneAdditive(currentStageData.stageName + "/Hybrid");
+                
+                // 3. 플레이어 위치 리스폰 지점으로 이동
+                if (GameManager.Instance.Player)
+                {
+                    GameManager.Instance.Player.enabled = false;
+                    GameManager.Instance.Player.transform.position = RestartPosition;
+                    GameManager.Instance.Player.enabled = true;
+                }
+
+                currentPlayerStageIndex--;
+                
+                Debug.Log("[DungeonManager] 현재 스테이지 리셋 완료!");
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[DungeonManager] 현재 스테이지 리셋 중 예외 발생: {e}");
+            }
+        }
     }
 }
