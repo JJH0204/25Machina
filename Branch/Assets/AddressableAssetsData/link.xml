@@ -83,7 +83,7 @@
     <type fullname="HealCharacter" preserve="all" />
     <type fullname="HoverBarrier" preserve="all" />
     <type fullname="Hovl_Laser" preserve="all" />
-    <type fullname="InitBootstrap" preserve="all" />
+    <type fullname="Init1stGameScene" preserve="all" />
     <type fullname="InitPersistent" preserve="all" />
     <type fullname="InitPlayer" preserve="all" />
     <type fullname="Inventory" preserve="all" />

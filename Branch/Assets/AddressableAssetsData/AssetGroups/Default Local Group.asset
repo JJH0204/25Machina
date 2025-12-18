@@ -32,11 +32,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c63c343439ffd4ffaa7cb12fdfab3469
-    m_Address: Scene_Bootstrap
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9cdff7cc633a948c6b9bb98e34015460, type: 2}
   m_SchemaSet:

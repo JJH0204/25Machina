@@ -16,7 +16,7 @@ namespace Managers
     public class DungeonManager : Singleton<DungeonManager>
     {
         [SerializeField] private GameObject miniMapPrefab;
-        [SerializeField] private Vector3 startPosition;
+        [SerializeField] private GameObject startPosition;
         
         // 스테이지 데이터
         [SerializeField] private StageData[] stageDatas;
@@ -64,16 +64,22 @@ namespace Managers
             }
         }
 
+        public void SetStartPosition(GameObject obj)
+        {
+            startPosition = obj;
+        } 
+
         public void SetPlayerStartPosition()
         {
             try
             {
                 if (GameManager.Instance.Player is null) return;
+                if (startPosition is null) return;
                 
-                GameManager.Instance.Player.transform.position = startPosition;
+                GameManager.Instance.Player.transform.position = startPosition.transform.position;
                 
                 // Dynamic 씬을 Active 씬으로 설정
-                SceneController.Instance.SetActiveScene(LoadedStages[CurrentPlayerStageIndex] + "/Dynamic");
+                SceneController.Instance.SetActiveScene(LoadedStages[CurrentPlayerStageIndex]);
             }
             catch (Exception e)
             {
@@ -89,9 +95,6 @@ namespace Managers
         {
             if (LoadedStages.ContainsKey(stageData.stageIndex)) return;
             
-            // await SceneController.Instance.LoadSceneAdditive(stageData.stageName + "/Static");
-            // await SceneController.Instance.LoadSceneAdditive(stageData.stageName + "/Dynamic");
-            // await SceneController.Instance.LoadSceneAdditive(stageData.stageName + "/Hybrid");
             await SceneController.Instance.LoadSceneAdditive(stageData.stageName);
             
             LoadedStages.Add(stageData.stageIndex, stageData.stageName);
@@ -101,9 +104,6 @@ namespace Managers
         {
             if (!LoadedStages.ContainsKey(stageData.stageIndex)) return;
             
-            // await SceneController.Instance.UnloadScene(stageData.stageName + "/Static");
-            // await SceneController.Instance.UnloadScene(stageData.stageName + "/Dynamic");
-            // await SceneController.Instance.UnloadScene(stageData.stageName + "/Hybrid");
             await SceneController.Instance.UnloadScene(stageData.stageName);
             
             LoadedStages.Remove(stageData.stageIndex);
@@ -138,7 +138,7 @@ namespace Managers
                 CurrentPlayerStageIndex = newStageIndex;
                 
                 // 현재 플레이어가 있는 스테이지의 Dynamic 씬을 Active 씬으로 설정
-                SceneController.Instance.SetActiveScene(LoadedStages[CurrentPlayerStageIndex] + "/Dynamic");
+                SceneController.Instance.SetActiveScene(LoadedStages[CurrentPlayerStageIndex]);
             }
             catch (Exception e)
             {
@@ -189,10 +189,6 @@ namespace Managers
                 
                 foreach (StageData stageData in stageDatas)
                 {
-                    // await SceneController.Instance.UnloadScene(stageData.stageName + "/Static");
-                    // await SceneController.Instance.UnloadScene(stageData.stageName + "/Dynamic");
-                    // await SceneController.Instance.UnloadScene(stageData.stageName + "/Hybrid");
-                    
                     await SceneController.Instance.UnloadScene(stageData.stageName);
                 }
                 
@@ -277,15 +273,9 @@ namespace Managers
                 StageData currentStageData = stageDatas[CurrentPlayerStageIndex];
                 
                 // 1. 현재 스테이지 언로드
-                // await UnloadStage(currentStageData);
-                // await SceneController.Instance.UnloadScene(currentStageData.stageName + "/Dynamic");
-                // await SceneController.Instance.UnloadScene(currentStageData.stageName + "/Hybrid");
                 await SceneController.Instance.UnloadScene(currentStageData.stageName);
                 
                 // 2. 현재 스테이지 다시 로드
-                // await LoadStage(currentStageData);
-                // await SceneController.Instance.LoadSceneAdditive(currentStageData.stageName + "/Dynamic");
-                // await SceneController.Instance.LoadSceneAdditive(currentStageData.stageName + "/Hybrid");
                 await SceneController.Instance.LoadSceneAdditive(currentStageData.stageName);
                 
                 // 3. 플레이어 위치 리스폰 지점으로 이동
@@ -297,6 +287,7 @@ namespace Managers
                 }
 
                 currentPlayerStageIndex--;
+                SceneController.Instance.SetActiveScene(LoadedStages[CurrentPlayerStageIndex]);
                 
                 Debug.Log("[DungeonManager] 현재 스테이지 리셋 완료!");
             }

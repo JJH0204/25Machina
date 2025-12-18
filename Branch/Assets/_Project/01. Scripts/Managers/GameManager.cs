@@ -63,7 +63,7 @@ namespace Managers
             Debug.Log("[GameManager] 게임 오버 처리 중...");
 
             if (_rebirthRoutine != null) return;    // 이미 부활 코루틴이 실행 중이면 무시
-            CurrentState = GameState.GameOver;
+            // CurrentState = GameState.GameOver;
             
             GUIManager.Instance.GameUIController.OnGameOverPanel();
 
@@ -156,8 +156,6 @@ namespace Managers
                 CurrentState = GameState.Prologue;
             
                 // 프롤로그 재생하는 동안 플레이어 씬과 게임 씬 로드
-                // await SceneController.Instance.LoadSceneAdditive("Scene_Game");
-                // await DungeonManager.Instance.LoadAllStage();   // 테스트용 모든 스테이지 로드
                 await DungeonManager.Instance.Init();
                 await PoolManager.Instance.Init();
                 await LoadPlayerScene();
