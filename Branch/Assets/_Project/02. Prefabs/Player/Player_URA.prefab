@@ -1544,8 +1544,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: PC_Keyboard
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Mobile
   m_DefaultActionMap: PlayerActionMap
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -21953,7 +21953,7 @@ MonoBehaviour:
   baseTransform: {fileID: 0}
   Hips: {fileID: 2078838933849667625}
   ScaleReferenceMode: 3
-  finalScaleReference: 0.98143685
+  finalScaleReference: 0.9814367
   finalScaleReferenceSqrt: 0.1
   customScaleReferenceValue: 0.5
   DelayedInitialization: 0
