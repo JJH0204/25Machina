@@ -15,31 +15,36 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_Data:
     m_SerializedData: []
-  m_GUID: fe7d91910d1074358993caea1ab12c40
+  m_GUID: dc42456d5b4f64868868c82385f59c33
   m_SerializeEntries:
-  - m_GUID: 08fb32db51a684d49abe9a85beba18f9
-    m_Address: Scene_UI
+  - m_GUID: 050393c24749d4b8fb6069e9cbe52926
+    m_Address: 3rd_Elevator_Room
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ab3dc90457c8b44ad8f11c08c392efef
-    m_Address: Scene_Player
+  - m_GUID: 86d1204d3002143ccbcd3e42cd199966
+    m_Address: 4th_Big_Elevator
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: becdb8f3f369644cdbc31109603799cb
-    m_Address: Scene_Persistent
+  - m_GUID: 9a4023f476fa44fd9a5670c3f5b11d38
+    m_Address: 1st_Security_Room
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b9f61cbd7b284cc4a6d51cd4042c921
+    m_Address: 2nd_Control_Room
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c63c343439ffd4ffaa7cb12fdfab3469
-    m_Address: Scene_Bootstrap
+    m_Address: Assets/_Test/Scene/Bootstrap.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: de8b6286f9b6142349a28f2c16b529a3, type: 2}
+  m_Settings: {fileID: 11400000, guid: 9cdff7cc633a948c6b9bb98e34015460, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: c97a4b9d01ac54f998a1f22f39c18d35, type: 2}
-    - {fileID: 11400000, guid: eb39bf3b6adf74348b69a02711fb14f0, type: 2}
+    - {fileID: 11400000, guid: de9400df46aac4fc6b8e8b594e8fa477, type: 2}
+    - {fileID: 11400000, guid: cf97b0c9bb2e8425897dd42e91427cea, type: 2}

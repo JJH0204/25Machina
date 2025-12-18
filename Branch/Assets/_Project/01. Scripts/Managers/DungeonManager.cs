@@ -89,9 +89,10 @@ namespace Managers
         {
             if (LoadedStages.ContainsKey(stageData.stageIndex)) return;
             
-            await SceneController.Instance.LoadSceneAdditive(stageData.stageName + "/Static");
-            await SceneController.Instance.LoadSceneAdditive(stageData.stageName + "/Dynamic");
-            await SceneController.Instance.LoadSceneAdditive(stageData.stageName + "/Hybrid");
+            // await SceneController.Instance.LoadSceneAdditive(stageData.stageName + "/Static");
+            // await SceneController.Instance.LoadSceneAdditive(stageData.stageName + "/Dynamic");
+            // await SceneController.Instance.LoadSceneAdditive(stageData.stageName + "/Hybrid");
+            await SceneController.Instance.LoadSceneAdditive(stageData.stageName);
             
             LoadedStages.Add(stageData.stageIndex, stageData.stageName);
         }
@@ -100,9 +101,10 @@ namespace Managers
         {
             if (!LoadedStages.ContainsKey(stageData.stageIndex)) return;
             
-            await SceneController.Instance.UnloadScene(stageData.stageName + "/Static");
-            await SceneController.Instance.UnloadScene(stageData.stageName + "/Dynamic");
-            await SceneController.Instance.UnloadScene(stageData.stageName + "/Hybrid");
+            // await SceneController.Instance.UnloadScene(stageData.stageName + "/Static");
+            // await SceneController.Instance.UnloadScene(stageData.stageName + "/Dynamic");
+            // await SceneController.Instance.UnloadScene(stageData.stageName + "/Hybrid");
+            await SceneController.Instance.UnloadScene(stageData.stageName);
             
             LoadedStages.Remove(stageData.stageIndex);
         }
@@ -187,9 +189,11 @@ namespace Managers
                 
                 foreach (StageData stageData in stageDatas)
                 {
-                    await SceneController.Instance.UnloadScene(stageData.stageName + "/Static");
-                    await SceneController.Instance.UnloadScene(stageData.stageName + "/Dynamic");
-                    await SceneController.Instance.UnloadScene(stageData.stageName + "/Hybrid");
+                    // await SceneController.Instance.UnloadScene(stageData.stageName + "/Static");
+                    // await SceneController.Instance.UnloadScene(stageData.stageName + "/Dynamic");
+                    // await SceneController.Instance.UnloadScene(stageData.stageName + "/Hybrid");
+                    
+                    await SceneController.Instance.UnloadScene(stageData.stageName);
                 }
                 
                 Debug.Log("[DungeonManager] 모든 스테이지 언로드 완료!");
@@ -274,13 +278,15 @@ namespace Managers
                 
                 // 1. 현재 스테이지 언로드
                 // await UnloadStage(currentStageData);
-                await SceneController.Instance.UnloadScene(currentStageData.stageName + "/Dynamic");
-                await SceneController.Instance.UnloadScene(currentStageData.stageName + "/Hybrid");
+                // await SceneController.Instance.UnloadScene(currentStageData.stageName + "/Dynamic");
+                // await SceneController.Instance.UnloadScene(currentStageData.stageName + "/Hybrid");
+                await SceneController.Instance.UnloadScene(currentStageData.stageName);
                 
                 // 2. 현재 스테이지 다시 로드
                 // await LoadStage(currentStageData);
-                await SceneController.Instance.LoadSceneAdditive(currentStageData.stageName + "/Dynamic");
-                await SceneController.Instance.LoadSceneAdditive(currentStageData.stageName + "/Hybrid");
+                // await SceneController.Instance.LoadSceneAdditive(currentStageData.stageName + "/Dynamic");
+                // await SceneController.Instance.LoadSceneAdditive(currentStageData.stageName + "/Hybrid");
+                await SceneController.Instance.LoadSceneAdditive(currentStageData.stageName);
                 
                 // 3. 플레이어 위치 리스폰 지점으로 이동
                 if (GameManager.Instance.Player)
