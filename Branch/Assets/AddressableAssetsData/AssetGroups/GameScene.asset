@@ -22,6 +22,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1aeffad852227482fa7b0680a8d23fdc
+    m_Address: 5th_Morgue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f036839de4514784b4727e8eed6fab6
+    m_Address: 6th_Soul_Care
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7d71fe2eb69504fa7a9725c7b36d31e1
+    m_Address: 8th_Another_Space
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 86d1204d3002143ccbcd3e42cd199966
     m_Address: 4th_Big_Elevator
     m_ReadOnly: 0
@@ -34,6 +49,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9b9f61cbd7b284cc4a6d51cd4042c921
     m_Address: 2nd_Control_Room
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bdee5bd9b7ea149f6bffce2629b7db2a
+    m_Address: 9th_Warpgate_Return_When_Amon_2Phase_Defeated
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed77747f51e7e4352b5c0e1474cab4e7
+    m_Address: 7th_Warpgate
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
