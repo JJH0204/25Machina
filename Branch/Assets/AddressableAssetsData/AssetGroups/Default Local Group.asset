@@ -22,6 +22,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0cf429a924dca5742bccb50877783b8d
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Excutioner/Animation/Attack/executioner_Lazer.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2587651c3233f4f8f8fb991ccc33a7d4
+    m_Address: Skill/Flying/FlyingRush
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ab3dc90457c8b44ad8f11c08c392efef
     m_Address: Scene_Player
     m_ReadOnly: 0
@@ -29,6 +39,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: becdb8f3f369644cdbc31109603799cb
     m_Address: Scene_Persistent
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d3788b4b029373340aaf918b87e94d8f
+    m_Address: Assets/_ProjectAssets/03. Textures/Executioner/Executioner_body_Mask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5a5462ee2391134c9696fd7fc6d8135
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/muzzle_smallfire_yellow.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

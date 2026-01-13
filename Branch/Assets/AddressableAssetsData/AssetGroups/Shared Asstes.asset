@@ -1,0 +1,1137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Shared Asstes
+  m_EditorClassIdentifier: 
+  m_GroupName: Shared Asstes
+  m_Data:
+    m_SerializedData: []
+  m_GUID: eac733084664d4e82afcf410b57ee6b7
+  m_SerializeEntries:
+  - m_GUID: 002247054ad4147fa96799d383188b54
+    m_Address: Assets/_ProjectAssets/05. VFX/Monster/BigMonsterBullet.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0124dc16674e046e8ac47e170e1473b1
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/01_AndroidGuard/AG_Death01.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0170f341905c14d02893a346cec40c9b
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/03_Viper/V_NormalAttack00.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 02d1c5a1960e6f24d84869d304041266
+    m_Address: Assets/_ProjectAssets/03. Textures/Character/Tex_NeedOrganize/Parts/Rapid_Parts_Texture/Emissive/RapidShoulderEmissive.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03395697888dc42108cb4a56e8bf5fd2
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/03_Viper/V_Rush.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0406db5a14f94604a8c57ccfbc9f3b46
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesUnlit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 044d4efb6dabe4f20b2bb0f5c1397616
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/01_AndroidGuard/AndoridGuard_FootStep.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 05de5c467c1538e4db3fe0bcfa6c43ff
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Nova/nova_blue.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 072ba0d24dd044c7f9385bb99241889c
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Ralph/ralph_sprint.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 08e3a45aa98531f48af10a5018260085
+    m_Address: Assets/_ProjectAssets/03. Textures/Monster/Executioner/Executioner_weapon_Blood_Mask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0b431ae2013694d4a9d2f30dd9466ce0
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Excutioner/Animator/executioner_AnimController.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0b4a1217a9e3c7c4e87a2b2d06ba4ac0
+    m_Address: Assets/_ExternalAssets/VFX/FORGE3D/Sci-Fi Effects/Shaders/AlphaBlended.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1314c0fc1db9d264aabb5aed3aa7e8e7
+    m_Address: Assets/_ProjectAssets/02. Materials/Character/Rapid/Rapid_Shoulder_Mantra.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 133915ed205564b69b086aa3ad6338d0
+    m_Address: Assets/_ProjectAssets/02. Materials/Outline/Outline_1Pass_Dissolve_Mantra_Flying.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 169de12ceca463c4fad1e6ac99e1ab79
+    m_Address: Assets/_ProjectAssets/03. Textures/Character/Tex_NeedOrganize/Parts/Rapid_Parts_Texture/RapidShoulder.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16d625988a0b8954ba0fbb341eaa211b
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Bullet/bullet_blue.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 171ad8f382f4d3c4d8927af73edaa76e
+    m_Address: Assets/_ExternalAssets/Animations/Knife_MocapAnimPack_1.1/AnimationsFBX/Knife_Stand_Style(St)/Knife_MeleeSet/Knife_Hit_Melee07.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 17f96a004373c4230a855a06eacf4c6a
+    m_Address: Assets/_Project/02. Prefabs/Monsters/v2/Ralph.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 19f1ceb58018c5440a0d7efe3f659bac
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Misc/Rocket.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a8eb290d9ffa53489d076ac4c51e73b
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Trails/trailblue.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b0685457a1a11646b802d25b49afd97
+    m_Address: Assets/_ProjectAssets/03. Textures/Monster/Ralph/Ralph_Blood_Mask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1c23f7bae11a3634ab8c1952d378c62a
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/BigGlow/bigglow_yellow.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ce2913984d614a4cbae3215aa461fef
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/muzzle_smallfire_blue.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d08471516cb44f0e9b9982cc56ecad6
+    m_Address: Assets/_Project/02. Prefabs/PublicObjects/Patterns/Ralp_Melee_Collision.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d58a8e283100ea4f8435e923e54553e
+    m_Address: Assets/_ExternalAssets/VFX/SpecialSkillsEffectsPack/Shader_ForEffects/Shader_IntegratedEffect.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d89b3503167bb94d911ba60cb56b4f7
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Lightning/lightning_blue.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e37475b8b222734f95273b40ba8d58d
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Laserball/laserballyellow.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e7416553d05a004094997b9e3329f1b
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/laserball_modular.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ed1de81781f74493bf77f856c6ac67c
+    m_Address: Assets/_Project/02. Prefabs/PublicObjects/Patterns/Flying_Melee_Collision.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2052e59abeb75e741848e7102f47a677
+    m_Address: Assets/_ExternalAssets/Animations/CLazyRunnerActionAnimPack/Animations/P1_CLazyMovement/Mvm_8way_Jog/CLazy@Mvm_Jog.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 20599016013981c4ba47c6c100188226
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/liquid_modular.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2090e53029d63594aaf1a45d6899e548
+    m_Address: Assets/_ExternalAssets/Animations/Character_NeedToOrganize/Aim/Frank_RPG_Gunslinger_Shotgun_Fire.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2269bdb6be5eef445a6053bee4b1e599
+    m_Address: Assets/_ExternalAssets/VFX/FORGE3D/Sci-Fi Effects/Effects/Rail Gun/Materials/railgun_spark.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 23bd0446f3d037d48a1bf0e344b8fe07
+    m_Address: Assets/_ExternalAssets/VFX/Mirza Beig/Cinematic Explosions FREE/Prefabs/Lights/Particle
+      Light.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 26366dfbc5ad32440a2f3b731a4e43df
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Muzzleflash/muzzle_smallfire_orange.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 26c9be2521f9c9a439c5eed1a1b3830e
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Prefabs/Combat/MuzzleFlash/FireSmall/PurpleFireSmallMuzzleFlash.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 27e1c99ecaf769c45969fc23093e34c0
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Muzzleflash/muzzle_fire_purple.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2838cc08db66ab94ab129b6fa5d29692
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Prefabs/Combat/Explosions/LaserBolt/PurpleLaserBoltImpact.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 292b354d1b5528649a0a85a6728d326f
+    m_Address: Assets/_ExternalAssets/VFX/FORGE3D/Sci-Fi Effects/Effects/Plasma Beam/Materials/plasma_beam_flare_red_001.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2abc1d3d69d1b1b4083e4fff83979437
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Muzzleflash/muzzle_smallfire_purple.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2d46658202588764baa8b6c7214a81dc
+    m_Address: Assets/_ProjectAssets/03. Textures/Ralph/Ralph.psd
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2dfb13950d76e416abb15c1a33be8728
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Excutioner/Animation/Spawn
+      1.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e9baf8e427b5e04d90088a52788f21e
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/lensflare.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f507063c20ab57499088b5e6aa1a628
+    m_Address: Assets/_ProjectAssets/02. Materials/Monster/Executioner/executioner_body.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f775c7de7d534a29a983103600daf35
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/02_SiegeBreaker/SB_Attack01.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2fb06bf04935a764581c88a65a3850bc
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Prefabs/Combat/Explosions/LaserBolt/YellowLaserBoltImpact.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 31321ba15b8f8eb4c954353edc038b1d
+    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36e335017ad71d54fbb10842863188ae
+    m_Address: Packages/com.unity.render-pipelines.core/Runtime/RenderPipelineResources/FallbackShader.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3762a5ec8feb04b7f8a3d403b9b745c3
+    m_Address: Assets/_ProjectAssets/05. VFX/Monster/MonsterBullet.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 39518da506d6b594c8da6350a71a0e45
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Models/scifi_bolt_3x.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3acd957bd36d54cde9eaf08a06e51f2a
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Flying/Flying_Rush_Attack.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b66bf77d65ed7547b645ffa0ab098d3
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Sound/Impact/shoot_rift.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3cb02bf457cde1b48af42b67ee413532
+    m_Address: Assets/_ExternalAssets/VFX/SpecialSkillsEffectsPack/Textures/SimpleTextures/Noise/PerlinMap_4.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d1f51592e0fc4396bd9068d5d313015
+    m_Address: Assets/_Project/02. Prefabs/Monsters/v2/Executioner.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3dfe34e3f915bfa4495a5e9c0b8d04e5
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Sound/Loops/loop_rocket2.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e3ea9e0f37802b488b934858afae7af
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Sound/Loops/loop_energy.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ed97c8a27e0564448c0ac2d8925af72
+    m_Address: Assets/_Project/03. Shaders/Neo_Mantra/NeoMantra.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3fd3d5fee60a349649513b37dfe50601
+    m_Address: Assets/_Project/03. Shaders/Neo_Mantra/NeoMantra_Dissolve.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 401556a8eda0c48b8af19f87f38f03f3
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/ranged_enemy.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4035f91e87261534087dc35244cd9e96
+    m_Address: Assets/_ExternalAssets/VFX/FORGE3D/Sci-Fi Effects/Effects/Plasma Beam/Textures/plasma_beam_hit_red.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44245ab89240f51459a5077d7145c452
+    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/PhysicalMaterial3DsMax/PhysicalMaterial3DsMax.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44426604fab67474c86fbd84fa1c9686
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/bigglow_yellow.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4501365d618d543feb6be4867af37755
+    m_Address: Skill/Ranger/OneShot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 45e76cf72285c4ceb8883c574c46b623
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/ralph.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 47bb0abc8a807423f830aee2f67694aa
+    m_Address: Assets/_ProjectAssets/02. Materials/Outline/Outline_1Pass_Dissolve_Mantra_Ranger.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48a4171023932f24197d9a6c66f094e6
+    m_Address: Assets/_ProjectAssets/03. Textures/Gradient/Ranger_Gradient.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48a93774ee3164993bf3c3dec43120c6
+    m_Address: Assets/_ExternalAssets/VFX/Asset_bout_Effect/VFX_Projectile/DEF/Materials/M_Rare_Spark_13
+      Yellow.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 49d17e42b3acc4c948ff8722cadc48e3
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/04_Executioner/Exe_CriticalShotLoad.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a2b5f0ac5992424d869d6601d3a219e
+    m_Address: Assets/_ProjectAssets/03. Textures/Ranger/Ranger.Mask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ab7f5a1a0dca439090bb45b70d32e32
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/04_Executioner/Exe_CriticalShotExplo01.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4affb037c144540758810fe7c46cb363
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/04_Executioner/Exe_FootStep.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4db9d6d5e70e3c8469047adbef8254c8
+    m_Address: Assets/_ProjectAssets/03. Textures/Gradient/Rapid_Gradient_2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e5c4b0237307c147a0892ce69bd2db1
+    m_Address: Skill/Executioner/LaunchFullStrike
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 51d2bef9fdd79ba4faff6850d5697620
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Sound/Impact/explosion_laser4.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5239e3e287052cc41b0b2e78a0c7f73c
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Portals/lensflare.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5305fdc91c0bf7a45a94c650f963ac1a
+    m_Address: Assets/_ProjectAssets/03. Textures/Executioner/Executioner_body.psd
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 53b443f341aeaa2449d9fb7add3c7cc9
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Excutioner/Animation/Attack/executioner_chainsword.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 542094540d14de04e8b1698f47d23b20
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/muzzle_fire_purple.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 54c0c4d3bf9e54547a040ca32ebbe207
+    m_Address: Assets/_Project/02. Prefabs/PublicObjects/Bullets/Bullet_Transparent.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5535ccd20dce22847af5a532c6800482
+    m_Address: Assets/_ProjectAssets/03. Textures/Character/Tex_NeedOrganize/Parts/Rapid_Parts_Texture/29.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 553b7d776d5c0ec4f9dbd18248c13b84
+    m_Address: Assets/_ProjectAssets/01. Models/Monster/flying.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 59b0dd15ed7b4481496a1b966815d90f
+    m_Address: Assets/_ProjectAssets/02. Materials/Outline/Outline_1Pass_Dissolve_Mantra_Back_executioner_weapon.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a1e9564094c84675a5db2d71318d728
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Excutioner/Animation/Executioner_Spawn.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ab63d85bcba5aa4ea1822828e981909
+    m_Address: Assets/_ExternalAssets/VFX/FORGE3D/Sci-Fi Effects/Effects/Plasma Beam/Textures/plasma_beam_heavy_red.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5e71988081884334db5556ca5e77dcb0
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Misc/blast_modular.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5f232b086921f48889d8f3cb697e9e5b
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/02_SiegeBreaker/SB_DeathExplo01.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5fd7eb1efb65a9b4aa5224eaa309f1f4
+    m_Address: Assets/_ExternalAssets/VFX/Mirza Beig/Cinematic Explosions FREE/Materials/Explosions/Explosion
+      3.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6008790abd893314aa7ad388a2ca9343
+    m_Address: Assets/_ProjectAssets/03. Textures/Ralph/Ralph_Another.psd
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61f631dd684e8444cad16197ffba70bf
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/glow_smoke_dusty.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6235a607ec5cb4c11849e502c0933733
+    m_Address: Assets/_Project/02. Prefabs/Monsters/v2/Flying.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 63d4d031ef5ef9f42a19968c2872daed
+    m_Address: Assets/_ExternalAssets/VFX/FORGE3D/Sci-Fi Effects/Effects/Rail Gun/Textures/railgun_spark.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 64bfe9a929630a643b6bc8c4a74e2018
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/muzzle_smallfire_orange.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66362109d38707e41966aad33585e4bc
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Sound/Impact/shoot_energy2.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66f2f832bbd3e5e449cfd48127deabd1
+    m_Address: Assets/_ExternalAssets/VFX/SpecialSkillsEffectsPack/Textures/SimpleTextures/mask_3.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 678dc3ec7ed52d84c87f7fc994cd7d09
+    m_Address: Assets/_ExternalAssets/Models/Object_set/RustyConsole/Material/M_Light_Glow_JFG_low
+      1.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67b51ce37d7b8411d86ef94e4cf7cf24
+    m_Address: Assets/_ProjectAssets/02. Materials/Outline/Outline_1Pass_Dissolve_Mantra_Back_executioner_body.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67cf67c29cd404d0582c5a9fc7e22d53
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/04_Executioner/Exe_MeleeAttack02.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68e6db2ebdc24f95958faec2be5558d6
+    m_Address: Assets/_ExternalAssets/Arts/TextMesh Pro/Shaders/TMP_SDF.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b745b80aad135d4cb2caf2f972a5400
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Models/scifi_hexagon_tube.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e950ce0deb6c22419d4f264e8441f3b
+    m_Address: Assets/_ExternalAssets/Animations/CLazyRunnerActionAnimPack/Animations/P1_CLazyMovement/Mvm_8way_Walk/CLazy@Mvm_Walk.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ff533708a654f048a86aebdf9a39df5
+    m_Address: Assets/_ExternalAssets/VFX/SpecialSkillsEffectsPack/Textures/SimpleTextures/Normal/Normal_6.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 708d24fa8e8cc804aba4ce74d4e6a1b1
+    m_Address: Assets/_ExternalAssets/VFX/SpecialSkillsEffectsPack/Textures/SimpleTextures/Noise/GausianNoise_3.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 708e213d55efd254888b77f7127f589e
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Liquid/liquid_modular_AB.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7131ab7f71bfc50449e96a286abdc31b
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/blast_modular.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72033b124609d42c5af68fa50cc27de2
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/MonsterSpawn_00.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74c542232426a4f418f41f828519d2bd
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/scifi_rocket.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74e1564cdd71d5549b9fd4f56c471e91
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/SphereShield/scifi_shield_hex.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75f5a6286420494458f53a910d72868a
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/shield_hex2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75ff8017837d2f840bd0ebeb21b9e39b
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Glow/glow.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78d2de1c1ffe60447930a9da6ade1cdf
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Excutioner/Animation/Idle/executioner_idle.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 793e0dc4af7664f108415db9e6551fd2
+    m_Address: Assets/_ProjectAssets/02. Materials/Outline/Outline_1Pass_Dissolve_Mantra_miniRalph.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b5dd629ae6fe704ca1aa21b7f7fc6bd
+    m_Address: Assets/_ExternalAssets/VFX/FORGE3D/Sci-Fi Effects/Effects/Plasma Beam/Materials/plasma_beam_flare_red_002.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7cde35bc2bf0b40639c4cf9e629f1270
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/02_SiegeBreaker/SB_FootStep.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7d9bd86d54a7a594cb1793f9533e2e00
+    m_Address: Assets/_ExternalAssets/Add-Ons/FImpossible Creations/Plugins - Animating/Legs
+      Animator/Presets Directory/Leg Custom Module Presets/Extra_Rotation Stability.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ea15e3e388c8ad45b5e1204e9575c2e
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/nova2_modular.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7fab7cda822bec940be235802323fd85
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Ranged/Death/Explosive
+      Force Field.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7fdbb122647694ad4b3f9feb62f9fd35
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Flying/Flying_WalkMove.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 81ae9e97c51ac17498f6e7ccda0bb15d
+    m_Address: Assets/_ExternalAssets/Animations/Kevin Iglesias/Human Animations/Animations/Male/Combat/2H/HumanM@Attack2H02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82be4c9573e5ab84fb3fe47218db51eb
+    m_Address: Assets/_ProjectAssets/03. Textures/Monster/Ralph/Ralph_Mask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8516d7a69675844a7a0b7095af7c46af
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesSimpleLit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 854878a07d76d5e4f9a483c6c13a8909
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Nova/novalines.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 868801a1c2b417a4abb244e17a825086
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Glow/glow_smoke_dusty
+      AB.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 886f9ae1e40c15a4ab352ba482989cfa
+    m_Address: Assets/_ExternalAssets/VFX/Mirza Beig/Cinematic Explosions FREE/Textures/Explosions/Explosion
+      3/Explosion3_emissive_and_scattering.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88732f7ad4bf02d4c9d0a2f341353cf8
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Nova/nova2_modular.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88a941ea97e39a8499c6aa007ea9658f
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Excutioner/Animation/Attack/executioner_LegAttack.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88bb3b13dd121c148bd35812791d8bdb
+    m_Address: Assets/_ExternalAssets/VFX/Mirza Beig/Cinematic Explosions FREE/Animations/_Explosion
+      (BASE).controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 894e255bca895714c929238ea0e6273f
+    m_Address: Assets/_ExternalAssets/VFX/FORGE3D/Sci-Fi Effects/Shaders/Additive.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90474c1f29f67bb43b51480079edf37f
+    m_Address: Assets/_ProjectAssets/03. Textures/Monster/Flying/Flying_Mask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90b400f629453c74fb10d29b9f7fccd4
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/glow_noisy.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90eb490d583ea264da38d77de347a262
+    m_Address: Assets/_ProjectAssets/01. Models/Monster/ranger.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 91b2200f362343146a04bca4e56c5a7f
+    m_Address: Assets/_Project/02. Prefabs/Monsters/texture/ralph.psd
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 926bc4249fd66b14b9580bb5625c3514
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Models/scifi_shield2.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 933532a4fcc9baf4fa0491de14d08ed7
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9508ccae6dd32b54cb61bd81eda00380
+    m_Address: Assets/_ExternalAssets/Animations/Kevin Iglesias/Human Animations/Animations/Male/Idles/HumanM@Idle02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96cdd1a8677da4a2992711986916295a
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Ralph/Ralph_Move.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96e25441a01166c4ba2186b4e3492dea
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Muzzleflash/muzzle_smallfire_blue.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9732f8057adfa8040a6cf12145755157
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Excutioner/Animation/Attack/executioner_FlashOfFire.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9738e5f867811414da87d99f8ce56023
+    m_Address: Assets/_Project/02. Prefabs/PublicObjects/Patterns/Melee_Collision.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98147e745270e044c9720dffee7df293
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Muzzleflash/muzzle_smallfire_yellow.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 982508876250e1f4cb66aa4287e230f8
+    m_Address: Assets/_ProjectAssets/01. Models/Monster/Ralph.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 986a88200e1704ee3b4d4b69cf2d77f7
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Ralph/Ralph_Idle.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 992d56df7c560f84f916b4b55bbbd763
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Prefabs/Combat/Nova/NovaBlue.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9a9498ac1b0e2484dbe7cdeee7973e50
+    m_Address: Assets/_ExternalAssets/VFX/SpecialSkillsEffectsPack/Textures/SimpleTextures/Normal/Normal_4.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b5bcd254f76a462cbb49daeca00dcdc
+    m_Address: Assets/_Project/03. Shaders/Neo_Mantra/NeoMantra_Outline_1Pass_Dissolve_back.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9bfd428cb65b6684b86ecbac6f741a67
+    m_Address: Assets/_ProjectAssets/02. Materials/Monster/Ranger/ranger.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d188eb11f3ca324f92f9d1d761311fd
+    m_Address: Skill/Executioner/OneInThePipe
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9f70676e74f3b45dab3063511d5f2fdd
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Flying/Flying_Idle.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a28d3301769027d449a1617a46dfaf5b
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Models/scifi_rocket.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a2efeef93809f43c4a444510fc458982
+    m_Address: Skill/Ralph/TwoHandsStrike
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a2f52af6f2d33f14ab8f2a988dbc5a37
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Laserball/laserballmodular_AB.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3b7a957f3359479da8fe610b17d7633
+    m_Address: Assets/_Project/02. Prefabs/Monsters/v2/RangerMonster.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a501db896001a564b95f6118d9d43872
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/muzzle_smallfire_purple.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7a6f099ab750034e852e26c2af0ad43
+    m_Address: Assets/_ExternalAssets/VFX/Mirza Beig/Cinematic Explosions FREE/Textures/Explosions/Explosion
+      3/Explosion3_gradient_based_normal_map.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7abcd921ef075146ba13e27286a2eba
+    m_Address: Assets/_ExternalAssets/VFX/Mirza Beig/Cinematic Explosions FREE/Textures/Explosions/Explosion
+      3/Explosion3_smoke_mask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a83f10ba26b639c4fb7e367162e8e5d0
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/laserball_yellow.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a8fb7d81467f007459a109fd0a905308
+    m_Address: Assets/_ProjectAssets/03. Textures/Executioner/Executioner_weapon_Mask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa2b17bc75d7e4d7e83a722fd9e92d32
+    m_Address: Skill/Ralph/OneHandsStrike
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa669c236dc211b4a8a6d15dbb1888ee
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/nova_blue.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: abbc1f9d8ce79fe4ba110c6bce294c06
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Sound/Impact/shoot_rocket.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: acea1a63cc918f04fbf3bbbb74ed6a9d
+    m_Address: Assets/_ProjectAssets/02. Materials/Monster/Ralph/ralph.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad64da0ad739ec54c8bad7cdc8076006
+    m_Address: Assets/_ProjectAssets/02. Materials/Monster/Executioner/executioner_weapon.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae40c9ee123d3a544bb47587f696dc52
+    m_Address: Assets/_ProjectAssets/03. Textures/Monster/Flying/Flying_Blood_Mask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aeabc5d302d027d498711ae2ce96fdcc
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/lightning_blue.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: afead6c891d269240ab73569b16de21f
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/bullet_blue.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b14b51b9211c04e95bda0b206c5a509a
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/04_Executioner/Exe_LaserAttack00.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b31e40389049f420a964429c9e7d2f9d
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/04_Executioner/Exe_FootStrike.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3520d2fdd51d98479996609d5982f73
+    m_Address: Assets/_ProjectAssets/01. Models/Player/RapidShoulderBullet.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5730e4fb86b06e489eb59e6c86043c2
+    m_Address: Skill/Executioner/WhipStrike
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b596421918a79674d8468171eb46617f
+    m_Address: Assets/_Project/02. Prefabs/PublicObjects/Bullets/Bullet_ExecutionerMissile_Boss.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5f8107f2a4bfe74691dbfa3a7e47a45
+    m_Address: Assets/_ProjectAssets/03. Textures/Executioner/Executioner_weapon.psd
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b7839dad95683814aa64166edc107ae2
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesLit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9a1b65604adb4a458f4cdd51d23ae90
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/BigGlow/bigglow_blue.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ba6b2cbe5e6bca04c875bfc07ca55e6c
+    m_Address: Assets/_ProjectAssets/01. Models/Monster/Executioner.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bcff3f4c67a13f74e91842cb08831043
+    m_Address: Assets/_ProjectAssets/03. Textures/Ranger/Ranger.psd
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c058beb22e1ce5242a1ff6b594759835
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Sound/Impact/shoot_energy.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c17e10555816d7349aae57136b050647
+    m_Address: Assets/_ExternalAssets/Animations/Character_NeedToOrganize/Aim/Frank_RPG_Gunslinger_Shotgun_Aim.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c2e5008b526191740b77b8ae87102911
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/fire4x4_blue.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3a05db8a57e9ef45871a81c3a42c98b
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/fire4x4.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c89ba8ee725ace445b48f25f5531b730
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Glow/glow_smoke_dusty.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c9d2731b1c2f681428168bcb550e47aa
+    m_Address: Assets/_ExternalAssets/VFX/FORGE3D/Sci-Fi Effects/Effects/Plasma Beam/Textures/plasma_beam_flare_red.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca95f5d3c30ed614eb7d5d7400680602
+    m_Address: Skill/Executioner/ChargingLaser
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb434ac087fcf8d44b7bb74405a330c0
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/Trails/trail_scifi_blue.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cca1171573ad7e240903096c66d2a297
+    m_Address: Assets/_ProjectAssets/03. Textures/Character/Tex_NeedOrganize/Parts/Rapid_Parts_Texture/Rapid_ShoulderTex_Matcap.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cd1e3f1f327c3244baf5f32081a7ec38
+    m_Address: Assets/_Project/02. Prefabs/Monsters/v2/Mini_Ralph.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cd6b56d240094ed408f65020d49eb4e4
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Gradients/powerup_gradient2.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cd89ba210211a174599d6885afc78a74
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Sound/Impact/explosion_energy2.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d056eae4ce4c1b54ca791b98ee7d69a7
+    m_Address: Assets/_Project/02. Prefabs/Player/Effect/Vfx_Explosion.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d2f182fe747712a43aa46a875a5b00d4
+    m_Address: Assets/_ProjectAssets/03. Textures/Flying/Flying.psd
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d7dff81f2fe85ca4993e1000e663092a
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Fire/fire4x4_blue.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da8d90c155eeb6645bbf60a19865cd4f
+    m_Address: Assets/_ProjectAssets/03. Textures/Monster/Executioner/Executioner_body_Blood_Mask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dad726d9e75e61a44a5b7954b67f6abd
+    m_Address: Assets/_ExternalAssets/VFX/Asset_bout_Effect/VFX_Projectile/DEF/Textures/T_Lightning13.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dbb29de15054545239c5e47d1a526eb4
+    m_Address: Assets/_Project/02. Prefabs/PublicObjects/Bullets/Vfx_Ray_ExecutionerCharging.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dd164922c571bc94380a25e05baed80e
+    m_Address: Assets/_Project/02. Prefabs/PublicObjects/Patterns/Launch_Range.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ddf113ac477f1d24d9fe1b8901457c5f
+    m_Address: Assets/_ProjectAssets/02. Materials/Monster/Flying/Flying.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df2b216a6006cb94fb4736dd6bcbacf3
+    m_Address: Assets/_Project/02. Prefabs/PublicObjects/Patterns/Attack_Range.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e17262daf029f478898b3516567c93b3
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Flying/Flying_Rush_Ready_After.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e17deef6b62052045b4bbd8c499f266b
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Materials/Fire/fire4x4.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e56f7b0d83f243340940a32314817afc
+    m_Address: Assets/_ProjectAssets/03. Textures/Monster/Ranger/Ranger_Blood_Mask.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e62bec6e806416a47b02c53ae6cbf905
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/novalines.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6e9a19c3678ded42a3bc431ebef7dbd
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e768d759ee0021943a8d96e2aab49a5f
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/bigglow_blue.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e7b234382896740408941a4da2134400
+    m_Address: Assets/_ProjectAssets/02. Materials/Outline/Outline_1Pass_Dissolve_Mantra_Ralph.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e823cd5b5d27c0f4b8256e7c12ee3e6d
+    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/ParticlesUnlit.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e841fbb556eb141588e5388239ca808d
+    m_Address: Assets/_ProjectAssets/06. Audio/Monster/03_Viper/V_Death01.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8ae560b1a3394da0a9036f4f0854cdf
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Flying/Body.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e910c22d4fdd1af4b836d6da79a7e994
+    m_Address: Assets/_ProjectAssets/03. Textures/Monster/Matcap_Monster_1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eb1b6b30ed0878949948dfbf975ff6ec
+    m_Address: Assets/_ProjectAssets/07. Art/UI/UI_Minimap.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec015cc34dc8a4f69ae69c89dc28af03
+    m_Address: Skill/Flying/FlyingAttack
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eda25bf04d50ec04097f20bca43d1aad
+    m_Address: Assets/_ExternalAssets/VFX/FORGE3D/Sci-Fi Effects/Effects/Plasma Beam/Materials/plasma_beam_heavy_red.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef751e951ed91ed4fbc94d82726c9eed
+    m_Address: Assets/_ExternalAssets/Animations/Kevin Iglesias/Human Animations/Animations/Male/Combat/1H/HumanM@Attack1H01_R.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f23b4bb26715ad34d89ac3fd350f473c
+    m_Address: Assets/_ExternalAssets/VFX/Archanor/Sci-Fi Arsenal/Sci-Fi Effects/Textures/powerup_gradient2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f329d38a4478444c98246ba1f7690289
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Flying/Flying_L_Attack.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f67ee81beb3f2e54698fd99ee323ad36
+    m_Address: Assets/_ExternalAssets/VFX/SpecialSkillsEffectsPack/Textures/SimpleTextures/Normal/Normal_16.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f692c862840802b4892a2ec772660a79
+    m_Address: Assets/_ProjectAssets/06. Audio/BGM/07_Wrath of the Eternal Void.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8d3ec27399634e30a3e5e272e009bf1
+    m_Address: Skill/Ranger/ChargingShot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa1c135b7212d456ab08a1d473c7e3ef
+    m_Address: Assets/_ProjectAssets/04. Animations/Monster/Flying/Flying_R_Attack.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa690b1f640ee4bc6b691936d11284b8
+    m_Address: Assets/_ProjectAssets/02. Materials/Monster/Ralph/ralph_mini.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa7542e00478e6e478edb7bd31e2cb0c
+    m_Address: Skill/Executioner/LegStrike
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fbd797a2936860d429c9bba90eeed6c7
+    m_Address: Assets/_Project/02. Prefabs/PublicObjects/Bullets/Vfx_Bullet_Base_Boss.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe393ace9b354375a9cb14cdbbc28be4
+    m_Address: Assets/_ExternalAssets/Arts/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9cdff7cc633a948c6b9bb98e34015460, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5d8837323c03d49ba9880984971989e5, type: 2}
+    - {fileID: 11400000, guid: 105607c44db06407d9fcc7dce9151278, type: 2}

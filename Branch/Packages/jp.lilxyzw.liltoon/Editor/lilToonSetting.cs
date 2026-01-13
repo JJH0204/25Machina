@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
@@ -735,7 +736,16 @@ public class lilToonSetting : ScriptableObject
                 if(i >= 0) UnityEditor.SceneManagement.EditorSceneManager.OpenScene(UnityEngine.SceneManagement.SceneUtility.GetScenePathByBuildIndex(i));
                 WalkAllSceneReferencedAssets(callback, toVisit, visited);
             }
-            UnityEditor.SceneManagement.EditorSceneManager.OpenScene(startScenePath);
+            
+            // LillToon Scene Restore Error Fix(Jaeho)
+            if (!string.IsNullOrEmpty(startScenePath) && System.IO.File.Exists(startScenePath))
+            {
+                UnityEditor.SceneManagement.EditorSceneManager.OpenScene(startScenePath);
+            }
+            else
+            {
+                Debug.LogError($"[liltoon]Could not find scene {startScenePath}");
+            }
         }
         else
         {
