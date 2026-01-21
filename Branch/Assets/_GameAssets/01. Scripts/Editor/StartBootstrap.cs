@@ -9,7 +9,7 @@ namespace _Project._01._Scripts.Editor
     {
         // [설정 필요] 부트스트랩 씬의 실제 경로를 입력하세요.
         // 프로젝트 창에서 해당 씬을 우클릭 -> 'Copy Path'를 하면 쉽게 경로를 얻을 수 있습니다.
-        private const string BootstrapScenePath = "Assets/_Project/04. Scenes/Bootstrap.unity";
+        private const string BootstrapScenePath = "Assets/_GameAssets/04. Scenes/Bootstrap.unity";
 
         // 단축키 설정: 윈도우(Ctrl+F5), 맥(Cmd+F5)
         // % = Ctrl(Win)/Cmd(Mac), # = Shift, & = Alt
