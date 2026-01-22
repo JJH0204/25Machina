@@ -33,6 +33,7 @@
 ### 개발 문서
 
 #### Git 워크플로우
+- [현재 저장소 상태 및 작업 방법](docs/current-repo-status.md) - 이 저장소에 최적화된 가이드
 - [Git 워크플로우 가이드](docs/git-workflow-guide.md) - Main 브랜치 기반 안전한 작업 방법
 - [Git 빠른 참조](docs/git-quick-reference.md) - 자주 사용하는 명령어 모음
 
