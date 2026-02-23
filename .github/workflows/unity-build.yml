@@ -7,7 +7,7 @@ on:
 jobs:
   # [절차 1] 우분투 러너가 윈도우 PC를 깨웁니다.
   wake-on-lan:
-    runs-on: [self-hosted, ubuntu-runner] # 우분투에 설치한 러너 태그
+    runs-on: [self-hosted, wol-runner] # 우분투에 설치한 러너 태그
     steps:
       - name: Send WOL Magic Packet
         run: wakeonlan ${{ secrets.WINDOWS_MAC_ADDR }}
@@ -17,7 +17,7 @@ jobs:
   # [절차 2] 깨어난 윈도우 PC가 빌드를 수행합니다.
   build-unity:
     needs: wake-on-lan
-    runs-on: [self-hosted, windows-runner] # 윈도우 PC에 설치한 러너 태그
+    runs-on: [self-hosted, windows-build] # 윈도우 PC에 설치한 러너 태그
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
