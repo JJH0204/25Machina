@@ -25,12 +25,14 @@ jobs:
       # 윈도우 빌드 수행
       - name: Build for Windows
         run: |
+          $env:LOCALAPPDATA = "$PWD\unity_appdata"
+          if (!(Test-Path $env:LOCALAPPDATA)) { New-Item -ItemType Directory -Path $env:LOCALAPPDATA }
           & "C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe" `
             -batchmode `
             -nographics `
             -quit `
-            -projectPath "." `
-            -executeMethod BuildScript.BuildWindows `
+            -projectPath "Branch" `
+            -executeMethod _GameAssets._01._Scripts.Editor.BuildScript.BuildWindows `
             -logFile "unity_windows_build.log"
 
       # 인스톨러 생성 (Inno Setup 사용)
@@ -41,12 +43,14 @@ jobs:
       # 안드로이드 빌드 수행
       - name: Build for Android (APK)
         run: |
+          $env:LOCALAPPDATA = "$PWD\unity_appdata"
+          if (!(Test-Path $env:LOCALAPPDATA)) { New-Item -ItemType Directory -Path $env:LOCALAPPDATA }
           & "C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe" `
             -batchmode `
             -nographics `
             -quit `
-            -projectPath "." `
-            -executeMethod BuildScript.BuildAndroid `
+            -projectPath "Branch" `
+            -executeMethod _GameAssets._01._Scripts.Editor.BuildScript.BuildAndroid `
             -logFile "unity_android_build.log"
 
       # 결과물 업로드 (깃허브 액션 탭에서 다운로드 가능)
@@ -56,4 +60,4 @@ jobs:
           name: Professional-Build
           path: |
             Output/Machina_Setup.exe
-            Builds/Android/Machina.apk
+            Branch/Builds/Android/Machina.apk
