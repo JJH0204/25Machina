@@ -24,42 +24,38 @@ jobs:
 
       # 윈도우 빌드 수행
       - name: Build for Windows
-        working-directory: Branch
+        env:
+          LOCALAPPDATA: ${{ github.workspace }}\unity_appdata\Local
+          APPDATA: ${{ github.workspace }}\unity_appdata\Roaming
+          USERPROFILE: ${{ github.workspace }}\unity_appdata\User
+          TEMP: ${{ github.workspace }}\unity_appdata\Temp
+          TMP: ${{ github.workspace }}\unity_appdata\Temp
         run: |
-          $repoRoot = (Get-Item ..).FullName
-          $appDataRoot = Join-Path $repoRoot "unity_appdata"
+          $repoRoot = Get-Location
           
-          # 1. 환경 변수 절대 경로 설정
-          $env:LOCALAPPDATA = Join-Path $appDataRoot "Local"
-          $env:APPDATA = Join-Path $appDataRoot "Roaming"
-          $env:USERPROFILE = Join-Path $appDataRoot "User"
-          $env:TEMP = Join-Path $appDataRoot "Temp"
-          $env:TMP = Join-Path $appDataRoot "Temp"
-          $env:HOME = $env:USERPROFILE
-          
-          # 2. 필수 디렉토리 강제 생성 (계층 구조 포함)
+          # 1. 필수 디렉토리 선제 생성
           $paths = @(
-            (Join-Path $env:LOCALAPPDATA "Unity\Caches"),
-            (Join-Path $env:APPDATA "Unity"),
-            $env:TEMP
+            "$env:LOCALAPPDATA\Unity\Caches",
+            "$env:APPDATA\Unity",
+            "$env:TEMP",
+            "Branch\Unity\Caches"
           )
           foreach ($p in $paths) { if (!(Test-Path $p)) { New-Item -ItemType Directory -Path $p -Force } }
 
-          # 3. NetworkService 권한 문제 해결을 위한 시스템 경로 시도 (실패해도 무시)
-          $sysPath = "C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Unity\Caches"
-          try { if (!(Test-Path $sysPath)) { New-Item -ItemType Directory -Path $sysPath -Force -ErrorAction SilentlyContinue } } catch {}
+          Write-Host "Redirecting AppData to: ${{ github.workspace }}\unity_appdata"
           
-          Write-Host "Current Directory: $(Get-Location)"
-          Write-Host "Redirecting AppData to: $appDataRoot"
+          # 2. Unity 실행
+          $unityExe = "C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe"
+          $projectPath = Join-Path $repoRoot "Branch"
+          $logFile = Join-Path $repoRoot "unity_windows_build.log"
           
-          # 4. Unity 실행 (작업 디렉토리를 프로젝트 폴더로 설정하여 'current dir' 에러 방지)
-          & "C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe" `
+          & $unityExe `
             -batchmode `
             -nographics `
             -quit `
-            -projectPath "." `
+            -projectPath "$projectPath" `
             -executeMethod _GameAssets._01._Scripts.Editor.BuildScript.BuildWindows `
-            -logFile "../unity_windows_build.log"
+            -logFile "$logFile"
 
       # 빌드 결과 확인 (디버깅용)
       - name: Verify Build Files
@@ -80,25 +76,25 @@ jobs:
       
       # 안드로이드 빌드 수행
       - name: Build for Android (APK)
-        working-directory: Branch
+        env:
+          LOCALAPPDATA: ${{ github.workspace }}\unity_appdata\Local
+          APPDATA: ${{ github.workspace }}\unity_appdata\Roaming
+          USERPROFILE: ${{ github.workspace }}\unity_appdata\User
+          TEMP: ${{ github.workspace }}\unity_appdata\Temp
+          TMP: ${{ github.workspace }}\unity_appdata\Temp
         run: |
-          $repoRoot = (Get-Item ..).FullName
-          $appDataRoot = Join-Path $repoRoot "unity_appdata"
+          $repoRoot = Get-Location
+          $unityExe = "C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe"
+          $projectPath = Join-Path $repoRoot "Branch"
+          $logFile = Join-Path $repoRoot "unity_android_build.log"
           
-          $env:LOCALAPPDATA = Join-Path $appDataRoot "Local"
-          $env:APPDATA = Join-Path $appDataRoot "Roaming"
-          $env:USERPROFILE = Join-Path $appDataRoot "User"
-          $env:TEMP = Join-Path $appDataRoot "Temp"
-          $env:TMP = Join-Path $appDataRoot "Temp"
-          $env:HOME = $env:USERPROFILE
-          
-          & "C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe" `
+          & $unityExe `
             -batchmode `
             -nographics `
             -quit `
-            -projectPath "." `
+            -projectPath "$projectPath" `
             -executeMethod _GameAssets._01._Scripts.Editor.BuildScript.BuildAndroid `
-            -logFile "../unity_android_build.log"
+            -logFile "$logFile"
 
       # 결과물 업로드 (깃허브 액션 탭에서 다운로드 가능)
       - name: Upload Artifacts
