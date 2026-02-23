@@ -33,14 +33,21 @@ jobs:
         run: |
           $repoRoot = Get-Location
           
-          # 1. 필수 디렉토리 선제 생성
+          # 1. 필수 디렉토리 선제 생성 (Unity가 기대하는 표준 구조 포함)
           $paths = @(
             "$env:LOCALAPPDATA\Unity\Caches",
             "$env:APPDATA\Unity",
             "$env:TEMP",
-            "Branch\Unity\Caches"
+            "Branch\Unity\Caches",
+            "$env:USERPROFILE\AppData\Local\Unity\Caches",
+            "$env:USERPROFILE\AppData\Roaming\Unity"
           )
-          foreach ($p in $paths) { if (!(Test-Path $p)) { New-Item -ItemType Directory -Path $p -Force } }
+          foreach ($p in $paths) { 
+            if (!(Test-Path $p)) { 
+              Write-Host "Creating directory: $p"
+              New-Item -ItemType Directory -Path $p -Force 
+            } 
+          }
 
           Write-Host "Redirecting AppData to: ${{ github.workspace }}\unity_appdata"
           
