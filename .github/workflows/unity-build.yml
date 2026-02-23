@@ -25,8 +25,13 @@ jobs:
       # 윈도우 빌드 수행
       - name: Build for Windows
         run: |
-          $env:LOCALAPPDATA = "$PWD\unity_appdata"
-          if (!(Test-Path $env:LOCALAPPDATA)) { New-Item -ItemType Directory -Path $env:LOCALAPPDATA }
+          $env:LOCALAPPDATA = "$PWD\unity_appdata\Local"
+          $env:APPDATA = "$PWD\unity_appdata\Roaming"
+          $env:USERPROFILE = "$PWD\unity_appdata\User"
+          if (!(Test-Path $env:LOCALAPPDATA)) { New-Item -ItemType Directory -Path $env:LOCALAPPDATA -Force }
+          if (!(Test-Path $env:APPDATA)) { New-Item -ItemType Directory -Path $env:APPDATA -Force }
+          if (!(Test-Path $env:USERPROFILE)) { New-Item -ItemType Directory -Path $env:USERPROFILE -Force }
+          
           & "C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe" `
             -batchmode `
             -nographics `
@@ -34,6 +39,17 @@ jobs:
             -projectPath "Branch" `
             -executeMethod _GameAssets._01._Scripts.Editor.BuildScript.BuildWindows `
             -logFile "unity_windows_build.log"
+
+      # 빌드 결과 확인 (디버깅용)
+      - name: Verify Build Files
+        run: |
+          Write-Host "Checking for build output..."
+          if (Test-Path "Branch/Builds/Windows") {
+            Get-ChildItem -Path "Branch/Builds/Windows" -Recurse
+          } else {
+            Write-Error "Build directory 'Branch/Builds/Windows' not found!"
+            exit 1
+          }
 
       # 인스톨러 생성 (Inno Setup 사용)
       - name: Create Installer
@@ -43,8 +59,10 @@ jobs:
       # 안드로이드 빌드 수행
       - name: Build for Android (APK)
         run: |
-          $env:LOCALAPPDATA = "$PWD\unity_appdata"
-          if (!(Test-Path $env:LOCALAPPDATA)) { New-Item -ItemType Directory -Path $env:LOCALAPPDATA }
+          $env:LOCALAPPDATA = "$PWD\unity_appdata\Local"
+          $env:APPDATA = "$PWD\unity_appdata\Roaming"
+          $env:USERPROFILE = "$PWD\unity_appdata\User"
+          
           & "C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe" `
             -batchmode `
             -nographics `
