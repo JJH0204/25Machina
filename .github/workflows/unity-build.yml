@@ -25,25 +25,38 @@ jobs:
       # 윈도우 빌드 수행
       - name: Build for Windows
         run: |
-          $env:LOCALAPPDATA = "$PWD\unity_appdata\Local"
-          $env:APPDATA = "$PWD\unity_appdata\Roaming"
-          $env:USERPROFILE = "$PWD\unity_appdata\User"
-          if (!(Test-Path $env:LOCALAPPDATA)) { New-Item -ItemType Directory -Path $env:LOCALAPPDATA -Force }
-          if (!(Test-Path $env:APPDATA)) { New-Item -ItemType Directory -Path $env:APPDATA -Force }
-          if (!(Test-Path $env:USERPROFILE)) { New-Item -ItemType Directory -Path $env:USERPROFILE -Force }
+          $repoRoot = Get-Location
+          $appDataRoot = Join-Path $repoRoot "unity_appdata"
+          
+          # 환경 변수 절대 경로 설정 및 필요한 하위 디렉토리 강제 생성
+          $env:LOCALAPPDATA = Join-Path $appDataRoot "Local"
+          $env:APPDATA = Join-Path $appDataRoot "Roaming"
+          $env:USERPROFILE = Join-Path $appDataRoot "User"
+          $env:TEMP = Join-Path $appDataRoot "Temp"
+          $env:TMP = Join-Path $appDataRoot "Temp"
+          
+          # Unity가 캐시를 저장할 경로들을 미리 생성 (계층 구조 포함)
+          New-Item -ItemType Directory -Path (Join-Path $env:LOCALAPPDATA "Unity\Caches") -Force
+          New-Item -ItemType Directory -Path (Join-Path $env:APPDATA "Unity") -Force
+          New-Item -ItemType Directory -Path $env:TEMP -Force
+          
+          Write-Host "LOCALAPPDATA redirected to: $env:LOCALAPPDATA"
+          
+          $projectPath = Join-Path $repoRoot "Branch"
+          $logFile = Join-Path $repoRoot "unity_windows_build.log"
           
           & "C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe" `
             -batchmode `
             -nographics `
             -quit `
-            -projectPath "Branch" `
+            -projectPath "$projectPath" `
             -executeMethod _GameAssets._01._Scripts.Editor.BuildScript.BuildWindows `
-            -logFile "unity_windows_build.log"
+            -logFile "$logFile"
 
       # 빌드 결과 확인 (디버깅용)
       - name: Verify Build Files
         run: |
-          Write-Host "Checking for build output..."
+          Write-Host "Checking for build output in Branch/Builds/Windows..."
           if (Test-Path "Branch/Builds/Windows") {
             Get-ChildItem -Path "Branch/Builds/Windows" -Recurse
           } else {
@@ -59,17 +72,25 @@ jobs:
       # 안드로이드 빌드 수행
       - name: Build for Android (APK)
         run: |
-          $env:LOCALAPPDATA = "$PWD\unity_appdata\Local"
-          $env:APPDATA = "$PWD\unity_appdata\Roaming"
-          $env:USERPROFILE = "$PWD\unity_appdata\User"
+          $repoRoot = Get-Location
+          $appDataRoot = Join-Path $repoRoot "unity_appdata"
+          
+          $env:LOCALAPPDATA = Join-Path $appDataRoot "Local"
+          $env:APPDATA = Join-Path $appDataRoot "Roaming"
+          $env:USERPROFILE = Join-Path $appDataRoot "User"
+          $env:TEMP = Join-Path $appDataRoot "Temp"
+          $env:TMP = Join-Path $appDataRoot "Temp"
+          
+          $projectPath = Join-Path $repoRoot "Branch"
+          $logFile = Join-Path $repoRoot "unity_android_build.log"
           
           & "C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe" `
             -batchmode `
             -nographics `
             -quit `
-            -projectPath "Branch" `
+            -projectPath "$projectPath" `
             -executeMethod _GameAssets._01._Scripts.Editor.BuildScript.BuildAndroid `
-            -logFile "unity_android_build.log"
+            -logFile "$logFile"
 
       # 결과물 업로드 (깃허브 액션 탭에서 다운로드 가능)
       - name: Upload Artifacts
