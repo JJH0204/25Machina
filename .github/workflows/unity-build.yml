@@ -61,7 +61,7 @@ jobs:
             -nographics `
             -quit `
             -projectPath "$projectPath" `
-            -executeMethod _GameAssets._01._Scripts.Editor.BuildScript.BuildWindows `
+            -executeMethod BuildScript.BuildWindows `
             -logFile "$logFile"
 
       # 빌드 결과 확인 (디버깅용)

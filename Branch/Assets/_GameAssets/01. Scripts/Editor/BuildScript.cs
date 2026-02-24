@@ -5,72 +5,77 @@ using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-namespace _GameAssets._01._Scripts.Editor
+public class BuildScript
 {
-    public class BuildScript
+    public static void BuildWindows()
     {
-        public static void BuildWindows()
+        const string buildPath = "Builds/Windows/Machina.exe";
+        string buildDir = Path.GetDirectoryName(buildPath);
+        if (!string.IsNullOrEmpty(buildDir) && !Directory.Exists(buildDir))
         {
-            string buildPath = "Builds/Windows/Machina.exe";
-            string buildDir = Path.GetDirectoryName(buildPath);
-            if (!string.IsNullOrEmpty(buildDir) && !Directory.Exists(buildDir))
-            {
-                Directory.CreateDirectory(buildDir);
-            }
-
-            BuildPlayerOptions options = new BuildPlayerOptions
-            {
-                scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),
-                locationPathName = buildPath,
-                target = BuildTarget.StandaloneWindows64,
-                options = BuildOptions.None
-            };
-
-            BuildReport report = BuildPipeline.BuildPlayer(options);
-            BuildSummary summary = report.summary;
-
-            if (summary.result == BuildResult.Succeeded)
-            {
-                Debug.Log("Build succeeded: " + summary.totalSize + " bytes");
-            }
-
-            if (summary.result == BuildResult.Failed)
-            {
-                Debug.LogError("Build failed");
-                throw new Exception("Unity Build Failed");
-            }
+            Directory.CreateDirectory(buildDir);
         }
 
-        public static void BuildAndroid()
+        BuildPlayerOptions options = new BuildPlayerOptions
         {
-            string buildPath = "Builds/Android/Machina.apk";
-            string buildDir = Path.GetDirectoryName(buildPath);
-            if (!string.IsNullOrEmpty(buildDir) && !Directory.Exists(buildDir))
-            {
-                Directory.CreateDirectory(buildDir);
-            }
+            scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),
+            locationPathName = buildPath,
+            target = BuildTarget.StandaloneWindows64,
+            options = BuildOptions.None
+        };
 
-            BuildPlayerOptions options = new BuildPlayerOptions
-            {
-                scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),
-                locationPathName = buildPath,
-                target = BuildTarget.Android,
-                options = BuildOptions.None
-            };
+        BuildReport report = BuildPipeline.BuildPlayer(options);
+        BuildSummary summary = report.summary;
 
-            BuildReport report = BuildPipeline.BuildPlayer(options);
-            BuildSummary summary = report.summary;
-
-            if (summary.result == BuildResult.Succeeded)
-            {
+        switch (summary.result)
+        {
+            case BuildResult.Succeeded:
                 Debug.Log("Build succeeded: " + summary.totalSize + " bytes");
-            }
-
-            if (summary.result == BuildResult.Failed)
-            {
+                break;
+            case BuildResult.Failed:
                 Debug.LogError("Build failed");
                 throw new Exception("Unity Build Failed");
-            }
+            case BuildResult.Unknown:
+            case BuildResult.Cancelled:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    public static void BuildAndroid()
+    {
+        const string buildPath = "Builds/Android/Machina.apk";
+        string buildDir = Path.GetDirectoryName(buildPath);
+        if (!string.IsNullOrEmpty(buildDir) && !Directory.Exists(buildDir))
+        {
+            Directory.CreateDirectory(buildDir);
+        }
+
+        BuildPlayerOptions options = new BuildPlayerOptions
+        {
+            scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),
+            locationPathName = buildPath,
+            target = BuildTarget.Android,
+            options = BuildOptions.None
+        };
+
+        BuildReport report = BuildPipeline.BuildPlayer(options);
+        BuildSummary summary = report.summary;
+
+        switch (summary.result)
+        {
+            case BuildResult.Succeeded:
+                Debug.Log("Build succeeded: " + summary.totalSize + " bytes");
+                break;
+            case BuildResult.Failed:
+                Debug.LogError("Build failed");
+                throw new Exception("Unity Build Failed");
+            case BuildResult.Unknown:
+            case BuildResult.Cancelled:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 }
